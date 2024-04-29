@@ -1,0 +1,60 @@
+.header{
+      background-color: #006d77;
+}
+.logo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.logo i{
+      font-size: 30px;
+      color: #dad7cd;
+      margin-right: 0.5rem;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+}
+.logo i:hover{
+      transform: scale(1.5);
+}
+.logo h4{
+      font-size: 26px;
+      color: #dad7cd;
+      margin-left: 0.5rem;
+      user-select: none;
+}
+
+.user-icon{
+      color: #dad7cd;
+}
+
+.cart-icon{
+      color: #dad7cd;
+}
+.cart-value{
+      animation: zoom 1s infinite; 
+}
+
+.login-btn{
+      background-color: #ffddd2;
+      padding:3px 10px;
+      border-radius: 12px;
+      font-size: 18px;
+      border: 2px solid black;
+}
+.login-btn:hover{
+      background-color: #e29578;
+      color: white;
+}
+
+@keyframes zoom {
+      0% {
+        transform: scale(1); /* Initial scale */
+      }
+      50% {
+        transform: scale(1.5); /* Zoom to 150% */
+      }
+      100% {
+        transform: scale(1); /* Return to original scale */
+      }
+    }
+

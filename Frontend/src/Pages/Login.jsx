@@ -24,7 +24,6 @@ function Login() {
 
       const validateFormData = (values) => {
             const error = {};
-            const regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             if (!values.email) { error.email = "Email is required" }
             if (!values.password) { error.password = "Password is required" }
             else if (values.password.length < 4) { error.password = "Password should be atleast of 4 character" }
@@ -39,16 +38,12 @@ function Login() {
       }), [formErrors, formData])
       return (
             <section id='login'>
-                  <div className='w-full flex justify-center mx-auto py-4 underline' style={{ fontSize: "42px" }}>
-                        <h1>Login To Kirana-Store</h1>
-                  </div>
-
                   <div className="container mx-auto p-4">
                         <div className='p-6 w-full max-w-xl mx-auto rounded-2xl shadow-2xl' style={{ backgroundColor: "#fff" }}>
                               <div className='h-20 w-20 mx-auto flex items-center mt-8 mb-4'>
                                     <img src={loginGif} alt='login-gif' />
                               </div>
-                              <form className='gap-4' onSubmit={handlingFormSubmit}>
+                              <form className='flex flex-col' onSubmit={handlingFormSubmit}>
                                     <div className="grid credentials mt-8 mb-8 ">
                                           <label className="text-xl" htmlFor='email'>Email Id:&nbsp;&nbsp;  </label>
                                           <div className='bg-slate-100 p-2'>

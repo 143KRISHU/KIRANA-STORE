@@ -6,11 +6,6 @@ dotenv.config({
       path:'.env'
 });
 
-app.get("/",(req,res)=>{
-      res.status(200).json({
-            message:"This is home page"
-      })
-})
 connectDataBase()
 .then(()=>{
       app.listen(port,()=>{

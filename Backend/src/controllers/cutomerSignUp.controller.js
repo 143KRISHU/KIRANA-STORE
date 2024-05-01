@@ -1,15 +1,77 @@
 import asyncHandler from "../utils/asyncHandler.js"
 import ApiError from "../utils/apiError.js"
 import ApiResponse from "../utils/apiResponse.js"
+import Customer from "../models/customer.model.js"
+const signUpCustomer = asyncHandler(async function (req, res, next) {
 
-const signUpCustomer = asyncHandler(async function(req,res,next){
+      const { username, fullname, email, password, confirmPassword } = req.body
+      const validUsername = /^[0-9A-Za-z]{6,16}$/;
+      const isStrongPassword = /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/
+      //username validation
+      if (!fullname) {
+            res.status(400).json(
+                  new ApiError(400, "Full name is required")
+            )
+      }
 
-})
+      if (!email) {
+            res.status(400).json( new ApiError(400, "eamil is required"))
+      }
 
+      if (!username) {
+            res.status(400).json( new ApiError(400, "username is required"))
+      }
+      else if (!validUsername.test(username)) {
+            res.status(400).json( new ApiError(400, "Inavlid Username - username can't have special character and should be alphanumeric "))
+      }
+      else if (username.length > 16) { 
+            res.status(400).json(new ApiError(400, "Username can not exceeds 10 character")) }
+      else if (username.length < 8) { 
+            res.status(400).json(new ApiError(400, "UserName must have atleast 8 character")) }
 
-
-const logOutCustomer = asyncHandler(async function(req,res,next){
       
+
+      if (!password) {
+            res.status(400).json( new ApiError(400, "password is required"))
+      }
+      else if (!isStrongPassword.test(password)) {
+            res.status(400).json( new ApiError(400, 'Password must contain at least one each of a number, uppercase letter, lowercase letter, and non-alphanumeric and length of password should be of 8 character'))
+      }
+      else if (password.length < 4) { res.status(400).json( new ApiError(400, "Password should be atleast of 4 character") )}
+      else if (password.length > 10) { res.status(400).json( new ApiError(400, "Password should not exceeds 10 character") )}
+
+      if (!confirmPassword) {
+            res.status(400).json( new ApiError(400, "Confirm Password is required"))
+      }
+
+      if(!(confirmPassword === password)){
+            res.status(400).json( new ApiError(400, "Confirm Password and Password should be same is required"))
+      }
+     
+
+      const customerData = await Customer.findOne({ $or: [{ email: email }, { userName: username }] })
+      if (customerData) {
+            res.status(409).json( 
+                  new ApiError(409,"Customer is already exist with the same email or username"));
+      }
+
+      const newCustomer = await Customer.create({
+            userName: username.toLowerCase(),
+            email: email.toLowerCase(),
+            fullname: fullname.toLowerCase(),
+            address: "",
+            password: password
+      });
+
+      if (!newCustomer) {
+            res.status(500).json( new ApiError(500, "Something went wrong while registering the user pleaase refresh the page and try again"))
+      }
+      const createdCustomer = await Customer.findById(newCustomer._id).select("-password -refreshToken");
+
+
+      res.status(200).json(
+            new ApiResponse(200, createdCustomer, "You are successfully Registered")
+      )
 })
 
 export default signUpCustomer;

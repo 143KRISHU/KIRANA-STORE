@@ -19,7 +19,7 @@ app.use(express.static("public"))
 import customerRouter from "./routes/cutomer.route.js";
 
 // routes declaration
-app.use("/api/v1/cutomer",customerRouter);
+app.use("/api/v1/customer",customerRouter);
 
 
 export default app;

@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv"
 dotenv.config({
       path:'.env'
 })
@@ -35,6 +36,10 @@ const customerSchema = new Schema({
             type: String,
             required: [true, "Password is required"],
       },
+      verified : {
+            type:Boolean,
+            default : false
+      },
       refreshToken: {
             type: String
       }
@@ -47,7 +52,7 @@ customerSchema.pre("save", async function (next) {
       //paswword only be encrypt if it is modifies or stores first time
 
       if (!this.isModified("password")) return next();
-      this.password = bcrypt.hash(this.password, 10);
+      this.password = await bcrypt.hash(this.password, 10);
       next()
 })
 

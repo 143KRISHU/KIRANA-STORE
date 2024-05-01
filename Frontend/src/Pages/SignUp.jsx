@@ -34,16 +34,22 @@ function SignUp() {
         body: JSON.stringify(formData)
       });
       const finalData = await backednAPIResponse.json();
-      console.log(finalData.success)
       if (finalData.success) {
         toast.success(finalData.message)
         navigate("/login")
       }
       else {
-        toast.error(finalData.message)
+        if(finalData.message.includes("Customer is already exist with the same email or username")){
+          toast.error(finalData.message);
+          navigate("/login");
+        }
+        else{
+          toast.error(finalData.message)
+        }
+        
       }
     } catch (error) {
-      console.log("Signup Error:", error);
+      toast.error("Signup Error Server is not responding ");
     }
   }
 

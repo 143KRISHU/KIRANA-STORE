@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import loginGif from "../assets/login-nobg.gif"
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { json, Link, useNavigate } from 'react-router-dom';
+import backendRoutesAPI from "../BackendAPI/API.js";
+import { toast } from 'react-toastify';
+
 function Login() {
       const [showPassword, setShowPassword] = useState(false);
       const [formData, setFormData] = useState({
@@ -11,15 +14,46 @@ function Login() {
       });
       const [formErrors, setFormErrors] = useState({});
       const [isSubmit, setIsSubmit] = useState(false);
+      const navigate = useNavigate();
 
       const handleChnage = (e) => {
             const { name, value } = e.target;
             setFormData({ ...formData, [name]: value });
       }
-      const handlingFormSubmit = (e) => {
+      const handlingFormSubmit = async (e) => {
             e.preventDefault();
             setFormErrors(validateFormData(formData));
             setIsSubmit(true);
+            try {
+                  console.log(JSON.stringify(formData))
+                  const backendAPIResponse = await fetch(
+                        backendRoutesAPI.signin.url, {
+                        method: backendRoutesAPI.signin.method,
+                        credentials: "include",
+                        headers: {
+                              'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                  }
+                  )
+                  const finalData = await backendAPIResponse.json();
+                  if (finalData.success) {
+                        toast.success(finalData.message)
+                        navigate("/")
+                  }
+                  else {
+                        if (finalData.message.includes("You are Not Registered")) {
+                              toast.error(finalData.message);
+                              navigate("/signup");
+                        }
+                        else {
+                              toast.error(finalData.message)
+                        }
+
+                  }
+            } catch (error) {
+                  console.log(error);
+            }
       }
 
       const validateFormData = (values) => {
@@ -33,7 +67,7 @@ function Login() {
 
       useEffect((() => {
             if (Object.keys(formErrors).length === 0 && isSubmit) {
-                  console.log(formData)
+                  return
             }
       }), [formErrors, formData])
       return (

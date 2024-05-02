@@ -5,7 +5,7 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/signup`,
             method : "post"
       },
-      login : {
+      signin : {
             url : `${backendMainDomainURL}/api/v1/customer/login`,
             method : "post"
       }

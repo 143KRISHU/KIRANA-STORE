@@ -39,10 +39,10 @@ function EmailVerify() {
                                     <div className="flex flex-col items-center mx-auto gap-5">
                                           <img src={verified} alt='verified image'style = {{ marginTop: "2rem" ,border: "5px solid black", filter:"drop-shadow(0px 4px 16px black)"}} />
                                           <h1 className='text-4xl text-green-500 px-4'>Email Verified Successfully</h1>
-                                          <Link to={"/login"} className='px-6 text-center text-2xl rounded-xl mb-4'
+                                          {/* <Link to={"/login"} className='px-6 text-center text-2xl rounded-xl mb-4'
                                                 style={{ backgroundColor: "#006D77" ,color:"white"}}>
                                                 <button>Click to Login</button>
-                                          </Link>
+                                          </Link> */}
                                     </div>
 
                               ) : (
@@ -50,13 +50,11 @@ function EmailVerify() {
                                     <h1 className='text-6xl text-red-600'>404 : Page Not Found</h1>
                                     <img src={failed} alt='failed image' style = {{border: "5px solid black", filter:"drop-shadow(0px 4px 16px black)"}}/>
                                     <h2 className='text-4xl text-blue-600 px-4'>The Verification Link Is Expired </h2>
-                                    <h3 className='text-2xl px-4'>Kinldy go to login Screen and the enter the credential in the 
-                                    login Page and Press Enter to Get New Verification Link </h3>
-                                    <Link to={"/login"}>
+                                    {/* <Link to={"/login"}>
                                                 <button className='px-6 text-center text-2xl rounded-xl mb-4'
                                                 style={{ backgroundColor: "#006D77" ,color:"white"}}>
                                                       Click here to go Login Page</button>
-                                    </Link>
+                                    </Link> */}
                               </div>
                               
                               )

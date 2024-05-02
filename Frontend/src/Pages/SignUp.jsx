@@ -26,14 +26,14 @@ function SignUp() {
     setFormError(validate(formData));
     setIsSubmit(true);
     try {
-      const backednAPIResponse = await fetch(backendRoutesAPI.signup.url, {
+      const backendAPIResponse = await fetch(backendRoutesAPI.signup.url, {
         method: backendRoutesAPI.signup.method,
         headers: {
           "content-type": "application/json"
         },
         body: JSON.stringify(formData)
       });
-      const finalData = await backednAPIResponse.json();
+      const finalData = await backendAPIResponse.json();
       if (finalData.success) {
         toast.success(finalData.message)
         navigate("/login")

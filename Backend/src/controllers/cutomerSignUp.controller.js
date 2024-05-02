@@ -2,6 +2,10 @@ import asyncHandler from "../utils/asyncHandler.js"
 import ApiError from "../utils/apiError.js"
 import ApiResponse from "../utils/apiResponse.js"
 import Customer from "../models/customer.model.js"
+import Token from "../models/token.model.js"
+import crypto from "crypto"
+import sendEmail from "../utils/sendEmails.js"
+
 const signUpCustomer = asyncHandler(async function (req, res, next) {
 
       const { username, fullname, email, password, confirmPassword } = req.body
@@ -67,10 +71,18 @@ const signUpCustomer = asyncHandler(async function (req, res, next) {
             res.status(500).json( new ApiError(500, "Something went wrong while registering the user pleaase refresh the page and try again"))
       }
       const createdCustomer = await Customer.findById(newCustomer._id).select("-password -refreshToken");
+      
+      // Sending Mail for Email Verification
+      const token = await new Token({
+            customerId:createdCustomer._id,
+            token:crypto.randomBytes(32).toString("hex"),
+      }).save();
 
+      const url = `${process.env.BASE_URL}/customer/${createdCustomer._id}/verify/${token.token}`;
+      await sendEmail(createdCustomer.email,"Verify Email",url);
 
       res.status(200).json(
-            new ApiResponse(200, createdCustomer, "You are successfully Registered")
+            new ApiResponse(200, createdCustomer, "An Email Sent to Your Email Account please verify before login")
       )
 })
 

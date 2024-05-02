@@ -40,6 +40,10 @@ const customerSchema = new Schema({
             type:Boolean,
             default : false
       },
+      role:{
+            type : String,
+            default : "GENERAL"
+      },
       refreshToken: {
             type: String
       }

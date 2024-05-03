@@ -1,20 +1,50 @@
-import { Outlet } from "react-router-dom"
+import {  Outlet, useNavigate } from "react-router-dom"
 import Header from "./Components/header/Header"
 import Footer from "./Components/footer/Footer"
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect, useState } from "react";
+import backendRoutesAPI from "./BackendAPI/API.js"
+import customerContext from "./Context/index.js";
+import {useDispatch} from "react-redux"
+import { setCustomerDetail } from "./Store/customerSlice.js";
+
 function App() {
+
+  const dispatch = useDispatch()
+
+  const getCustomerDetail = async () => {
+    const backendAPIResponse = await fetch(backendRoutesAPI.current_user.url, {
+      method: backendRoutesAPI.current_user.method,
+      credentials: "include"
+    })
+    const finalResponse = await backendAPIResponse.json()
+    if (finalResponse.success) {
+      dispatch(setCustomerDetail(finalResponse.data))
+      return finalResponse
+    }
+    else {
+      return finalResponse
+    }
+  }
+
+  useEffect(() => {
+    getCustomerDetail()
+  }, [])
   return (
     <>
-      <Header/>
-      <ToastContainer/>
-      <main>
-        <Outlet />
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+      <customerContext.Provider value={{getCustomerDetail}}>
+        <Header/>
+        <main>
+          <ToastContainer />
+          <Outlet />
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </customerContext.Provider>
     </>
+
   )
 }
 

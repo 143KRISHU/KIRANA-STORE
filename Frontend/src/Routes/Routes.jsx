@@ -10,7 +10,7 @@ import SignUp from '../Pages/SignUp.jsx';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route path="/signup" element={<SignUp/>}/>

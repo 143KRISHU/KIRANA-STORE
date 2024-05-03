@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useContext} from 'react'
 import loginGif from "../assets/login-nobg.gif"
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { json, Link, useNavigate } from 'react-router-dom';
 import backendRoutesAPI from "../BackendAPI/API.js";
 import { toast } from 'react-toastify';
+import customerContext from '../Context/index.js';
 
 function Login() {
       const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,8 @@ function Login() {
       const [isSubmit, setIsSubmit] = useState(false);
       const navigate = useNavigate();
 
+      const custContext = useContext(customerContext)
+
       const handleChnage = (e) => {
             const { name, value } = e.target;
             setFormData({ ...formData, [name]: value });
@@ -25,7 +28,6 @@ function Login() {
             setFormErrors(validateFormData(formData));
             setIsSubmit(true);
             try {
-                  console.log(JSON.stringify(formData))
                   const backendAPIResponse = await fetch(
                         backendRoutesAPI.signin.url, {
                         method: backendRoutesAPI.signin.method,
@@ -39,6 +41,7 @@ function Login() {
                   const finalData = await backendAPIResponse.json();
                   if (finalData.success) {
                         toast.success(finalData.message)
+                        await custContext.getCustomerDetail()
                         navigate("/")
                   }
                   else {

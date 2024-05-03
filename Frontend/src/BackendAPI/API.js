@@ -8,6 +8,14 @@ const backendRoutesAPI = {
       signin : {
             url : `${backendMainDomainURL}/api/v1/customer/login`,
             method : "post"
+      },
+      signout : {
+            url : `${backendMainDomainURL}/api/v1/customer/logout`,
+            method : "post"
+      },
+      current_user : {
+            url : `${backendMainDomainURL}/api/v1/customer/customer-details`,
+            method : "get"
       }
 }
 export default backendRoutesAPI

@@ -21,6 +21,7 @@ function Header() {
   const dispatch = useDispatch()
 
   const handleLogout = async () => {
+    setShowCustomerOption(false)
     const backendApiResponse = await fetch(backendRoutesAPI.signout.url, {
       method: backendRoutesAPI.signout.method,
       credentials: "include"
@@ -59,7 +60,7 @@ function Header() {
                 >
                   <FaRegCircleUser onClick={() => setShowCustomerOption(prev => !prev)} />
                   {
-                    showCustomerOption ? (
+                    showCustomerOption && (
                       <div className='user-option absolute text-lg w-fit rounded bg-white bottom-0 h-fit top-11 mx-auto text-black'>
                         <FaAngleUp className='mx-auto' />
                         {
@@ -83,7 +84,7 @@ function Header() {
                             : null
                         }
                       </div>
-                    ) : null
+                    )
                   }
                 </div>
               )

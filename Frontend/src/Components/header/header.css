@@ -61,3 +61,10 @@
       }
     }
 
+nav .link:hover{
+     background-color: rgba(128, 128, 128, 0.615);
+}
+
+.user-option{
+      border-top: 5px solid #E29578;
+}

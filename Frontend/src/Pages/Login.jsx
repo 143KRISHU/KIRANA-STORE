@@ -2,10 +2,11 @@ import React, { useEffect, useState ,useContext} from 'react'
 import loginGif from "../assets/login-nobg.gif"
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { json, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import backendRoutesAPI from "../BackendAPI/API.js";
 import { toast } from 'react-toastify';
 import customerContext from '../Context/index.js';
+import Loader from '../Components/Loader/Loader';
 
 function Login() {
       const [showPassword, setShowPassword] = useState(false);
@@ -51,6 +52,7 @@ function Login() {
                         }
                         else {
                               toast.error(finalData.message)
+                              setIsSubmit(false)
                         }
 
                   }
@@ -74,50 +76,60 @@ function Login() {
             }
       }), [formErrors, formData])
       return (
-            <section id='login'>
-                  <div className="container mx-auto p-4">
-                        <div className='p-6 w-full max-w-xl mx-auto rounded-2xl shadow-2xl' style={{ backgroundColor: "#fff" }}>
-                              <div className='h-20 w-20 mx-auto flex items-center mt-8 mb-4'>
-                                    <img src={loginGif} alt='login-gif' />
-                              </div>
-                              <form className='flex flex-col' onSubmit={handlingFormSubmit}>
-                                    <div className="grid credentials mt-8 mb-8 ">
-                                          <label className="text-xl" htmlFor='email'>Email Id:&nbsp;&nbsp;  </label>
-                                          <div className='bg-slate-100 p-2'>
-                                                <input type='email' id='email' placeholder='Enter Your email'
-                                                      className='w-full h-full outline-none bg-transparent' value={formData.email}
-                                                      onChange={handleChnage} name='email' />
-                                          </div>
-                                          <p className='text-red-600 px-2'>{formErrors.email}</p>
-                                    </div>
 
-                                    <div className=" grid credentials mt-8 mb-8">
-                                          <label className="text-xl" htmlFor='password'>Password:&nbsp; &nbsp;  </label>
-                                          <div className='bg-slate-100 p-2 flex items-center'>
-                                                <input type={showPassword ? 'text' : 'password'} id='password' placeholder='Enter Your Password'
-                                                      className='w-full h-full outline-none bg-transparent' value={formData.password}
-                                                      onChange={handleChnage} name='password' />
-                                                <div onClick={() => setShowPassword((prevState) => !prevState)}
-                                                      className='cursor-pointer text-xl'>
-                                                      {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                                </div>
+            <>
+                  {
+                        isSubmit ?
+                              <Loader/>
+                        : (
+                              <section id='login'>
+                              <div className="container mx-auto p-4">
+                                    <div className='p-6 w-full max-w-xl mx-auto rounded-2xl shadow-2xl' style={{ backgroundColor: "#fff" }}>
+                                          <div className='h-20 w-20 mx-auto flex items-center mt-8 mb-4'>
+                                                <img src={loginGif} alt='login-gif' />
                                           </div>
-                                          <p className='text-red-600 px-2'>{formErrors.password}</p>
-                                          <Link to={"/forgotPassword"}>
-                                                <p className='block w-fit ml-auto hover:text-blue-500 hover:underline'>
-                                                      Forget Password ? </p>
-                                          </Link>
+                                          <form className='flex flex-col' onSubmit={handlingFormSubmit}>
+                                                <div className="grid credentials mt-8 mb-8 ">
+                                                      <label className="text-xl" htmlFor='email'>Email Id:&nbsp;&nbsp;  </label>
+                                                      <div className='bg-slate-100 p-2'>
+                                                            <input type='email' id='email' placeholder='Enter Your email'
+                                                                  className='w-full h-full outline-none bg-transparent' value={formData.email}
+                                                                  onChange={handleChnage} name='email' />
+                                                      </div>
+                                                      <p className='text-red-600 px-2'>{formErrors.email}</p>
+                                                </div>
+            
+                                                <div className=" grid credentials mt-8 mb-8">
+                                                      <label className="text-xl" htmlFor='password'>Password:&nbsp; &nbsp;  </label>
+                                                      <div className='bg-slate-100 p-2 flex items-center'>
+                                                            <input type={showPassword ? 'text' : 'password'} id='password' placeholder='Enter Your Password'
+                                                                  className='w-full h-full outline-none bg-transparent' value={formData.password}
+                                                                  onChange={handleChnage} name='password' />
+                                                            <div onClick={() => setShowPassword((prevState) => !prevState)}
+                                                                  className='cursor-pointer text-xl'>
+                                                                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                                            </div>
+                                                      </div>
+                                                      <p className='text-red-600 px-2'>{formErrors.password}</p>
+                                                      <Link to={"/forgotPassword"}>
+                                                            <p className='block w-fit ml-auto hover:text-blue-500 hover:underline'>
+                                                                  Forget Password ? </p>
+                                                      </Link>
+                                                </div>
+                                                <button className="credential-btn mt-8 mb-4 px-5 py-2 rounded-full w-full 
+                                                      max-w-[150px] hover:scale-110 transition-all text-lg block mx-auto"
+                                                      style={{ backgroundColor: "#ffddd2", border: "2px solid black" }} type='submit'>Login</button>
+                                          </form>
+                                          <p className='mt-5 text-sm w-full '>
+                                                Don't have Account ? <Link to={"/signup"} className="hover:underline" style={{ color: "blue" }}>Sign-Up</Link>
+                                          </p>
                                     </div>
-                                    <button className="credential-btn mt-8 mb-4 px-5 py-2 rounded-full w-full 
-                                          max-w-[150px] hover:scale-110 transition-all text-lg block mx-auto"
-                                          style={{ backgroundColor: "#ffddd2", border: "2px solid black" }} type='submit'>Login</button>
-                              </form>
-                              <p className='mt-5 text-sm w-full '>
-                                    Don't have Account ? <Link to={"/signup"} className="hover:underline" style={{ color: "blue" }}>Sign-Up</Link>
-                              </p>
-                        </div>
-                  </div>
-            </section>
+                              </div>
+                        </section>
+                        )
+                  }
+            </>
+           
       )
 }
 

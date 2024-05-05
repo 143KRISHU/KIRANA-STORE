@@ -3,5 +3,12 @@
 @tailwind utilities;
 
 main{
-      background-color: #edf6f9;
+      background-color: #EDF6F9;
+      position: relative;
+      top: 4rem;
+      height: 100vh;
+}
+header{
+      position: fixed;
+      z-index: 999;
 }

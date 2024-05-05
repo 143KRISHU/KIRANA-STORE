@@ -1,4 +1,4 @@
-import {  Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import Header from "./Components/header/Header"
 import Footer from "./Components/footer/Footer"
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
 import backendRoutesAPI from "./BackendAPI/API.js"
 import customerContext from "./Context/index.js";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux"
 import { setCustomerDetail } from "./Store/customerSlice.js";
 
 function App() {
@@ -33,11 +33,13 @@ function App() {
   }, [])
   return (
     <>
-      <customerContext.Provider value={{getCustomerDetail}}>
-        <Header/>
+      <customerContext.Provider value={{ getCustomerDetail }}>
+        <Header />
         <main>
-          <ToastContainer />
-          <Outlet />
+          <section className="container h-full">
+            <ToastContainer />
+            <Outlet />
+          </section>
         </main>
         <footer>
           <Footer />

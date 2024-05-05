@@ -3,7 +3,7 @@ import Search from '../Search/Search'
 import { FaRegCircleUser } from "react-icons/fa6";
 import { BsCart2 } from "react-icons/bs";
 import "./header.css"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import backendRoutesAPI from "../../BackendAPI/API.js"
 import { toast } from "react-toastify"
@@ -17,8 +17,10 @@ import { FaClipboardList } from "react-icons/fa";
 function Header() {
 
   const customer = useSelector((state) => state?.customer?.customer)
+  const [isloggedOut,setIsLoggedOut]=useState(false)
   const [showCustomerOption, setShowCustomerOption] = useState(false)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     setShowCustomerOption(false)
@@ -30,17 +32,18 @@ function Header() {
     if (finalResponse.success) {
       toast.success(finalResponse.message)
       dispatch(setCustomerDetail(null))
+      navigate("/");
     }
   }
 
   return (
     <header className='header h-16 w-screen'>
-      <div className="h-full w-full flex flex-row justify-between items-center header-box">
+      <div className=" container h-full w-full flex flex-row justify-between items-center header-box">
 
         {/* left most Company logo */}
         <div className="logo ml-10 py-2 px-2">
           <Link to={'/'}>
-            <i className="fa-brands fa-shopware"></i>
+            <i className="fa-brands fa-shopware" onClick={() => setShowCustomerOption(false)}></i>
           </Link>
           <h4>KIRANA-STORE</h4>
         </div>
@@ -53,6 +56,13 @@ function Header() {
         {/* Right Most Part Of the Header */}
 
         <div className='links flex flex-row justify-around gap-10 items-center'>
+          {/* Add To Cart Logo */}
+          <div className="cart-icon text-3xl  cursor-pointer relative mr-12">
+            <span><BsCart2 /></span>
+            <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value
+            flex items-center justify-center rounded-full'>0</p>
+          </div>
+          
           {
             customer?._id
               ? (
@@ -61,26 +71,33 @@ function Header() {
                   <FaRegCircleUser onClick={() => setShowCustomerOption(prev => !prev)} />
                   {
                     showCustomerOption && (
-                      <div className='user-option absolute text-lg w-fit rounded bg-white bottom-0 h-fit top-11 mx-auto text-black'>
+                      <div className='user-option absolute text-lg w-fit rounded bg-white bottom-0 h-fit top-11 mx-auto text-black '>
                         <FaAngleUp className='mx-auto' />
                         {
                           customer
-                            ? (<nav className='flex flex-col text-xl mt-1 justify-start items-start text-black font-semibold gap-3'>
-                              <div className='flex items-center gap-6 w-full px-4 py-2 link'>
-                                <FaRegUser />
-                                <Link className='whitespace-nowrap'>My Profile</Link>
-                              </div>
-                              <div className='flex items-center gap-6 w-full px-4 py-2  link'>
-                                <FaClipboardList />
-                                <Link className='whitespace-nowrap'>My Orders</Link>
-                              </div>
+                            ?
+                              (
+                                <nav className='flex flex-col text-xl mt-1 justify-start items-start text-black font-semibold gap-3'>
+                                  {
+                                    customer.role === "ADMIN"
+                                      ? (
+                                        <Link to={"/admin-pannel"} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                          onClick={() => setShowCustomerOption(false)}>
+                                          <FaRegUser /> Admin Pannel</Link>
+                                      ) :
+                                      (
+                                        <Link to={"/customer-profile"} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                          onClick={() => setShowCustomerOption(false)}>
+                                          <FaRegUser /> My Profile</Link>
+                                      )
+                                  }
+                                  <Link className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                    onClick={() => setShowCustomerOption(false)}>
+                                    <FaClipboardList /> My Orders</Link>
 
-                              <div className='flex items-center gap-6 w-full  px-4 py-2  link'>
-                                <TbLogout />
-                                <h2 className='mr-5' onClick={handleLogout}>Logout</h2>
-                              </div>
-                            </nav>
-                            )
+                                  <h2 className='flex items-center gap-6 w-full  px-4 py-2  link' onClick={handleLogout}><TbLogout /> Logout</h2>
+                                </nav>
+                              )
                             : null
                         }
                       </div>
@@ -96,12 +113,6 @@ function Header() {
                 </div>
               )
           }
-          {/* Add To Cart Logo */}
-          <div className="cart-icon text-3xl  cursor-pointer relative mr-12">
-            <span><BsCart2 /></span>
-            <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value
-            flex items-center justify-center rounded-full'>0</p>
-          </div>
         </div>
       </div>
     </header>

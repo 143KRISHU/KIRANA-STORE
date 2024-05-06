@@ -35,7 +35,7 @@ function App() {
     <>
       <customerContext.Provider value={{ getCustomerDetail }}>
         <Header />
-        <main>
+        <main className="main">
           <section className="container h-full">
             <ToastContainer />
             <Outlet />

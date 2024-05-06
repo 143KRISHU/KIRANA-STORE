@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-main{
+.main{
       background-color: #EDF6F9;
       position: relative;
       top: 4rem;

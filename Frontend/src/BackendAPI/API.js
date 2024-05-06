@@ -16,6 +16,16 @@ const backendRoutesAPI = {
       current_user : {
             url : `${backendMainDomainURL}/api/v1/customer/customer-details`,
             method : "get"
+      },
+      admin:{
+            showAllUser:{
+                  url:`${backendMainDomainURL}/api/v1/admin/show-all-customer`,
+                  method:"get"
+            },
+            updateUserRole:{
+                  url:`${backendMainDomainURL}/api/v1/admin/customer-role-update`,
+                  method:"post"
+            }
       }
 }
 export default backendRoutesAPI

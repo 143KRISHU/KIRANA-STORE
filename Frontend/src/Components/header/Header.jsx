@@ -17,7 +17,6 @@ import { FaClipboardList } from "react-icons/fa";
 function Header() {
 
   const customer = useSelector((state) => state?.customer?.customer)
-  const [isloggedOut,setIsLoggedOut]=useState(false)
   const [showCustomerOption, setShowCustomerOption] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()

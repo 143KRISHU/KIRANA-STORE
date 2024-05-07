@@ -3,44 +3,80 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import backendRoutesAPI from '../../BackendAPI/API';
+import { useSelector } from 'react-redux';
 
 const Role = {
-      Default:"Select Your Role",
+      Default: "Select Your Role",
       ADMIN: "ADMIN",
       GENRAL: "GENERAL"
 }
 
-function ChangeCustomerRole({name = "", email = "", role = "", userId = "",onClose}) {
-      const navigate= useNavigate()
-      const[userRole, setUserRole]=useState("");
-      const handleUserRoleChnage = (e)=>{
+function ChangeCustomerRole({ name = "", email = "", role = "", userId = "", onClose }) {
+      const customer = useSelector((state) => state?.customer?.customer)
+      const navigate = useNavigate()
+      const [userRole, setUserRole] = useState("");
+      const handleUserRoleChnage = (e) => {
             setUserRole(e.target.value);
       }
-      const handleUpdateRoleinDataBase = async()=>{
-            const backendResponse = await fetch(backendRoutesAPI.admin.updateUserRole.url,{
-                  method:backendRoutesAPI.admin.updateUserRole.method,
-                  credentials:"include",
-                  headers: {
-                        'content-type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                        id:userId,
-                        role:userRole
+
+      const handleUpdateRoleinDataBase = async () => {
+            if (customer._id === userId) {
+                  if (customer.role.toLowerCase() !== userRole.toLowerCase()) {
+                        const backendResponse = await fetch(backendRoutesAPI.admin.updateUserRole.url, {
+                              method: backendRoutesAPI.admin.updateUserRole.method,
+                              credentials: "include",
+                              headers: {
+                                    'content-type': 'application/json'
+                              },
+                              body: JSON.stringify({
+                                    id: userId,
+                                    role: userRole
+                              })
+                        })
+                        const finalFeedback = await backendResponse.json()
+                        if (finalFeedback.success) {
+                              onClose()
+                              window.location.href = '/'
+                              toast.success(`${name.toUpperCase()} role is set to ${userRole}`);
+                        }
+                        else {
+                              toast.error(`${finalFeedback.message}`)
+                              onClose()
+                              window.location.href = '/'
+                        }
+                  }
+                  else{
+                        onClose()
+                        toast.warning("You are Already Admin")
+                  }
+            }
+            else {
+                  const backendResponse = await fetch(backendRoutesAPI.admin.updateUserRole.url, {
+                        method: backendRoutesAPI.admin.updateUserRole.method,
+                        credentials: "include",
+                        headers: {
+                              'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                              id: userId,
+                              role: userRole
+                        })
                   })
-            })
-            const finalFeedback= await backendResponse.json()
+                  const finalFeedback = await backendResponse.json()
 
-            if(finalFeedback.success){
-                  toast.success(`${name.toUpperCase()} role is set to ${userRole}`);
-                  onClose()
-                  navigate("/admin-pannel");
+                  if (finalFeedback.success) {
+                        toast.success(`${name.toUpperCase()} role is set to ${userRole}`);
+                        onClose()
+                        navigate('/admin-pannel')
 
+                  }
+                  else {
+                        toast.error(`${finalFeedback.message}`)
+                        onClose()
+                        navigate('/admin-pannel')
+                  }
             }
-            else{
-                  toast.error(`${finalFeedback.message}`)
-                  onClose()
-                  navigate("/admin-pannel");
-            }
+
       }
 
       return (
@@ -73,9 +109,9 @@ function ChangeCustomerRole({name = "", email = "", role = "", userId = "",onClo
                                           }
                                     </select>
                               </div>
-                              <button className="w-fit px-3 py-2 rounded-full text-md font-semibold mx-auto block" 
-                              style={{backgroundColor:"#83C5BE" , color:"#EDF6F9"}}
-                              onClick={handleUpdateRoleinDataBase}>
+                              <button className="w-fit px-3 py-2 rounded-full text-md font-semibold mx-auto block"
+                                    style={{ backgroundColor: "#83C5BE", color: "#EDF6F9" }}
+                                    onClick={handleUpdateRoleinDataBase}>
                                     Change</button>
                         </div>
                   </div>

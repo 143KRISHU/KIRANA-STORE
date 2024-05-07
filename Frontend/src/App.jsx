@@ -21,15 +21,16 @@ function App() {
     const finalResponse = await backendAPIResponse.json()
     if (finalResponse.success) {
       dispatch(setCustomerDetail(finalResponse.data))
-      return finalResponse
+      return 
     }
     else {
-      return finalResponse
+      return 
     }
   }
 
   useEffect(() => {
     getCustomerDetail()
+    
   }, [])
   return (
     <>

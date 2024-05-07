@@ -3,18 +3,19 @@ import ApiError from "../../utils/apiError.js";
 import ApiResponse from "../../utils/apiResponse.js";
 import asyncHandler from "../../utils/asyncHandler.js";
 
-const showAllCustomer = asyncHandler(async (req,res)=>{
+
+const showAdminData = asyncHandler(async(req,res)=>{
       try {
-            
+            console.log(req.customer.role,req.customer._id);
             if(req.customer.role.toUpperCase() !== "ADMIN"){
                   res.status(401).json(
-                        new ApiError(401,"You are Unauthorised for this Call")
+                        new ApiError(401,"You are no longer Admin")
                   )   
             }
             else{
-                  const allCustomerData = await Customer.find().select("-password") 
+                  const adminData = await Customer.find({_id:req.customer._id},{password:0,refreshToken:0}) 
                   res.status(200).json(
-                        new ApiResponse(200,allCustomerData,"Got all Customer")
+                        new ApiResponse(200,adminData,`Welcome Admin !!`)
                   )
             }
             return
@@ -26,4 +27,4 @@ const showAllCustomer = asyncHandler(async (req,res)=>{
       }
 })
 
-export default showAllCustomer;
+export default showAdminData

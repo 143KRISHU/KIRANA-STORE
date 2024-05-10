@@ -15,47 +15,13 @@ function SignUp() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isRegistering,setIsRegistring]=useState(false)
   const navigate = useNavigate();
 
   const handleChnage = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormError(validate(formData));
-    setIsSubmit(true);
-    try {
-      const backendAPIResponse = await fetch(backendRoutesAPI.signup.url, {
-        method: backendRoutesAPI.signup.method,
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-      const finalData = await backendAPIResponse.json();
-      if (finalData.success) {
-        toast.success(finalData.message)
-        navigate("/login")
-      }
-      else {
-        if (finalData.message.includes("Customer is already exist with the same email or username")) {
-          toast.error(finalData.message);
-          navigate("/login");
-        }
-        else {
-          toast.error(finalData.message)
-          setIsSubmit(false)
-          navigate("/signup")
-        }
-
-      }
-    } catch (error) {
-      toast.error("Signup Error Server is not responding ");
-    }
-  }
-
 
   const validate = (values) => {
     const errors = {};
@@ -88,15 +54,55 @@ function SignUp() {
     return errors
   }
 
-  useEffect((() => {
-    if (Object.keys(formError).length === 0 && isSubmit) {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormError(validate(formData));
+    setIsSubmit(true);
+  }
+
+  const registernNewCustomer = async()=>{
+    try {
+      const backendAPIResponse = await fetch(backendRoutesAPI.signup.url, {
+        method: backendRoutesAPI.signup.method,
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+      const finalData = await backendAPIResponse.json();
+      if (finalData.success) {
+        toast.success(finalData.message)
+        navigate("/login")
+      }
+      else {
+        if (finalData.message.includes("Customer is already exist with the same email or username")) {
+          toast.error(finalData.message);
+          navigate("/login");
+        }
+        else {
+          toast.error(finalData.message)
+          setIsSubmit(false)
+          navigate("/signup")
+        }
+
+      }
+    } catch (error) {
+      toast.error("Signup Error Server is not responding ");
     }
-  }), [formError, formData])
+  }
+
+  useEffect(()=>{
+    if(Object.keys(formError).length === 0 && isSubmit){
+      setIsRegistring(true)
+      registernNewCustomer()
+    }
+  },[formError])
 
   return (
     <>
       {
-        isSubmit ? <Loader /> : 
+        isRegistering ? <Loader /> : 
         <section id="signup" className='mb-16'>
           <div className="container mx-auto p-4">
             <div className='p-6 w-full max-w-3xl mx-auto rounded-2xl shadow-2xl' style={{ backgroundColor: "#fff" }}>

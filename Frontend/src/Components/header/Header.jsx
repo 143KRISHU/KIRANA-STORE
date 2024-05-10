@@ -36,9 +36,8 @@ function Header() {
   }
 
   return (
-    <header className='header h-16 w-screen'>
+    <section className='header h-16 w-screen'>
       <div className=" container h-full w-full flex flex-row justify-between items-center header-box">
-
         {/* left most Company logo */}
         <div className="logo ml-10 py-2 px-2">
           <Link to={'/'}>
@@ -114,7 +113,7 @@ function Header() {
           }
         </div>
       </div>
-    </header>
+    </section>
   )
 }
 

@@ -8,7 +8,7 @@ function AdminPanel() {
   const navigate = useNavigate()
   const admin = useSelector((state) => state?.customer?.customer)
   return (
-    <div className='min-h-[calc(100vh-148px)] flex'>
+    <div className='min-h-[calc(100vh-148px)] flex mb-10'>
       <aside className=' min-h-full w-full max-w-72 p-4'>
         <div className="top flex items-center gap-6 mt-4 p-2  rounded-md shadow-sm bg-white">
           <FaUserCircle className='text-4xl' style={{ color: "#E29578" }} />

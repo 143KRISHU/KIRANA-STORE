@@ -6,7 +6,6 @@ import asyncHandler from "../../utils/asyncHandler.js";
 
 const showAdminData = asyncHandler(async(req,res)=>{
       try {
-            console.log(req.customer.role,req.customer._id);
             if(req.customer.role.toUpperCase() !== "ADMIN"){
                   res.status(401).json(
                         new ApiError(401,"You are no longer Admin")

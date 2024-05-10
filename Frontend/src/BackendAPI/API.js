@@ -25,6 +25,10 @@ const backendRoutesAPI = {
             updateUserRole:{
                   url:`${backendMainDomainURL}/api/v1/admin/customer-role-update`,
                   method:"post"
+            },
+            uploadImage:{
+                  url:`${backendMainDomainURL}/api/v1/admin/upload-image`,
+                  method:"post"
             }
       }
 }

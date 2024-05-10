@@ -21,23 +21,25 @@ function App() {
     const finalResponse = await backendAPIResponse.json()
     if (finalResponse.success) {
       dispatch(setCustomerDetail(finalResponse.data))
-      return 
+      return
     }
     else {
-      return 
+      return
     }
   }
 
   useEffect(() => {
     getCustomerDetail()
-    
+
   }, [])
   return (
     <>
       <customerContext.Provider value={{ getCustomerDetail }}>
-        <Header />
+        <header>
+          <Header />
+        </header>
         <main className="main">
-          <section className="container h-full">
+          <section className="container w-full">
             <ToastContainer />
             <Outlet />
           </section>

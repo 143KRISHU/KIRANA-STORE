@@ -5,6 +5,8 @@ import updateCustomerRole from "../controllers/Admin/updateCustomerRole.js";
 import showAdminData from "../controllers/Admin/showAdminData.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import uploadImageToCloudinary from "../controllers/Admin/uploadImageOnCloudinary.js";
+import addProduct from "../controllers/Product Controller/addProduct.controller.js";
+import deleteImageFromCloudinary from "../controllers/Admin/deleteUploadedImageFromCloudinary.js";
 const adminRouter = Router()
 
 
@@ -12,4 +14,6 @@ adminRouter.route("/data").get(verifyCustomer,showAdminData);
 adminRouter.route("/show-all-customer").get(verifyCustomer,showAllCustomer);
 adminRouter.route("/customer-role-update").post(verifyCustomer,updateCustomerRole)
 adminRouter.route("/upload-image").post(upload.single('file'),uploadImageToCloudinary)
+adminRouter.route("/delete-image").post(deleteImageFromCloudinary)
+adminRouter.route("/add-product").post(addProduct)
 export default adminRouter;

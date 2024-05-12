@@ -29,7 +29,16 @@ const backendRoutesAPI = {
             uploadImage:{
                   url:`${backendMainDomainURL}/api/v1/admin/upload-image`,
                   method:"post"
-            }
+            },
+            deleteProductImage_WhileUploading:{
+                  url:`${backendMainDomainURL}/api/v1/admin/delete-image`,
+                  method:"post"
+            },
+            addProduct:{
+                  url:`${backendMainDomainURL}/api/v1/admin/add-product`,
+                  method:"post"
+            },
+            
       }
 }
 export default backendRoutesAPI

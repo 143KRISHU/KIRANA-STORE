@@ -1,4 +1,4 @@
-import ApiResponse from "../utils/apiResponse.js"
+import ApiResponse from "../../utils/apiResponse.js"
 
 function showCustomerDetails(req, res, next) {
       res.status(200).json(

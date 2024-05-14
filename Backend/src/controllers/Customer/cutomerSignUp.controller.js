@@ -1,10 +1,10 @@
-import asyncHandler from "../utils/asyncHandler.js"
-import ApiError from "../utils/apiError.js"
-import ApiResponse from "../utils/apiResponse.js"
-import Customer from "../models/customer.model.js"
-import Token from "../models/token.model.js"
+import asyncHandler from "../../utils/asyncHandler.js"
+import ApiError from "../../utils/apiError.js"
+import ApiResponse from "../../utils/apiResponse.js"
+import Customer from "../../models/customer.model.js"
+import Token from "../../models/token.model.js"
 import crypto from "crypto"
-import sendEmail from "../utils/sendEmails.js"
+import sendEmail from "../../utils/sendEmails.js"
 
 const signUpCustomer = asyncHandler(async function (req, res, next) {
 

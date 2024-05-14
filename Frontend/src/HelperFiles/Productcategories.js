@@ -1,5 +1,5 @@
 const productCategories = {
-      "Electronics": ["Smartphones", "Laptops", "Tablets", "Cameras", "TVs", "Headphones","Airpods","Wearable devices"],
+      "Electronics": ["Smartphones","Trimmer","Washing Machine", "Laptops", "Tablets", "Cameras", "TVs", "Headphones","Airpods","Wearable devices"],
       "Clothing": ["Tops", "Bottoms", "Dresses", "Outerwear", "Activewear", "Sleepwear", "Undergarments"],
       "Home Appliances": ["Refrigerators", "Washing machines", "Dishwashers", "Microwaves", "Vacuum cleaners", "Air purifiers", "Coffee makers"],
       "Furniture": ["Sofas", "Beds", "Tables", "Chairs", "Cabinets", "Desks", "Bookcases"],

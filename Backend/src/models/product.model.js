@@ -43,7 +43,7 @@ const ProductSchema = new Schema({
             required: true,
       },
       productImage: []
-      })
+      },{timestamps:true})
 
 const Product = mongoose.model("Product", ProductSchema)
 export default Product

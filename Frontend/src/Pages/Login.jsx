@@ -57,7 +57,8 @@ function Login() {
 
                   }
             } catch (error) {
-                  console.log(error);
+                  toast.error("Server Is Not Responding")
+                  setIsSubmit(false)
             }
       }
 

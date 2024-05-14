@@ -7,6 +7,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 import uploadImageToCloudinary from "../controllers/Admin/uploadImageOnCloudinary.js";
 import addProduct from "../controllers/Product Controller/addProduct.controller.js";
 import deleteImageFromCloudinary from "../controllers/Admin/deleteUploadedImageFromCloudinary.js";
+import showProduct from "../controllers/Product Controller/showProducts.controller.js";
 const adminRouter = Router()
 
 
@@ -16,4 +17,5 @@ adminRouter.route("/customer-role-update").post(verifyCustomer,updateCustomerRol
 adminRouter.route("/upload-image").post(upload.single('file'),uploadImageToCloudinary)
 adminRouter.route("/delete-image").post(deleteImageFromCloudinary)
 adminRouter.route("/add-product").post(addProduct)
+adminRouter.route("/show-products").get(showProduct)
 export default adminRouter;

@@ -29,3 +29,12 @@ header{
       position: fixed;
       z-index: 999;
 }
+
+/* Product Card Component CSS */
+.details{
+      border-bottom-left-radius: 0.7rem;
+      border-bottom-right-radius: 0.7rem;
+}
+.details:hover{
+      background-color: #83c5bf91;
+}

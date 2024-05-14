@@ -38,7 +38,10 @@ const backendRoutesAPI = {
                   url:`${backendMainDomainURL}/api/v1/admin/add-product`,
                   method:"post"
             },
-            
+            showProduct:{
+                  url:`${backendMainDomainURL}/api/v1/admin/show-products`,
+                  method:"get"
+            },            
       }
 }
 export default backendRoutesAPI

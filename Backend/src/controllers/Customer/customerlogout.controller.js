@@ -1,6 +1,6 @@
-import asyncHandler from "../utils/asyncHandler.js"
-import ApiResponse from "../utils/apiResponse.js"
-import Customer from "../models/customer.model.js";
+import asyncHandler from "../../utils/asyncHandler.js"
+import ApiResponse from "../../utils/apiResponse.js"
+import Customer from "../../models/customer.model.js";
 
 const logOutCustomer = asyncHandler(async function (req, res, next) {
       const cust = await Customer.findOneAndUpdate(req.customer._id,

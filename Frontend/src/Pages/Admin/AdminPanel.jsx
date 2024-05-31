@@ -42,7 +42,7 @@ function AdminPanel() {
           </div>
         </div>
       </aside>
-      <main className='mt-12 rounded-sm bg-stone-600 h-fit w-full ml-1'>
+      <main className='mt-12 rounded-md bg-stone-600 h-fit w-full ml-1'>
         <Outlet />
       </main>
     </div>

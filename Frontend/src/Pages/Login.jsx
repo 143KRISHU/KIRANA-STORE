@@ -7,8 +7,10 @@ import backendRoutesAPI from "../BackendAPI/API.js";
 import { toast } from 'react-toastify';
 import customerContext from '../Context/index.js';
 import Loader from '../Components/Loader/Loader';
+import { useSelector } from 'react-redux';
 
 function Login() {
+      const customer = useSelector((state) => state?.customer?.customer)
       const [showPassword, setShowPassword] = useState(false);
       const [formData, setFormData] = useState({
             email: "",
@@ -76,6 +78,13 @@ function Login() {
                   return
             }
       }), [formErrors, formData])
+
+      useEffect((() => {
+            
+            if(customer){
+                  navigate("/")
+            }
+      }), [customer])
       return (
 
             <>

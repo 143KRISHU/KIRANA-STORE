@@ -11,23 +11,65 @@ import CustomerProfile from '../Pages/CustomerProfile.jsx';
 import ViewAllCustomer from "../Pages/AdminOptionPages/ViewAllCustomer.jsx"
 import AddProducts from "../Pages/AdminOptionPages/AddProducts.jsx"
 import ViewAllListedProducts from "../Pages/AdminOptionPages/ViewAllListedProducts.jsx"
+import UpdateProductMenu from "../Components/UpdateProductForm/UpdateProductMenu.jsx"
+import ErrorPage from '../Pages/ErrorPage.jsx';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/forgotPassword" element={<ForgotPassword />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path='/customer/:id/verify/:token' element={<EmailVerify />} />
-      <Route path="/customer-profile" element={<CustomerProfile />} />
-      <Route Route path="/admin-pannel" element={<AdminPanel />}>
-        <Route path="/admin-pannel/view-all-customer" element={<ViewAllCustomer />} />
-        <Route path="/admin-pannel/add-products" element={<AddProducts />} />
-        <Route path="/admin-pannel/view-all-listed-products" element={<ViewAllListedProducts />} />
-      </Route>
-      {/* ... etc. */}
-    </Route>
-  )
-);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'forgotPassword',
+        element: <ForgotPassword />,
+      },
+      {
+        path: 'signup',
+        element: <SignUp />,
+      },
+      {
+        path: 'customer-profile',
+        element: <CustomerProfile />,
+      },
+      {
+        path: 'admin-pannel',
+        element: <AdminPanel />,
+        children: [
+          {
+            path: 'view-all-customer',
+            element: <ViewAllCustomer />,
+          },
+          {
+            path: 'add-products',
+            element: <AddProducts />,
+          },
+          {
+            path: 'view-all-listed-products',
+            element: <ViewAllListedProducts />,
+          },
+        ],
+      },
+      {
+        path: ':id/update-product',
+        element: <UpdateProductMenu />,
+      },
+    ],
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
+  },
+  {
+    path: 'customer/:id/verify/:token',
+    element: <EmailVerify />,
+  },
+]);
 export default router

@@ -5,7 +5,7 @@ import updateCustomerRole from "../controllers/Admin/updateCustomerRole.js";
 import showAdminData from "../controllers/Admin/showAdminData.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import uploadImageToCloudinary from "../controllers/Admin/uploadImageOnCloudinary.js";
-import addProduct from "../controllers/Product Controller/addProduct.controller.js";
+import addProduct from "../controllers/Admin/addProductByAdmin.controller.js";
 import deleteImageFromCloudinary from "../controllers/Admin/deleteUploadedImageFromCloudinary.js";
 import showProduct from "../controllers/Product Controller/showProducts.controller.js";
 const adminRouter = Router()

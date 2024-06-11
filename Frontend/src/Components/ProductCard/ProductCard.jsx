@@ -22,7 +22,7 @@ function ProductCard({ product, index }) {
   return (
     <div key={index} className="relative group flex gap-2 flex-col justify-center rounded-xl shadow-xl items-center h-fit w-[20rem]"
       style={{ background: "white" }}>
-      <div className='h-52 w-52 flex mt-2 mb-2justify-center items-center rounded-lg' >
+      <div className='h-72 w-52 flex mt-2 mb-2justify-center items-center rounded-lg' >
         <img src={product.productImage[0]} className="object-fill" />
       </div>
       <div className=' details w-[20rem] p-1 text-center  ' style={{ userSelect: "none" }}>

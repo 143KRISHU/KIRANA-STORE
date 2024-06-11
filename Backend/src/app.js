@@ -24,4 +24,8 @@ app.use("/api/v1/customer",customerRouter);
 import adminRouter from "./routes/admin.routes.js";
 app.use("/api/v1/admin",adminRouter);
 
+//Product Routes Import
+import productRouter from "./routes/product.route.js";
+app.use("/api/v1/product",productRouter)
+
 export default app;

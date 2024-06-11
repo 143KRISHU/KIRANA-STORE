@@ -1,7 +1,7 @@
 const productCategories = {
       "Electronics": ["Smartphones","Trimmer","Washing Machine", "Laptops", "Tablets", "Cameras", "TVs", "Headphones","Airpods","Wearable devices"],
       "Clothing": ["Tops", "Bottoms", "Dresses", "Outerwear", "Activewear", "Sleepwear", "Undergarments"],
-      "Home Appliances": ["Refrigerators", "Washing machines", "Dishwashers", "Microwaves", "Vacuum cleaners", "Air purifiers", "Coffee makers"],
+      "Home Appliances": ["Refrigerators","SandWitch Maker", "Washing machines", "Dishwashers", "Microwaves", "Vacuum cleaners", "Air purifiers", "Coffee makers"],
       "Furniture": ["Sofas", "Beds", "Tables", "Chairs", "Cabinets", "Desks", "Bookcases"],
       "Beauty and Personal Care": ["Skincare", "Makeup", "Haircare", "Fragrances", "Bath and body", "Oral care", "Grooming tools"],
       "Books and Literature": ["Fiction", "Non-fiction", "Mystery/Thriller", "Romance", "Science fiction/Fantasy", "Self-help", "Biography/Autobiography"],

@@ -3,38 +3,54 @@
 @tailwind utilities;
 
 
-html{
+html {
       height: 100%;
       box-sizing: border-box;
 }
 
-body{
+body {
       position: relative;
       margin: 0;
       min-height: 100%;
       padding-bottom: 6.47rem;
       box-sizing: inherit;
+      background-color: #EDF6F9;
 }
 
-.main{
+.main {
       position: relative;
-      background-color: #EDF6F9;
       top: 4rem;
       margin: 0;
       min-height: 100%;
       padding-bottom: 6.47rem;
       box-sizing: inherit;
 }
-header{
+
+header {
       position: fixed;
       z-index: 999;
 }
 
 /* Product Card Component CSS */
-.details{
+.details {
       border-bottom-left-radius: 0.7rem;
       border-bottom-right-radius: 0.7rem;
 }
-.details:hover{
+
+.details:hover {
       background-color: #83c5bf91;
+}
+
+.hidden-scrollbar {
+      overflow: auto;
+      /* Ensure the content can scroll */
+      scrollbar-width: none;
+      /* For Firefox */
+      -ms-overflow-style: none;
+      /* For Internet Explorer and Edge */
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+      display: none;
+      /* For Chrome, Safari, and Opera */
 }

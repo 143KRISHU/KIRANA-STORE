@@ -8,6 +8,7 @@ import uploadImageToCloudinary from "../controllers/Admin/uploadImageOnCloudinar
 import addProduct from "../controllers/Admin/addProductByAdmin.controller.js";
 import deleteImageFromCloudinary from "../controllers/Admin/deleteUploadedImageFromCloudinary.js";
 import showProduct from "../controllers/Product Controller/showProducts.controller.js";
+import getOneProductData from "../controllers/Product Controller/getProductData.controller.js";
 const adminRouter = Router()
 
 
@@ -18,4 +19,5 @@ adminRouter.route("/upload-image").post(upload.single('file'),uploadImageToCloud
 adminRouter.route("/delete-image").post(deleteImageFromCloudinary)
 adminRouter.route("/add-product").post(addProduct)
 adminRouter.route("/show-products").get(showProduct)
+adminRouter.route("/getOneProductData").post(getOneProductData)
 export default adminRouter;

@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     getCustomerDetail()
 
-  }, [])
+  })
   return (
     <>
       <customerContext.Provider value={{ getCustomerDetail }}>

@@ -10,6 +10,7 @@ cloudinary.config({
 });
 
 const deleteImageFromCloudinary = asyncHandler((req,res) => {
+      const {imagename} = req.body
       cloudinary.uploader.destroy(imagename,(error,result)=>{
             if(result.result === 'ok'){
                   res.status(200).json(

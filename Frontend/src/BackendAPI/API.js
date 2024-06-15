@@ -45,7 +45,13 @@ const backendRoutesAPI = {
             getCurrentProduct:{
                   url:`${backendMainDomainURL}/api/v1/admin/getOneProductData`,
                   method:"post"
-            }           
-      }
+            },        
+      },
+      homePageAPI :{
+            showCategories : {
+                  url:`${backendMainDomainURL}/api/v1/product/showCategories`,
+                  method:"get"
+            }
+      }  
 }
 export default backendRoutesAPI

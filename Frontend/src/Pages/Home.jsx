@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import CategoryList from '../Components/HomePageComponents/CategoryList'
 
 function Home() {
   return (
-    <div className='text-xl'>
-      <h1>This is my Home Page</h1>
-    </div>
+   <div className="conatiner">
+    <CategoryList/>
+   </div>
   ) 
 }
 

@@ -182,9 +182,7 @@ function AddProducts() {
     const urlSection = imageURL.split("/")
     const imageFullName = urlSection[urlSection.length - 1]
     const imageInitialName = imageFullName.split(".")[0]
-    console.log(typeof imageInitialName)
     const data = { imagename: imageInitialName }
-    console.log(data)
     const backendResponse = await fetch(backendRoutesAPI.admin.deleteProductImage_WhileUploading.url, {
       method: backendRoutesAPI.admin.deleteProductImage_WhileUploading.method,
       headers: {
@@ -381,7 +379,7 @@ function AddProducts() {
                               ? (
                                 productData.productImage.map((el, index) => {
                                   return (
-                                    <div className='relative group' >
+                                    <div className='relative group' key={index} >
                                       {/* Preview Image */}
                                       <img src={el} key={index} style={{ height: "150px", width: "150px" }} />
                                       {/* Delete Image Button */}

@@ -54,3 +54,15 @@ header {
       display: none;
       /* For Chrome, Safari, and Opera */
 }
+
+/*  Home page Top category nav CSS */
+.hidden-scrollbar2::-webkit-scrollbar {
+      display: none;
+      /* For Chrome, Safari, and Opera */
+}
+@media (max-width:767px) {
+      .category-image{
+            height: 5rem;
+            width: 5rem;
+      }
+}

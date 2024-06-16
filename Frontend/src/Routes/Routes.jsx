@@ -13,6 +13,7 @@ import AddProducts from "../Pages/AdminOptionPages/AddProducts.jsx"
 import ViewAllListedProducts from "../Pages/AdminOptionPages/ViewAllListedProducts.jsx"
 import UpdateProductMenu from "../Components/UpdateProductForm/UpdateProductMenu.jsx"
 import ErrorPage from '../Pages/ErrorPage.jsx';
+import SpecificCategoryPage from '../Components/HomePageComponents/SpecificCategoryPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
         path: ':id/update-product',
         element: <UpdateProductMenu />,
       },
+      {
+        path: 'products/:productcategory',
+        element:<SpecificCategoryPage/>
+      }
     ],
   },
   {

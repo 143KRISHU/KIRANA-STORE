@@ -43,7 +43,7 @@ function Banner({ heading }) {
             return () => clearInterval(imageSlideInterval)
       })
       return (
-            <div className='md:h-80 md:w-full w-screen mt-4 rounded-2xl relative cursor-pointer'>
+            <div className='md:h-80 md:w-full w-screen h-64 mt-4 rounded-2xl relative cursor-pointer'>
                   <div className='z-30 h-fit w-full flex justify-between absolute top-[35%] items-center'>
                         <div onClick={handlePrevBannerImage} className='text-2xl shadow-lg text-black h-24 w-8 flex justify-center items-center edgeRound-left bg-white'><IoIosArrowBack /></div>
                         <div onClick={handlenextBannerImage} className='text-2xl shadow-lg text-black h-24 w-8 flex justify-center items-center edgeRound-right bg-white'><IoChevronForward /></div>
@@ -54,7 +54,7 @@ function Banner({ heading }) {
                         {
                               bannerImages.map((_, index) => {
                                     return (
-                                          <div style={{
+                                          <div key={index} style={{
                                                 backgroundColor:`${bannerSlideCount === index ? 'white' : 'grey'}`,
                                                 height:'0.5rem',
                                                 width:`${bannerSlideCount === index ?'1rem':'0.5rem'}`,

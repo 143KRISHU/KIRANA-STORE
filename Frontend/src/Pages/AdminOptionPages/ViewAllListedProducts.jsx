@@ -25,14 +25,21 @@ function ViewAllListedProducts() {
     getAllProductData()
   }, [])
   return (
-    <div className='product-conatiner p-10 border shadow-2xl flex justify-evenly items-center align-middle   gap-10 flex-wrap'
-      style={{ backgroundColor: "#EDF6F9" }}>
-      {
-        products.map((product, index) => {
-          return <ProductCard product={product} index={index} key={index} />
-        })
-      }
+    <div>
+      <h1 className='bg-[#EDF6F9] flex justify-center items-center text-3xl mb-2'>
+        <b className='mr-2 underline'>Total Number Of Listing Products : </b>
+        <p className='text-5xl text-red-600'>{products.length}</p>
+      </h1>
+      <div className='p-10 border shadow-2xl flex justify-evenly items-center align-middle   gap-10 flex-wrap'
+        style={{ backgroundColor: "#EDF6F9" }}>
+        {
+          products.map((product, index) => {
+            return <ProductCard product={product} index={index} key={index} />
+          })
+        }
+      </div>
     </div>
+
 
   )
 }

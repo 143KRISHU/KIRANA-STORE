@@ -51,6 +51,10 @@ const backendRoutesAPI = {
             showCategories : {
                   url:`${backendMainDomainURL}/api/v1/product/showCategories`,
                   method:"get"
+            },
+            subCategoryWiseProduct:{
+                  url:`${backendMainDomainURL}/api/v1/product/subCategoryWiseProduct`,
+                  method:'post'
             }
       }  
 }

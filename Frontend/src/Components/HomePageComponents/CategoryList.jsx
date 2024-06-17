@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function CategoryList() {
       const [productsCategory, setProductsCategory] = useState([])
       const [isLoading, setIsLoading] = useState(false)
-      const [loadingScreen, setLoadingScreen] = useState([1, 2, 3, 4, 5, 6])
+      const loadingScreen = new Array(8).fill(null)
 
       const getProductCategories = async () => {
             setIsLoading(true)
@@ -32,7 +32,7 @@ function CategoryList() {
                         isLoading ? (
                               <>
                                     {
-                                          loadingScreen.map((index) => {
+                                          loadingScreen.map((_,index) => {
                                                 return (
                                                       <div className='flex flex-col justify-center items-center' key={index}>
                                                             <div className='category-image md:h-24 md:w-24 rounded-xl flex overflow-hidden 

@@ -6,7 +6,7 @@ const productCategories = {
       "Beauty": ["Skincare", "Makeup", "Haircare", "Fragrances", "Bath and body", "Oral care", "Grooming tools"],
       "Books": ["Fiction", "Non-fiction", "Mystery/Thriller", "Romance", "Science fiction/Fantasy", "Self-help", "Biography/Autobiography"],
       "Sports": ["Fitness equipment", "Camping gear", "Hiking gear", "Bicycles", "Team sports equipment", "Outdoor clothing", "Fishing gear"],
-      "Toys": ["Action figures", "Board games", "Puzzles", "Dolls", "Building blocks", "Outdoor toys", "Educational toys"]
+      "Toys": ["Action figures", "Cards" ,"Board games", "Puzzles", "Dolls", "Building blocks", "Outdoor toys", "Educational toys"]
 };
 
 export default productCategories;

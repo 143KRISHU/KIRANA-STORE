@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
+import Banner from '../Components/HomePageComponents/Banner'
 import CategoryList from '../Components/HomePageComponents/CategoryList'
 
 function Home() {
   return (
-   <div className="conatiner">
+    <>
     <CategoryList/>
-   </div>
+    <Banner/>
+    </>
+    
   ) 
 }
 

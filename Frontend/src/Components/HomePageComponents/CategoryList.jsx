@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 function CategoryList() {
       const [productsCategory, setProductsCategory] = useState([])
       const [isLoading, setIsLoading] = useState(false)
-      const [loadingScreen, setLoadingScreen] = useState([1, 2, 3, 4, 5,6])
+      const [loadingScreen, setLoadingScreen] = useState([1, 2, 3, 4, 5, 6])
 
       const getProductCategories = async () => {
             setIsLoading(true)
@@ -27,15 +27,15 @@ function CategoryList() {
       }, [])
       return (
             /* Top Cateorgy Nav links */
-            <div className='flex gap-4 p-2 items-center justify-evenly overflow-scroll hidden-scrollbar2 '>
+            <div className='flex gap-4 p-2 items-center justify-evenly overflow-scroll hidden-scrollbar2 bg-white rounded-xl  shadow '>
                   {
                         isLoading ? (
                               <>
                                     {
                                           loadingScreen.map((index) => {
                                                 return (
-                                                      <div className='flex flex-col justify-center items-center'key={index}>
-                                                            <div  className='category-image md:h-24 md:w-24 rounded-xl flex overflow-hidden 
+                                                      <div className='flex flex-col justify-center items-center' key={index}>
+                                                            <div className='category-image md:h-24 md:w-24 rounded-xl flex overflow-hidden 
                                                                   justify-center items-center cursor-pointer bg-slate-300 animate-pulse'>
                                                             </div>
                                                             <p className='text-center mx-auto capitalize h-5 mt-1 w-24 rounded-xl bg-slate-300 animate-pulse'></p>
@@ -49,7 +49,7 @@ function CategoryList() {
                                     {
                                           productsCategory?.map((category, index) => {
                                                 return (
-                                                      <Link to={`products/${category.category}`} className='flex flex-col justify-center items-center 'key={index}>
+                                                      <Link to={`products/${category.category}`} className='flex flex-col justify-center items-center ' key={index}>
                                                             <div className=' category-image border-2 border-[#006D77] md:h-24 md:w-24 rounded-xl flex overflow-hidden 
                                                              justify-center items-center cursor-pointer'>
                                                                   <img src={category?.productImage[0]} alt={category?.category}

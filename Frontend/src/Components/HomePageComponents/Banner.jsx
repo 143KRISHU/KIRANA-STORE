@@ -43,13 +43,13 @@ function Banner({ heading }) {
             return () => clearInterval(imageSlideInterval)
       })
       return (
-            <div className='md:h-80 md:w-full w-screen h-64 mt-4 rounded-2xl relative cursor-pointer'>
-                  <div className='z-30 h-fit w-full flex justify-between absolute top-[35%] items-center'>
+            <div className='bannerDiv md:h-72 md:w-full h-64 sm:h-44 mt-4 rounded-2xl relative cursor-pointer'>
+                  <div className=' z-30 h-fit w-full md:flex justify-between absolute top-[35%] items-center hidden'>
                         <div onClick={handlePrevBannerImage} className='text-2xl shadow-lg text-black h-24 w-8 flex justify-center items-center edgeRound-left bg-white'><IoIosArrowBack /></div>
                         <div onClick={handlenextBannerImage} className='text-2xl shadow-lg text-black h-24 w-8 flex justify-center items-center edgeRound-right bg-white'><IoChevronForward /></div>
 
                   </div>
-                  <div className='absolute userSelectNone  flex left-[46%] bg-slate-600 bg-opacity-30 px-2 rounded-full py-1 w-fit gap-1 items-center justify-center z-40 bottom-0'
+                  <div className='absolute userSelectNone circleBubble  flex left-[46%] bg-slate-600 bg-opacity-30 px-2 rounded-full py-1 w-fit gap-1 items-center justify-center z-40 bottom-0'
                         >
                         {
                               bannerImages.map((_, index) => {
@@ -69,7 +69,7 @@ function Banner({ heading }) {
                               })
                         }
                   </div>
-                  <div className='flex h-full w-full overflow-hidden' >
+                  <div className=' flex h-full w-full overflow-hidden' >
                         {
                               bannerImages.map((image, index) => {
                                     return (

@@ -61,12 +61,6 @@ header {
       display: none;
       /* For Chrome, Safari, and Opera */
 }
-@media (max-width:767px) {
-      .category-image{
-            height: 5rem;
-            width: 5rem;
-      }
-}
 
 /* home page banner4 forward and backward button CSS */
 .edgeRound-left{
@@ -79,4 +73,33 @@ header {
 }
 .userSelectNone{
       user-select: none;
+}
+@media (max-width:767px) {
+      .loadingDiv{
+            height: 5rem;
+            width: 100%;
+      }
+      .mainProductDivCinatiner{
+            flex-direction: column;
+      }
+      .title{
+            font-size:18px;
+      }
+      .category-image{
+            height: 5rem;
+            width: 5rem;
+      }
+}
+@media (max-width:639px){
+      .bannerDiv{
+            height:8rem
+      }
+      .circleBubble{
+            left:35%
+      }
+}
+@media(width:540px){
+      .circleBubble{
+            left:45%
+      }
 }

@@ -10,6 +10,7 @@ function Home() {
     <Banner/>
     {/* Products Display */}
     <HorizontalDisplayStream subcategory={"Smartphones"} heading={"Top Deal On Latest SmartPhone's"} />
+    <HorizontalDisplayStream subcategory={"Airpods"} heading={"Top Deal On Latest Airpods"} />
     </>
     
   ) 

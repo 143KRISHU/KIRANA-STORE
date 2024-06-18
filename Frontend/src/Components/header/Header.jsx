@@ -43,7 +43,7 @@ function Header() {
           <Link to={'/'}>
             <i className="fa-brands fa-shopware" onClick={() => setShowCustomerOption(false)}></i>
           </Link>
-          <h4>KIRANA-STORE</h4>
+          <h4 className='headingTitle'>KIRANA-STORE</h4>
         </div>
 
 

@@ -4,7 +4,7 @@ import backendRoutesAPI from '../../BackendAPI/API';
 
 function HorizontalDisplayStream({ subcategory, heading }) {
       const [subCategoryWiseProduct, setSubCategoryWiseProduct] = useState([])
-      const [isLoading, setIsLoading] = useState(false)
+      const [isLoading, setIsLoading] = useState(true)
       const loadingScreen = new Array(8).fill(null)
       const [isError, setIsError] = useState(false)
 
@@ -40,48 +40,47 @@ function HorizontalDisplayStream({ subcategory, heading }) {
       }, [])
 
       return (
-            <div className='bg-white shadow mt-6'>
-                  <div className='px-4 py-4'>
-                        <div className='mb-3 flex justify-between items-center'>
-                              <div className='text-2xl font-semibold'>{heading}</div>
-                              <div className='text-3xl text-[#006D77] h-fit w-fit cursor-pointer hover:scale-125 transition-all'><IoChevronForwardCircle /></div>
-                        </div>
-                        <div className='flex sm:flex-col md:flex-row bg-white gap-4'>
-                              {
-                                    isLoading ? (
-                                          loadingScreen.map((_, index) => {
-                                                <>
-                                                      <div className='flex md:flex-col sm:flex-row justify-center items-center border p-[6px] rounded-md' key={index}>
-                                                            <div id='productImage' className='w-full md:h-[220px] md:max-w-[200px] sm:h-[64px] sm:max-w-[64px] cursor-pointer'>
-                                                            </div>
-                                                            <div id='productDetail' className='flex flex-col justify-center items-center'>
-                                                                  <div className='md:text-lg sm:text-base capitalize'></div>
-                                                                  <div className='md:text-lg sm:text-base font-bold'></div>
-                                                            </div>
-                                                      </div>
-                                                </>
-                                          })
-                                    ) : (
-                                          subCategoryWiseProduct.map((product, index) => {
-                                                return (
-                                                      <>
-                                                            <div className='flex md:flex-col sm:flex-row  border p-[6px] rounded-md' key={index}>
-                                                                  <div id='productImage' className='w-full md:h-[220px] md:max-w-[200px] sm:h-[64px] sm:max-w-[64px] cursor-pointer'>
-                                                                        <img src={product.productImage[0]} className='h-full w-full object-scale-down hover:scale-105 transition-all' />
-                                                                  </div>
-                                                                  <div id='productDetail' className='flex flex-col justify-center items-center'>
-                                                                        <div className='md:text-lg sm:text-base text-center max-w-48 text-clip line-clamp-1  capitalize'>{product.productName}</div>
-                                                                        <div className='md:text-lg sm:text-base font-semibold'>Just {formattedCurrency(product.productSellingPrice)} </div>
-                                                                  </div>
-                                                            </div>
-                                                      </>
-                                                )
-                                          })
-                                    )
-                              }
-                        </div>
-                  </div>
-            </div>
+            <>
+                  {
+                        isError ? null :
+                              <div className='bg-white shadow mt-6'>
+                                    <div className='px-4 py-4'>
+                                          <div className='mb-3 flex justify-between items-center'>
+                                                <div className='text-2xl font-semibold title'>{heading}</div>
+                                                <div className='text-3xl text-[#006D77] h-fit w-fit cursor-pointer hover:scale-125 transition-all'><IoChevronForwardCircle /></div>
+                                          </div>
+                                          <div className='mainProductDivCinatiner flex bg-white gap-4'>
+                                                {
+                                                      isLoading ? (
+                                                            loadingScreen.map((_, index) => {
+                                                                  return (<>
+                                                                        <div className='loadingDiv flex h-[300px] w-[200px] bg-slate-400 animate-pulse  border-2 p-[6px] rounded-md' key={index}>
+                                                                        </div>
+                                                                  </>)
+                                                            })
+                                                      ) : (
+                                                            subCategoryWiseProduct.map((product, index) => {
+                                                                  return (
+                                                                        <>
+                                                                              <div className='flex md:flex-col sm:flex-row  border p-[6px] rounded-md' key={index}>
+                                                                                    <div id='productImage' className='w-full md:h-[220px] md:max-w-[200px] sm:h-[64px] sm:max-w-[64px] cursor-pointer'>
+                                                                                          <img src={product.productImage[0]} className='h-full w-full object-scale-down hover:scale-105 transition-all' />
+                                                                                    </div>
+                                                                                    <div id='productDetail' className='flex flex-col justify-center items-center'>
+                                                                                          <div className='md:text-lg sm:text-base text-center max-w-48 text-clip line-clamp-1  capitalize'>{product.productName}</div>
+                                                                                          <div className='md:text-lg sm:text-base font-semibold'>Just {formattedCurrency(product.productSellingPrice)} </div>
+                                                                                    </div>
+                                                                              </div>
+                                                                        </>
+                                                                  )
+                                                            })
+                                                      )
+                                                }
+                                          </div>
+                                    </div>
+                              </div>
+                  }
+            </>
       )
 }
 

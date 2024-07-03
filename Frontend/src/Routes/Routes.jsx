@@ -14,6 +14,7 @@ import ViewAllListedProducts from "../Pages/AdminOptionPages/ViewAllListedProduc
 import UpdateProductMenu from "../Components/UpdateProductForm/UpdateProductMenu.jsx"
 import ErrorPage from '../Pages/ErrorPage.jsx';
 import SpecificCategoryPage from '../Components/HomePageComponents/SpecificCategoryPage.jsx';
+import SetNewPAssword from '../Pages/SetNewPAssword.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: 'forgotPassword',
         element: <ForgotPassword />,
+      },
+      {
+        path:'resetpassword/:id',
+        element:<SetNewPAssword/>
       },
       {
         path: 'signup',

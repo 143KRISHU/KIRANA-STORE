@@ -13,6 +13,14 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/logout`,
             method : "post"
       },
+      forgotPassword:{
+            url : `${backendMainDomainURL}/api/v1/customer/forgotPassword`,
+            method : "post"
+      },
+      verifyOtp:{
+            url : `${backendMainDomainURL}/api/v1/customer/verifyOtp`,
+            method : "post"
+      },
       current_user : {
             url : `${backendMainDomainURL}/api/v1/customer/customer-details`,
             method : "get"

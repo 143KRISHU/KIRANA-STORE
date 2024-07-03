@@ -103,3 +103,16 @@ header {
             left:45%
       }
 }
+
+/* ForgotPassword Page CSS */
+.forgotPasswordForm input:disabled,button:disabled{
+      background-color: #f0f0f0;
+      color: #a0a0a0;
+      cursor: not-allowed;
+}
+
+/* This is the CSS to remove the scroll of the Number input  */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button{
+      -webkit-appearance: none;
+}

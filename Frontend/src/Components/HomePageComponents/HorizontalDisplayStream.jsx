@@ -111,7 +111,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                                                           <img src={product.productImage[0]} className='h-full w-full object-scale-down hover:scale-110 transition-all cursor-pointer' />
                                                                                     </div>
                                                                                     <div id='productDetail' className=' ml-2 flex flex-col justify-center items-center'>
-                                                                                          <div className='md:text-lg sm:text-base w-52 text-center select-none text-clip line-clamp-1  capitalize'>{product.productName}</div>
+                                                                                          <div className='md:text-lg sm:text-base w-48 text-center select-none text-clip line-clamp-1  capitalize'>{product.productName}</div>
                                                                                           <div className='md:text-lg sm:text-base font-semibold select-none'>Just {formattedCurrency(product.productSellingPrice)} </div>
                                                                                     </div>
                                                                               </div>

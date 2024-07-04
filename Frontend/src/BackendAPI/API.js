@@ -17,6 +17,10 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/forgotPassword`,
             method : "post"
       },
+      updatePassword :{
+            url : `${backendMainDomainURL}/api/v1/customer/updatePassword`,
+            method : "post"
+      },
       verifyOtp:{
             url : `${backendMainDomainURL}/api/v1/customer/verifyOtp`,
             method : "post"

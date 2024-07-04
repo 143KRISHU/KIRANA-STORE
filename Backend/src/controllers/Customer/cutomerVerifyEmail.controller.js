@@ -13,6 +13,7 @@ const verifyEmail = asyncHandler (async (req,res,next)=>{
                               400,"Invalid Link"
                         )
                   )
+                  return
             }
             const token = await Token.findOne({
                   customerId : customer._id,
@@ -24,6 +25,7 @@ const verifyEmail = asyncHandler (async (req,res,next)=>{
                               400,"Invalid Link"
                         )
                   )
+                  return
             }
 
             await customer.updateOne({_id:customer._id,verified : true})

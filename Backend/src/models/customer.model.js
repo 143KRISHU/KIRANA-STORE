@@ -60,6 +60,20 @@ customerSchema.pre("save", async function (next) {
       next()
 })
 
+customerSchema.pre("findOneAndUpdate", async function (next) {
+
+      //paswword only be encrypt if it is modifies
+      const update = this.getUpdate()
+      if(update.password){
+            try {
+                  update.password = await bcrypt.hash(update.password, 10); 
+            } catch (error) {
+                  return next(error)
+            }
+      }
+      next()
+})
+
 //Custom Methods
 customerSchema.methods.isPasswordCorrect = async function (password) {
       return await bcrypt.compare(password, this.password);

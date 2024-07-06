@@ -3,6 +3,7 @@ import { IoChevronForwardCircle } from "react-icons/io5";
 import backendRoutesAPI from '../../BackendAPI/API';
 import { IoChevronForward } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 function HorizontalDisplayStream({ subcategory, heading }) {
       const [subCategoryWiseProduct, setSubCategoryWiseProduct] = useState([])
@@ -10,6 +11,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
       const [isLoading, setIsLoading] = useState(false)
       const loadingScreen = new Array(8).fill(null)
       const [isError, setIsError] = useState(false)
+      const navigator = useNavigate()
 
       const getProductData = async () => {
             setIsLoading(true)
@@ -64,36 +66,45 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                 <div className='text-2xl font-semibold title'>{heading}</div>
                                                 <div className='text-3xl text-[#006D77] h-fit w-fit cursor-pointer hover:scale-125 transition-all'><IoChevronForwardCircle /></div>
                                           </div>
+                                          {/* Slide Buttons */}
                                           {
-                                                subCategoryWiseProduct.length !== 9 ? null : (
-                                                      <div className='z-30 h-fit w-full md:flex justify-between absolute top-[40%]  items-center hidden'>
-                                                            <div onClick={handleBackwardMoveButtonInHorizontalSlide}
-                                                                  className='text-2xl text-white h-24 w-8 flex justify-center shadow-md cursor-pointer
-                                                            items-center edgeRound-left bg-[#006D77]'
-                                                                  style={{
-                                                                        visibility: `${horizontalSlideCount === 0 ? `hidden` : `visible`}`
-                                                                  }}
-                                                            ><IoIosArrowBack /></div>
-                                                            <div onClick={handleForwardMoveButtonInHorizontalSlide}
-                                                                  className='text-2xl text-white h-24 w-8 flex justify-center  shadow-md cursor-pointer
-                                                            items-center edgeRound-right bg-[#006D77]'
-                                                                  style={{
-                                                                        visibility: `${horizontalSlideCount === 3 ? `hidden` : `visible`}`,
-                                                                        right: '0'
-                                                                  }}
-                                                            > <IoChevronForward /></div>
-                                                      </div>
+                                                isLoading ? null :(
+                                                      subCategoryWiseProduct.length !== 9 ? null : (
+                                                            <div className='z-30 h-fit w-full md:flex justify-between absolute top-[40%]  items-center hidden'>
+                                                                  <div onClick={handleBackwardMoveButtonInHorizontalSlide}
+                                                                        className='text-2xl text-white h-24 w-8 flex justify-center shadow-md cursor-pointer
+                                                                  items-center edgeRound-left bg-[#006D77]'
+                                                                        style={{
+                                                                              visibility: `${horizontalSlideCount === 0 ? `hidden` : `visible`}`
+                                                                        }}
+                                                                  ><IoIosArrowBack /></div>
+                                                                  <div onClick={handleForwardMoveButtonInHorizontalSlide}
+                                                                        className='text-2xl text-white h-24 w-8 flex justify-center  shadow-md cursor-pointer
+                                                                  items-center edgeRound-right bg-[#006D77]'
+                                                                        style={{
+                                                                              visibility: `${horizontalSlideCount === 3 ? `hidden` : `visible`}`,
+                                                                              right: '0'
+                                                                        }}
+                                                                  > <IoChevronForward /></div>
+                                                            </div>
+                                                      )
                                                 )
                                           }
+                                          {/* Products List */}
                                           <div className='mainProductDivCinatiner relative flex bg-white gap-4 px-4 py-2 overflow-hidden'>
                                                 {
                                                       isLoading ? (
                                                             loadingScreen.map((_, index) => {
                                                                   return (
                                                                         <>
-                                                                              <div className='loadingDiv flex h-[300px] w-[200px] bg-slate-400 bg-opacity-35 animate-pulse
-                                                                        border-2 p-[6px] rounded-md' key={index}>
-                                                                                    <div className='w-full md:h-[220px] md:max-w-[200px] sm:h-[64px] sm:max-w-[64px] bg-opacity-40 bg-slate-400'></div>
+                                                                                <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] justify-center items-center rounded-md transition-all group' key={index}>
+                                                                                    <div id='productImage' className='w-full md:h-[220px] md:min-w-[200px] sm:h-[64px] sm:max-w-[64px] cursor-pointer'>
+                                                                                          <img src='' className='h-full w-full object-scale-down cursor-pointer bg-slate-200 animate-pulse' />
+                                                                                    </div>
+                                                                                    <div id='productDetail' className=' ml-2 flex flex-col justify-center items-center p-4 gap-4'>
+                                                                                          <div className='w-48 p-3 animate-pulse bg-slate-200 rounded-full'></div>
+                                                                                          <div className='w-48 p-3 animate-pulse bg-slate-200 rounded-full'></div>
+                                                                                    </div>
                                                                               </div>
                                                                         </>)
                                                             })
@@ -101,7 +112,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                             subCategoryWiseProduct.map((product, index) => {
                                                                   return (
                                                                         <>
-                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all' key={index}
+                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group' onClick={()=>{navigator(`/productDetail/${product._id}/view/${product.productName}`)}} key={product._id}
                                                                                     style={{
                                                                                           transform: `translateX(-${horizontalSlideCount * 100}%)`,
                                                                                           transitionProperty: 'transform',

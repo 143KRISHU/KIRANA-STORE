@@ -15,6 +15,7 @@ import UpdateProductMenu from "../Components/UpdateProductForm/UpdateProductMenu
 import ErrorPage from '../Pages/ErrorPage.jsx';
 import SpecificCategoryPage from '../Components/HomePageComponents/SpecificCategoryPage.jsx';
 import SetNewPAssword from '../Pages/SetNewPAssword.jsx';
+import ProductDetailPage from '../Pages/ProductDetailPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'customer-profile',
         element: <CustomerProfile />,
+      },
+      {
+        path:'productDetail/:id/view/:name',
+        element:<ProductDetailPage/>
       },
       {
         path: 'admin-pannel',

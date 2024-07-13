@@ -57,7 +57,15 @@ const backendRoutesAPI = {
             getCurrentProduct:{
                   url:`${backendMainDomainURL}/api/v1/admin/getOneProductData`,
                   method:"post"
-            },        
+            },     
+            updateImageInfo:{
+                  url:`${backendMainDomainURL}/api/v1/product/productImageUpdate`,
+                  method:"post"
+            },   
+            updateProductInfoData:{
+                  url:`${backendMainDomainURL}/api/v1/product/productInfoDataUpdate`,
+                  method:"post"
+            }, 
       },
       homePageAPI :{
             showCategories : {

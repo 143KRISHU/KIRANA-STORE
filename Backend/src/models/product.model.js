@@ -4,7 +4,6 @@ const ProductSchema = new Schema({
       productName: {
             type: String,
             required: true,
-            lowercase: true,
             index: true,
             trim: true,
             unique: true
@@ -12,7 +11,6 @@ const ProductSchema = new Schema({
       productBrand: {
             type: String,
             required: true,
-            lowercase: true,
             index: true,
             trim: true
       },

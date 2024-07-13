@@ -40,13 +40,13 @@ function App() {
         </header>
         <main className="main">
           <section className="container w-full">
-            <ToastContainer />
+            <ToastContainer/>
             <Outlet />
           </section>
         </main>
-        {/* <footer>
+        <footer>
           <Footer />
-        </footer> */}
+        </footer>
       </customerContext.Provider>
     </>
 

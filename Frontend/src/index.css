@@ -116,3 +116,28 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button{
       -webkit-appearance: none;
 }
+
+/* Product Detail Page - Media Queries And CSS */
+@media(max-width:1023px){
+      .displayMainConatinare{
+            flex-direction: column;
+            align-items: center;
+      }
+      .imageDisplayDiv{
+            flex-direction: column;
+      }
+      .sideImasgesDisplay{
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+      }
+      .activeImageDiv{
+            height: 100%;
+            max-width: 25rem;
+      }
+      .allSideImages{
+            height: 4rem;
+            width: 4rem;
+      }
+}

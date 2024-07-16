@@ -8,7 +8,6 @@ import { toast } from "react-toastify"
 import { setProductDetail } from '../../Store/productSlice.js';
 import { MdDelete } from "react-icons/md";
 import { IoCloseCircleSharp } from "react-icons/io5";
-import LoaderTwo from '../../Components/Loader/SecondLoader/LoaderTwo.jsx';
 import { IoMdCloudUpload } from "react-icons/io";
 import { FaFileUpload } from "react-icons/fa";
 
@@ -16,14 +15,16 @@ function UpdateProductMenu() {
       const dispatch = useDispatch()
       const navigate = useNavigate()
       const product = useSelector((state) => state?.product?.product)
-      const [image, setImage] = useState({})
       const customer = useSelector((state) => state?.customer?.customer)
+      const params = useParams()
+      const [image, setImage] = useState({})
+      const [formFieldError, setFormFieldError] = useState({});
       const [isProductImageUpdating, setisProductImageUpdating] = useState(false)
       const [isNewImageAdded, setisNewImageAdded] = useState(false)
       const [productData, setProductData] = useState(product)
       const [productCategory, setProductcategory] = useState([])
       const [productSubCategory, setProductSubCategory] = useState([])
-      const params = useParams()
+      
 
       const getCurrentProduct = async () => {
             const currentProductID = params.id
@@ -185,50 +186,92 @@ function UpdateProductMenu() {
 
 
       }
-      const handleFinalSubmit = async(e)=>{
+      const handleFinalSubmit = async (e) => {
             e.preventDefault()
             const dataToUpdate = {}
-            if(product.productName !== productData.productName){
-                  dataToUpdate.productName = productData.productName
+            const error = {}
+            if (product.productName !== productData.productName) {
+                  if (productData.productName !== "") {
+                        dataToUpdate.productName = productData.productName
+                  }
+                  else {
+                        error.productName = 'Product Name should not be Empty'
+                  }
             }
-            if(product.productBrand !== productData.productBrand){
-                  dataToUpdate.productBrand = productData.productBrand
+            if (product.productBrand !== productData.productBrand) {
+                  if (productData.productBrand !== "") {
+                        dataToUpdate.productBrand = productData.productBrand
+                  }
+                  else {
+                        error.productBrand = 'Product Brand should not be Empty'
+                  }
             }
-            if(product.productDescription !== productData.productDescription){
-                  dataToUpdate.productDescription = productData.productDescription
+            if (product.productDescription !== productData.productDescription) {
+                  if (productData.productDescription !== "") {
+                        dataToUpdate.productDescription = productData.productDescription
+                  }
+                  else {
+                        error.productDescription = 'Product Description should not be Empty'
+                  }
             }
-            if(product.productListingPrice !== productData.productListingPrice){
-                  dataToUpdate.productListingPrice = productData.productListingPrice
+            if (product.productListingPrice !== productData.productListingPrice) {
+                  if (productData.productListingPrice !== "") {
+                        dataToUpdate.productListingPrice = productData.productListingPrice
+                  }
+                  else {
+                        error.productListingPrice = 'Product Listing Price should not be Empty'
+                  }
             }
-            if(product.productSellingPrice !== productData.productSellingPrice){
-                  dataToUpdate.productSellingPrice = productData.productSellingPrice
+            if (product.productSellingPrice !== productData.productSellingPrice) {
+                  if (productData.productSellingPrice !== "") {
+                        dataToUpdate.productSellingPrice = productData.productSellingPrice
+                  }
+                  else {
+                        error.productSellingPrice = 'Product Selling Price should not be Empty'
+                  }
             }
-            if(product.category !== productData.category){
-                  dataToUpdate.category = productData.category
+            if (product.category !== productData.category) {
+                  if (productData.category !== "") {
+                        dataToUpdate.category = productData.category
+                  }
+                  else {
+                        error.category = 'Product category should not be Empty'
+                  }
             }
-            if(product.subcategory !== productData.subcategory){
-                  dataToUpdate.subcategory = productData.subcategory
+            if (product.subcategory !== productData.subcategory) {
+
+                  if (productData.subcategory !== "") {
+                        dataToUpdate.subcategory = productData.subcategory
+                  }
+                  else {
+                        error.subcategory = 'Product Sub-Category should not be Empty'
+                  }
             }
-            if(Object.keys(dataToUpdate).length > 0){
-                  dataToUpdate._id = product._id
-                  const backendResponse = await fetch(backendRoutesAPI.admin.updateProductInfoData.url,{
-                        method: backendRoutesAPI.admin.updateProductInfoData.method,
-                        headers: {
-                              "content-type": "application/json"
-                        },
-                        body:JSON.stringify(dataToUpdate)
-                  })
-                  const finalRes = await backendResponse.json()
-                  if(finalRes.success){
-                        toast.success(finalRes.message)
-                        navigate("/admin-pannel/view-all-listed-products")
+            if (Object.keys(dataToUpdate).length > 0) {
+                  if (Object.keys(error).length > 0) {
+                        dataToUpdate._id = product._id
+                        const backendResponse = await fetch(backendRoutesAPI.admin.updateProductInfoData.url, {
+                              method: backendRoutesAPI.admin.updateProductInfoData.method,
+                              headers: {
+                                    "content-type": "application/json"
+                              },
+                              body: JSON.stringify(dataToUpdate)
+                        })
+                        const finalRes = await backendResponse.json()
+                        if (finalRes.success) {
+                              toast.success(finalRes.message)
+                              navigate("/admin-pannel/view-all-listed-products")
+                        }
+                        else {
+                              toast.error(finalRes.message)
+                              navigate("/admin-pannel/view-all-listed-products")
+                        }
                   }
                   else{
-                        toast.error(finalRes.message)
-                        navigate("/admin-pannel/view-all-listed-products")
+                        setFormFieldError(error)
                   }
             }
-            else{
+            else {
                   toast.warning(`You haven't update any information about the ${product.productName}`)
             }
 
@@ -340,7 +383,7 @@ function UpdateProductMenu() {
                                           onChange={handleChange}
                                           className='border hidden-scrollbar bg-white p-2 rounded-sm w-full capitalize'
                                           placeholder='Enter the name of the Product' />
-                                    <p className='text-red-500'></p>
+                                    <p className='text-red-500'>{formFieldError?.productName}</p>
 
                                     {/* PRoduct Barnd Name */}
                                     <label htmlFor='productBrand' className='text-2xl font-semibold '>Product Brand :</label>
@@ -350,7 +393,7 @@ function UpdateProductMenu() {
                                           onChange={handleChange}
                                           className='border bg-white p-2 rounded-sm w-full '
                                           placeholder='Enter the name of the Product' />
-                                    <p className='text-red-500'></p>
+                                    <p className='text-red-500'>{formFieldError?.productBrand}</p>
 
                                     {/* Product Description */}
                                     <label htmlFor='productDescription' className='text-2xl font-semibold '>Product Description:</label>
@@ -361,7 +404,7 @@ function UpdateProductMenu() {
                                           onChange={handleChange}
                                           className='border hidden-scrollbar bg-white p-2 rounded-sm w-full h-fit'
                                           placeholder='Enter the name of the Product'></textarea>
-                                    <p className='text-red-500'></p>
+                                    <p className='text-red-500'>{formFieldError?.productDescription}</p>
 
 
                                     <div className='flex gap-4 w-full mt-4 justify-between items-center '>
@@ -401,7 +444,7 @@ function UpdateProductMenu() {
                                                 })
                                           }
                                     </select>
-                                    <p className='text-red-500'></p>
+                                    <p className='text-red-500'>{formFieldError?.category}</p>
 
                                     {/* Product Sub Category */}
 
@@ -414,7 +457,7 @@ function UpdateProductMenu() {
                                                 })) : null
                                           }
                                     </select>
-                                    <p className='text-red-500'></p>
+                                    <p className='text-red-500'>{formFieldError?.subcategory}</p>
 
                                     <button
                                           className='py-2 px-8 rounded-md text-xl cursor-pointer  text-[#EDF6F9] bg-[#006D77] 
@@ -426,5 +469,4 @@ function UpdateProductMenu() {
                   </div>) : (null)
       )
 }
-
 export default UpdateProductMenu

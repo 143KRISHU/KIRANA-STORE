@@ -7,7 +7,8 @@ import backendRoutesAPI from "../BackendAPI/API.js";
 import { toast } from 'react-toastify';
 import customerContext from '../Context/index.js';
 import Loader from '../Components/Loader/Loader';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetProductDetail,setCurrentCustomerCartDetail } from '../Store/cartSlice';
 
 function Login() {
       const customer = useSelector((state) => state?.customer?.customer)
@@ -18,8 +19,8 @@ function Login() {
       });
       const [formErrors, setFormErrors] = useState({});
       const [isSubmit, setIsSubmit] = useState(false);
-      const navigate = useNavigate();
-
+      const navigate = useNavigate()
+      const dispatch = useDispatch()
       const custContext = useContext(customerContext)
 
       const handleChnage = (e) => {
@@ -43,9 +44,18 @@ function Login() {
                   )
                   const finalData = await backendAPIResponse.json();
                   if (finalData.success) {
+                        console.log()
                         toast.success(finalData.message)
                         await custContext.getCustomerDetail()
-                        navigate("/")
+                        try {
+                              const serializedState = localStorage.getItem('addTocart');
+                              if (serializedState !== null) {
+                                const cartData = JSON.parse(serializedState)
+                                saveCartDataToDB(cartData,finalData.data.customerData?._id)
+                              }
+                            } catch (err) {
+                              console.error('Could not load state', err);
+                            }
                   }
                   else {
                         if (finalData.message.includes("You are Not Registered")) {
@@ -64,6 +74,41 @@ function Login() {
             }
       }
 
+      // If the user want to add the product to cart and the logged in so this function
+      // save the cart data in the data base 
+      const saveCartDataToDB = async(data,id)=>{
+            const backendAPIResponse = await fetch(backendRoutesAPI.customerCartDetail.url,{
+                  method: backendRoutesAPI.customerCartDetail.method,
+                  headers: {
+                        'content-type': 'application/json'
+                  },
+                  body: JSON.stringify({cartData :data ,_id:id})
+            })
+            const finalRes = await backendAPIResponse.json()
+            if(finalRes.success){
+                  localStorage.removeItem('addTocart')
+                  dispatch(resetProductDetail())
+                  getCustomerCartData()
+                  navigate('/')
+            }
+            else{
+                  toast.error(finalRes.message)
+                  navigate('/')
+            }
+      }
+
+      const getCustomerCartData = async()=>{
+            console.log("Cart Data fectched")
+            const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url,{
+              method: backendRoutesAPI.getCustomerCartDetail.method,
+              credentials: "include"
+            })
+            const finalResponse = await backendApiResponse.json()
+            if(finalResponse.success){
+                  dispatch(setCurrentCustomerCartDetail(finalResponse.data))
+            }
+          }
+
       const validateFormData = (values) => {
             const error = {};
             if (!values.email) { error.email = "Email is required" }
@@ -79,8 +124,8 @@ function Login() {
             }
       }), [formErrors, formData])
 
+
       useEffect((() => {
-            
             if(customer){
                   navigate("/")
             }

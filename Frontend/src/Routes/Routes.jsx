@@ -16,6 +16,7 @@ import ErrorPage from '../Pages/ErrorPage.jsx';
 import SpecificCategoryPage from '../Components/HomePageComponents/SpecificCategoryPage.jsx';
 import SetNewPAssword from '../Pages/SetNewPAssword.jsx';
 import ProductDetailPage from '../Pages/ProductDetailPage.jsx';
+import AddToCartPage from '../Pages/AddToCartPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path:'productDetail/:id/view/:name',
         element:<ProductDetailPage/>
+      },
+      {
+        path:'yourcart',
+        element:<AddToCartPage/>
       },
       {
         path: 'admin-pannel',

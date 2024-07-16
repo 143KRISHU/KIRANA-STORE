@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Search from '../Search/Search'
 import { FaRegCircleUser } from "react-icons/fa6";
 import { BsCart2 } from "react-icons/bs";
@@ -13,10 +13,12 @@ import { FaAngleUp } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
+import { resetProductDetail } from '../../Store/cartSlice';
 
 function Header() {
 
   const customer = useSelector((state) => state?.customer?.customer)
+  const addToCart = useSelector((state)=>state.addTocart)
   const [showCustomerOption, setShowCustomerOption] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -31,9 +33,14 @@ function Header() {
     if (finalResponse.success) {
       toast.success(finalResponse.message)
       dispatch(setCustomerDetail(null))
+      dispatch(resetProductDetail())
       navigate("/");
     }
   }
+  const handleCartClick = ()=>{
+    navigate('/yourcart')
+  }
+
 
   return (
     <section className='header h-16 w-screen'>
@@ -55,10 +62,10 @@ function Header() {
 
         <div className='links flex flex-row justify-around gap-10 items-center'>
           {/* Add To Cart Logo */}
-          <div className="cart-icon text-3xl  cursor-pointer relative mr-12">
+          <div className="cart-icon text-3xl  cursor-pointer relative mr-12 group" onClick={handleCartClick}>
             <span><BsCart2 /></span>
             <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value
-            flex items-center justify-center rounded-full'>0</p>
+            flex items-center justify-center rounded-full'>{addToCart?.totalNumberOfProduct}</p>
           </div>
           
           {

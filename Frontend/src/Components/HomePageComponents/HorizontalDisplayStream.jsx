@@ -68,7 +68,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                           </div>
                                           {/* Slide Buttons */}
                                           {
-                                                isLoading ? null :(
+                                                isLoading ? null : (
                                                       subCategoryWiseProduct.length !== 9 ? null : (
                                                             <div className='z-30 h-fit w-full md:flex justify-between absolute top-[40%]  items-center hidden'>
                                                                   <div onClick={handleBackwardMoveButtonInHorizontalSlide}
@@ -96,8 +96,8 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                       isLoading ? (
                                                             loadingScreen.map((_, index) => {
                                                                   return (
-                                                                        <>
-                                                                                <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] justify-center items-center rounded-md transition-all group' key={index}>
+                                                                        <div key={index}>
+                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] justify-center items-center rounded-md transition-all group' key={index}>
                                                                                     <div id='productImage' className='w-full md:h-[220px] md:min-w-[200px] sm:h-[64px] sm:max-w-[64px] cursor-pointer'>
                                                                                           <img src='' className='h-full w-full object-scale-down cursor-pointer bg-slate-200 animate-pulse' />
                                                                                     </div>
@@ -106,13 +106,13 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                                                           <div className='w-48 p-3 animate-pulse bg-slate-200 rounded-full'></div>
                                                                                     </div>
                                                                               </div>
-                                                                        </>)
+                                                                        </div>)
                                                             })
                                                       ) : (
                                                             subCategoryWiseProduct.map((product, index) => {
                                                                   return (
-                                                                        <>
-                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group' onClick={()=>{navigator(`/productDetail/${product._id}/view/${product.productName}`)}} key={product._id}
+                                                                        <div key={index}>
+                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group' onClick={() => { navigator(`/productDetail/${product._id}/view/${product.productName}`) }} key={product._id}
                                                                                     style={{
                                                                                           transform: `translateX(-${horizontalSlideCount * 100}%)`,
                                                                                           transitionProperty: 'transform',
@@ -126,7 +126,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                                                           <div className='md:text-lg sm:text-base font-semibold select-none'>Just {formattedCurrency(product.productSellingPrice)} </div>
                                                                                     </div>
                                                                               </div>
-                                                                        </>
+                                                                        </div>
                                                                   )
                                                             })
                                                       )

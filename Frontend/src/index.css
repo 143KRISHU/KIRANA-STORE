@@ -62,7 +62,7 @@ header {
       /* For Chrome, Safari, and Opera */
 }
 
-/* home page banner4 forward and backward button CSS */
+/* home page banner forward and backward button CSS */
 .edgeRound-left{
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
@@ -140,4 +140,38 @@ input[type='number']::-webkit-outer-spin-button{
             height: 4rem;
             width: 4rem;
       }
+}
+@media(max-width:514px){
+      .productDescriptionConatiner{
+            padding-top: 1rem;
+            padding-left: 0.5rem;
+      }
+      .productName{
+            font-size: 2rem;
+      }
+      .productBrand{
+            font-size: 1rem;
+            padding: 0.10rem;
+      }
+      .addToCartBtn p{
+            display: none;
+      }
+      .buyTheProductBtn p{
+            display: none;
+      }
+}
+
+/* Review Form CSS */
+.review-form input{
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+}
+.review-form input:focus{
+      outline: none;
+      border: none;
+}
+.review-form button{
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      font-size: 1.75rem;
 }

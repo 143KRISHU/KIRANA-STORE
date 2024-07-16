@@ -1,10 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import backendRoutesAPI from '../BackendAPI/API'
+import { FaCartArrowDown } from "react-icons/fa6";
+import { BsFillBagHeartFill } from "react-icons/bs";
+import { IoIosSend } from "react-icons/io";
+import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux"
+import { setProductDetail } from '../Store/cartSlice';
 
 function ProductDetailPage() {
       const params = useParams()
+      const dispatch = useDispatch()
       const [productInfo, setProductInfo] = useState({})
       const [isLoading, setIsloading] = useState(false)
       const [activeImage, setActiveImage] = useState('')
@@ -37,6 +44,10 @@ function ProductDetailPage() {
                   toast.error(finalRes.message)
                   navigate('/')
             }
+      }
+      const addToCartButtonAction = (e)=>{
+            e.preventDefault()
+            dispatch(setProductDetail({id : productInfo?._id,price : productInfo?.productSellingPrice}))
       }
       useEffect(() => {
             getCurrentProductData()
@@ -72,9 +83,9 @@ function ProductDetailPage() {
                                           ) : (
                                                 productInfo?.productImage?.map((imageUrl, index) => {
                                                       return (
-                                                            <div className='h-24 w-24  cursor-pointer group allSideImages' 
-                                                            onMouseEnter={() => { setActiveImage(imageUrl)}} 
-                                                            ontouchmove={() => { setActiveImage(imageUrl)}} >
+                                                            <div className='h-24 w-24  cursor-pointer group allSideImages' key={index}
+                                                                  onMouseEnter={() => { setActiveImage(imageUrl) }}
+                                                                  onTouchMove={() => { setActiveImage(imageUrl) }} >
                                                                   <img src={imageUrl} className='h-full w-full object-scale-down' />
                                                             </div>
                                                       )
@@ -86,9 +97,9 @@ function ProductDetailPage() {
                         {/* Image Zoom Display */}
 
                         {/* Product Detail's */}
-                        <div className='w-full max-w-[44rem] px-2 productDescription'>
-                              <p className='bg-[#006D77] inline-block mb-1 text-white text-center px-3 py-1 capitalize text-2xl rounded-full font-semibold'>{productInfo.productBrand}</p>
-                              <p className='text-4xl capitalize font-bold mb-1'>{productInfo.productName}</p>
+                        <div className='w-full max-w-[44rem] px-2 productDescriptionConatiner'>
+                              <p className='bg-[#006D77] inline-block mb-1 text-white text-center px-3 py-1 capitalize text-2xl rounded-full font-semibold productBrand'>{productInfo.productBrand}</p>
+                              <p className='productName text-4xl capitalize font-bold mb-1'>{productInfo.productName}</p>
                               <p className='text-lg text-slate-400 font-semibold mb-1 caiptalize'>{productInfo.subcategory}</p>
                               <div className="flex flex-col justify-start align-middle mt-3 mb-2">
                                     <div className='flex align-middle gap-2 items-center mb-2'>
@@ -105,6 +116,37 @@ function ProductDetailPage() {
                               <p className='flex flex-col text-sm mb-2 text-justify'>
                                     {productInfo.productDescription}
                               </p>
+                              {/* Action Button Section */}
+                              <div className='w-full mt-4'>
+                                    <div className='w-full flex justify-between gap-2 p-2'>
+                                          <button className='w-full flex justify-evenly items-center p-2 text-xl font-medium text-[#fff]
+                                                 bg-green-500 rounded-xl border-2 border-[#fff]  addToCartBtn
+                                                 hover:bg-white hover:text-green-500 hover:border-2 hover:border-green-500'
+                                                 onClick={addToCartButtonAction}>
+                                                      <p>Add To Cart</p><span className='text-2xl'><FaCartArrowDown/></span>
+                                          </button>
+                                          <button className='w-full flex justify-evenly items-center p-2 text-xl font-medium text-[#fff]
+                                                 bg-blue-500 rounded-xl border-2 border-[#fff]  buyTheProductBtn
+                                                 hover:bg-white hover:text-blue-500 hover:border-2 hover:border-blue-500'
+                                                 onClick={(e)=>{e.preventDefault()}}>
+                                                      <p>Buy The Product</p> <span className='text-2xl'><BsFillBagHeartFill/></span>
+                                          </button>
+                                    </div>
+                              </div>
+                              {/* Add Review section */}
+                              <div className='mt-2'>
+                                    <form className='flex flex-col w-full p-2 gap-2 review-form'>
+                                          <label htmlFor='review' className='text-xl font-bold'>Share Your Review</label>
+                                          <div className='w-full flex'>
+                                          <input name="review"  id="review" cols="30" rows="3" placeholder='Share Your Thoughts'
+                                                className='bg-slate-200 w-full  text-base p-2 text-black'/>
+                                          <button className='mx-auto px-3 py-1  font-medium bg-slate-200 text-[#006D77]'
+                                                            onClick={(e)=>{e.preventDefault()}}>
+                                                <IoIosSend/>
+                                          </button>
+                                          </div>
+                                    </form>
+                              </div>
                         </div>
                   </div>
             </div>

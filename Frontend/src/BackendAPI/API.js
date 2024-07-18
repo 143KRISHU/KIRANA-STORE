@@ -29,8 +29,12 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/customer-details`,
             method : "get"
       },
-      customerCartDetail:{
-            url : `${backendMainDomainURL}/api/v1/customer/customerCartDetail`,
+      guestCustomerCartDetail:{
+            url : `${backendMainDomainURL}/api/v1/customer/guestCustomerCartDetail`,
+            method : "post"
+      },
+      loggedInCustomerCartDetail:{
+            url : `${backendMainDomainURL}/api/v1/customer/loggedInCustomerCartDetail`,
             method : "post"
       },
       getCustomerCartDetail:{

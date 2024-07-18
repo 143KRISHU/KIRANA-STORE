@@ -8,6 +8,7 @@ import backendRoutesAPI from "./BackendAPI/API.js"
 import customerContext from "./Context/index.js";
 import { useDispatch } from "react-redux"
 import { setCustomerDetail } from "./Store/customerSlice.js";
+import { resetProductDetail, setCurrentCustomerCartDetail } from "./Store/cartSlice.js";
 
 function App() {
 
@@ -20,17 +21,28 @@ function App() {
     })
     const finalResponse = await backendAPIResponse.json()
     if (finalResponse.success) {
+      dispatch(resetProductDetail())
       dispatch(setCustomerDetail(finalResponse.data))
+      getCustomerCartData()
       return
     }
     else {
       return
     }
   }
+  const getCustomerCartData = async()=>{
+    const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url,{
+      method: backendRoutesAPI.getCustomerCartDetail.method,
+      credentials: "include"
+    })
+    const finalResponse = await backendApiResponse.json()
+    if(finalResponse.success){
+          dispatch(setCurrentCustomerCartDetail(finalResponse.data))
+    }
+}
 
   useEffect(() => {
     getCustomerDetail()
-
   })
   return (
     <>

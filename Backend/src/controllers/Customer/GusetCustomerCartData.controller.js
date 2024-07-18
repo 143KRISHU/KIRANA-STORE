@@ -4,10 +4,11 @@ import ApiResponse from "../../utils/apiResponse.js"
 import Cart from "../../models/shoppingCart.model.js"
 
 const CustomerCart = asyncHandler(async(req,res)=>{
+      const body =JSON.parse(req.body.cartData) 
       const custId = req.body._id
-      const totalNumberOfProduct = req.body.cartData.totalNumberOfProduct
-      const productId = req.body.cartData.productId
-      const itemsData = req.body.cartData.itemsData
+      const totalNumberOfProduct = body.totalNumberOfProduct
+      const productId = body.productId
+      const itemsData = body.itemsData
       const isCurrentCustCartExist = await Cart.findOne({customerId : custId})
       try {
             if(isCurrentCustCartExist){
@@ -22,7 +23,7 @@ const CustomerCart = asyncHandler(async(req,res)=>{
                                     quantity:itemsData[productId[i]].quantity,
                                     price:itemsData[productId[i]].price
                               })
-                              isCurrentCustCartExist.totalNumberOfProduct += totalNumberOfProduct
+                              isCurrentCustCartExist.totalNumberOfProduct += 1
                         }
                   }
                   await isCurrentCustCartExist.save()

@@ -31,6 +31,7 @@ function Login() {
             e.preventDefault();
             setFormErrors(validateFormData(formData));
             setIsSubmit(true);
+            const serializedState = localStorage.getItem('addTocart');
             try {
                   const backendAPIResponse = await fetch(
                         backendRoutesAPI.signin.url, {
@@ -44,18 +45,15 @@ function Login() {
                   )
                   const finalData = await backendAPIResponse.json();
                   if (finalData.success) {
-                        console.log()
                         toast.success(finalData.message)
                         await custContext.getCustomerDetail()
                         try {
-                              const serializedState = localStorage.getItem('addTocart');
                               if (serializedState !== null) {
-                                const cartData = JSON.parse(serializedState)
-                                saveCartDataToDB(cartData,finalData.data.customerData?._id)
+                                saveCartDataToDB(serializedState,finalData.data.customerData?._id)
                               }
                             } catch (err) {
                               console.error('Could not load state', err);
-                            }
+                        }
                   }
                   else {
                         if (finalData.message.includes("You are Not Registered")) {
@@ -77,8 +75,8 @@ function Login() {
       // If the user want to add the product to cart and the logged in so this function
       // save the cart data in the data base 
       const saveCartDataToDB = async(data,id)=>{
-            const backendAPIResponse = await fetch(backendRoutesAPI.customerCartDetail.url,{
-                  method: backendRoutesAPI.customerCartDetail.method,
+            const backendAPIResponse = await fetch(backendRoutesAPI.guestCustomerCartDetail.url,{
+                  method: backendRoutesAPI.guestCustomerCartDetail.method,
                   headers: {
                         'content-type': 'application/json'
                   },
@@ -89,7 +87,7 @@ function Login() {
                   localStorage.removeItem('addTocart')
                   dispatch(resetProductDetail())
                   getCustomerCartData()
-                  navigate('/')
+                  
             }
             else{
                   toast.error(finalRes.message)
@@ -98,7 +96,6 @@ function Login() {
       }
 
       const getCustomerCartData = async()=>{
-            console.log("Cart Data fectched")
             const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url,{
               method: backendRoutesAPI.getCustomerCartDetail.method,
               credentials: "include"
@@ -106,8 +103,9 @@ function Login() {
             const finalResponse = await backendApiResponse.json()
             if(finalResponse.success){
                   dispatch(setCurrentCustomerCartDetail(finalResponse.data))
+                  navigate('/')
             }
-          }
+      }
 
       const validateFormData = (values) => {
             const error = {};

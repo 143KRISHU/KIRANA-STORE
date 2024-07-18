@@ -175,3 +175,15 @@ input[type='number']::-webkit-outer-spin-button{
       border-bottom-right-radius: 10px;
       font-size: 1.75rem;
 }
+
+/* Cart Page CSs */
+.cartConatiner{
+      display: grid;
+      grid-template-columns: 70% 30%;
+      gap:10px;
+}
+.cartItemDiv{
+      display: grid;
+      grid-template-columns: 15% 40% 25% 20%;
+      gap:10px;
+}

@@ -28,18 +28,23 @@ export const addToCartSlice = createSlice({
                   state.productId = []
                   state.itemsData = {}
                   state.totalCartPrice=0
+                  state.cartItems =[]
             },
             // This function is for the Registered User
             setCurrentCustomerCartDetail :(state,action) =>{
-                  console.log(action.payload)
                   state.cartItems = action.payload.items;
                   state.totalCartPrice = action.payload.totalCartPrice
                   state.totalNumberOfProduct = action.payload.totalNumberOfProduct
                   state.productId = state.cartItems.map((product)=>{
-                        state.itemsData[product.productId._id] = {quantity : product.quantity,price:product.price} 
+                        if(state.itemsData.hasOwnProperty(product.productId._id))
+                        {
+                              state.itemsData[product.productId._id].quantity += product.quantity
+                        }
+                        else{
+                              state.itemsData[product.productId._id] = {quantity : product.quantity,price:product.price}
+                        }
                         return product.productId._id
                   })
-                  console.log(state.productId,state.itemsData)
             },
       },
 })

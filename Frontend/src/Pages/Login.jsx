@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import backendRoutesAPI from "../BackendAPI/API.js";
 import { toast } from 'react-toastify';
 import customerContext from '../Context/index.js';
-import Loader from '../Components/Loader/Loader';
+import Loader from '../Components/loaderComponent/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetProductDetail,setCurrentCustomerCartDetail } from '../Store/cartSlice';
 
@@ -47,9 +47,10 @@ function Login() {
                   if (finalData.success) {
                         toast.success(finalData.message)
                         await custContext.getCustomerDetail()
+                        getCustomerCartData()
                         try {
                               if (serializedState !== null) {
-                                saveCartDataToDB(serializedState,finalData.data.customerData?._id)
+                                //saveCartDataToDB(serializedState,finalData.data.customerData?._id)
                               }
                             } catch (err) {
                               console.error('Could not load state', err);
@@ -134,7 +135,10 @@ function Login() {
             <>
                   {
                         isSubmit ?
-                              <Loader/>
+                              <div className=' text-xl sm:text-3xl py-44 h-full w-full text-center flex justify-center items-center align-middle'>
+                                    <Loader text={'LOGGING.....'}/>
+                              </div>
+                              
                         : (
                               <section id='login'>
                               <div className="container mx-auto p-4">

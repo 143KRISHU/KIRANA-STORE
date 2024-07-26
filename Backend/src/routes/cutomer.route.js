@@ -11,6 +11,7 @@ import updatePassword from "../controllers/Customer/UpdatePassword.controller.js
 import CustomerCart from "../controllers/Customer/GusetCustomerCartData.controller.js";
 import getCustomerCartData from "../controllers/Customer/getCustomerCartData.controller.js";
 import addItemsToCartOfLoggedInCustomer from "../controllers/Customer/addItemsToCartofLogincust.controller.js";
+import updateProductCount from "../controllers/Customer/UpdateProductQunatity.controller.js";
 const customerRouter = Router()
 
 customerRouter.route("/signup").post(signUpCustomer);
@@ -22,7 +23,9 @@ customerRouter.route('/forgotPassword').post(forgotPasswordVerification)
 customerRouter.route('/verifyOtp').post(verifyOTP)
 customerRouter.route('/updatePassword').post(updatePassword)
 customerRouter.route('/guestCustomerCartDetail').post(CustomerCart)
-customerRouter.route("/getCustomerCartDetail").get(verifyCustomer,getCustomerCartData);
 customerRouter.route('/loggedInCustomerCartDetail').post(verifyCustomer,addItemsToCartOfLoggedInCustomer)
+customerRouter.route("/getCustomerCartDetail").get(verifyCustomer,getCustomerCartData);
+customerRouter.route("/productCountUpdation").post(verifyCustomer,updateProductCount);
+
 
 export default customerRouter;

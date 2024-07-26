@@ -41,6 +41,10 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/getCustomerCartDetail`,
             method : "get"
       },
+      updateCartProductCount:{
+            url : `${backendMainDomainURL}/api/v1/customer/productCountUpdation`,
+            method : "post"
+      },
       admin:{
             showAllUser:{
                   url:`${backendMainDomainURL}/api/v1/admin/show-all-customer`,

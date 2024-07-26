@@ -38,7 +38,8 @@ function Header() {
     }
   }
   const handleCartClick = ()=>{
-    navigate('/yourcart')
+    window.open('/yourcart')
+    //navigate('/yourcart')
   }
 
 

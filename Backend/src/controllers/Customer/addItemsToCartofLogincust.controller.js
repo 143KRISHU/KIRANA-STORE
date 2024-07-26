@@ -6,7 +6,7 @@ import Product from "../../models/product.model.js";
 
 const addItemsToCartOfLoggedInCustomer = asyncHandler(async (req, res) => {
       const custId = req.customer._id
-      const productId = Object.keys(req.body.cartData)[0]
+      const productId = req.body._id
       const ProductDetail = await Product.findById({_id:productId})
       const custCart = await Cart.findOne({ customerId: custId })
       try {
@@ -19,7 +19,7 @@ const addItemsToCartOfLoggedInCustomer = asyncHandler(async (req, res) => {
                         custCart.items.push({
                               productId: productId,
                               quantity: 1,
-                              price: req.body.cartData[productId].price
+                              price: ProductDetail.productSellingPrice
                         })
                         custCart.totalNumberOfProduct += 1
                   }
@@ -33,8 +33,8 @@ const addItemsToCartOfLoggedInCustomer = asyncHandler(async (req, res) => {
                   })
                   newCustCart.items.push({
                         productId: productId,
-                        quantity: req.body.cartData[productId].quantity,
-                        price: req.body.cartData[productId].price
+                        quantity: 1,
+                        price: ProductDetail.productSellingPrice
                   })
                   await newCustCart.save()
             }

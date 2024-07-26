@@ -21,9 +21,8 @@ function App() {
     })
     const finalResponse = await backendAPIResponse.json()
     if (finalResponse.success) {
-      dispatch(resetProductDetail())
       dispatch(setCustomerDetail(finalResponse.data))
-      getCustomerCartData()
+      // getCustomerCartData()
       return
     }
     else {

@@ -38,8 +38,7 @@ function Header() {
     }
   }
   const handleCartClick = ()=>{
-    window.open('/yourcart')
-    //navigate('/yourcart')
+    navigate('/yourcart')
   }
 
 

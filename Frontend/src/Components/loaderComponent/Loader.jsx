@@ -3,7 +3,7 @@ import './Loader.css'
 
 function Loader({text='Loading...'}) {
       return (
-            <div class="pl">
+            <div className="pl">
                   <div className="pl__dot"></div>
                   <div className="pl__dot"></div>
                   <div className="pl__dot"></div>

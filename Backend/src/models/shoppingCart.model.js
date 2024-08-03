@@ -5,7 +5,6 @@ const CartItemsSchema = new Schema({
             type:Schema.Types.ObjectId,
             required:true,
             ref:"Product",
-            unique:true
       },
       quantity:{
             type:Number,

@@ -15,6 +15,9 @@ function ProductDetailPage() {
       const naviagte = useNavigate()
       const currentCustomer = useSelector((state) => state?.customer?.customer)
       const cart = useSelector((state) => state?.addTocart?.items)
+      const productAddStatus = useSelector((state) => {
+            console.log(state?.addTocart?.addProductStatus)
+            return state?.addTocart?.addProductStatus})
       const [productInfo, setProductInfo] = useState({})
       const [isLoading, setIsloading] = useState(false)
       const [activeImage, setActiveImage] = useState('')
@@ -52,11 +55,13 @@ function ProductDetailPage() {
             e.preventDefault()
             if (currentCustomer) {
                   if (cart.length > 0) {
-                        const conatinsProduct = cart.find((item) => item._id === productInfo._id)
+                        const conatinsProduct = cart.find((item) => item.product._id.toString() === productInfo._id.toString())
                         if (conatinsProduct === undefined) {
                               dispatch(setProductDetail(productInfo))
                               dispatch(saveCartItems(productInfo))
-                              naviagte('/yourcart')
+                              if(productAddStatus === 'fullfilled'){
+                                    naviagte('/yourcart')
+                              }
                         }
                         else {
                               naviagte('/yourcart')

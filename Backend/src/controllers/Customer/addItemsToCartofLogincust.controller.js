@@ -31,6 +31,9 @@ const addItemsToCartOfLoggedInCustomer = asyncHandler(async (req, res) => {
                         items: [],
                         totalNumberOfProduct: 1
                   })
+                  if(newCustCart){
+                        console.log('New Customer Cart Is added')
+                  }
                   newCustCart.items.push({
                         productId: productId,
                         quantity: 1,

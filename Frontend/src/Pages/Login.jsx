@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import customerContext from '../Context/index.js';
 import Loader from '../Components/loaderComponent/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetProductDetail,setCurrentCustomerCartDetail } from '../Store/cartSlice';
+import { getCurrentUserCartDetail, resetProductDetail,setCurrentCustomerCartDetail } from '../Store/cartSlice';
 
 function Login() {
       const customer = useSelector((state) => state?.customer?.customer)
@@ -47,7 +47,7 @@ function Login() {
                   if (finalData.success) {
                         toast.success(finalData.message)
                         await custContext.getCustomerDetail()
-                        getCustomerCartData()
+                        dispatch(getCurrentUserCartDetail())
                         try {
                               if (serializedState !== null) {
                                 //saveCartDataToDB(serializedState,finalData.data.customerData?._id)
@@ -92,18 +92,6 @@ function Login() {
             }
             else{
                   toast.error(finalRes.message)
-                  navigate('/')
-            }
-      }
-
-      const getCustomerCartData = async()=>{
-            const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url,{
-              method: backendRoutesAPI.getCustomerCartDetail.method,
-              credentials: "include"
-            })
-            const finalResponse = await backendApiResponse.json()
-            if(finalResponse.success){
-                  dispatch(setCurrentCustomerCartDetail(finalResponse.data))
                   navigate('/')
             }
       }

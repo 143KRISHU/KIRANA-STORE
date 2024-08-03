@@ -12,6 +12,7 @@ import CustomerCart from "../controllers/Customer/GusetCustomerCartData.controll
 import getCustomerCartData from "../controllers/Customer/getCustomerCartData.controller.js";
 import addItemsToCartOfLoggedInCustomer from "../controllers/Customer/addItemsToCartofLogincust.controller.js";
 import updateProductCount from "../controllers/Customer/UpdateProductQunatity.controller.js";
+import removeItemFromCart from "../controllers/Customer/removeCustomerCartItem.controller.js";
 const customerRouter = Router()
 
 customerRouter.route("/signup").post(signUpCustomer);
@@ -26,6 +27,7 @@ customerRouter.route('/guestCustomerCartDetail').post(CustomerCart)
 customerRouter.route('/loggedInCustomerCartDetail').post(verifyCustomer,addItemsToCartOfLoggedInCustomer)
 customerRouter.route("/getCustomerCartDetail").get(verifyCustomer,getCustomerCartData);
 customerRouter.route("/productCountUpdation").post(verifyCustomer,updateProductCount);
+customerRouter.route("/removeItemFromCart").post(verifyCustomer,removeItemFromCart);
 
 
 export default customerRouter;

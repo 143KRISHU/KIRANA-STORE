@@ -45,6 +45,10 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/productCountUpdation`,
             method : "post"
       },
+      deleteItemFromCart:{
+            url : `${backendMainDomainURL}/api/v1/customer/removeItemFromCart`,
+            method : "post"
+      },
       admin:{
             showAllUser:{
                   url:`${backendMainDomainURL}/api/v1/admin/show-all-customer`,

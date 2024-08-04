@@ -64,7 +64,7 @@ function Header() {
           {/* Add To Cart Logo */}
           <div className="cart-icon text-3xl  cursor-pointer relative mr-12 group" onClick={handleCartClick}>
             <span><BsCart2 /></span>
-            <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value
+            <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value select-none
             flex items-center justify-center rounded-full'>{addToCart?.totalNumberOfProduct}</p>
           </div>
           

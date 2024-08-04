@@ -63,7 +63,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                               <div className='bg-white shadow mt-6'>
                                     <div className='py-4 relative'>
                                           <div className=' px-4 mb-3 flex justify-between items-center'>
-                                                <div className='text-2xl font-semibold title'>{heading}</div>
+                                                <div className='text-2xl font-semibold title select-none'>{heading}</div>
                                                 <div className='text-3xl text-[#006D77] h-fit w-fit cursor-pointer hover:scale-125 transition-all'><IoChevronForwardCircle /></div>
                                           </div>
                                           {/* Slide Buttons */}
@@ -112,7 +112,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                             subCategoryWiseProduct.map((product, index) => {
                                                                   return (
                                                                         <div key={index}>
-                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group' onClick={() => { navigator(`/productDetail/${product._id}/view/${product.productName}`) }} key={product._id}
+                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group select-none' onClick={() => { navigator(`/productDetail/${product._id}/view/${product.productName}`) }} key={product._id}
                                                                                     style={{
                                                                                           transform: `translateX(-${horizontalSlideCount * 100}%)`,
                                                                                           transitionProperty: 'transform',

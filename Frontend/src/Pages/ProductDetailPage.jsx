@@ -64,6 +64,7 @@ function ProductDetailPage() {
                               }
                         }
                         else {
+                              toast.warning(`${productInfo.productName} is already in the cart`)
                               naviagte('/yourcart')
                         }
                   }

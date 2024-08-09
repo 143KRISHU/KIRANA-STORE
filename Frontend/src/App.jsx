@@ -29,20 +29,20 @@ function App() {
       return
     }
   }
-  const getCustomerCartData = async()=>{
-    const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url,{
+  const getCustomerCartData = async () => {
+    const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url, {
       method: backendRoutesAPI.getCustomerCartDetail.method,
       credentials: "include"
     })
     const finalResponse = await backendApiResponse.json()
-    if(finalResponse.success){
-          dispatch(setCurrentCustomerCartDetail(finalResponse.data))
+    if (finalResponse.success) {
+      dispatch(setCurrentCustomerCartDetail(finalResponse.data))
     }
-}
+  }
 
   useEffect(() => {
     getCustomerDetail()
-  })
+  },[])
   return (
     <>
       <customerContext.Provider value={{ getCustomerDetail }}>
@@ -51,7 +51,15 @@ function App() {
         </header>
         <main className="main">
           <section className="container w-full">
-            <ToastContainer/>
+            <ToastContainer
+              position="bottom-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnHover
+              theme="dark"           />
             <Outlet />
           </section>
         </main>

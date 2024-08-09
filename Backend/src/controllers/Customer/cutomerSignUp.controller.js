@@ -8,13 +8,19 @@ import sendEmail from "../../utils/sendEmails.js"
 
 const signUpCustomer = asyncHandler(async function (req, res, next) {
 
-      const { username, fullname, email, password, confirmPassword } = req.body
+      const { username, firstname,middlename,lastname, email, password, confirmPassword } = req.body
       const validUsername = /^[0-9A-Za-z]{6,16}$/;
       const isStrongPassword = /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/
       //username validation
-      if (!fullname) {
+      if (!firstname) {
             res.status(400).json(
-                  new ApiError(400, "Full name is required")
+                  new ApiError(400, "First name is required")
+            )
+            return
+      }
+      if (!lastname) {
+            res.status(400).json(
+                  new ApiError(400, "Last name is required")
             )
             return
       }
@@ -56,8 +62,8 @@ const signUpCustomer = asyncHandler(async function (req, res, next) {
             res.status(400).json(new ApiError(400, "Password should be atleast of 4 character"))
             return
       }
-      else if (password.length > 10) {
-            res.status(400).json(new ApiError(400, "Password should not exceeds 10 character"))
+      else if (password.length > 20) {
+            res.status(400).json(new ApiError(400, "Password should not exceeds 20 character"))
             return
       }
 
@@ -82,8 +88,9 @@ const signUpCustomer = asyncHandler(async function (req, res, next) {
       const newCustomer = await Customer.create({
             userName: username.toLowerCase(),
             email: email.toLowerCase(),
-            fullname: fullname.toLowerCase(),
-            address: "",
+            firstName: firstname.toLowerCase(),
+            middleName: middlename.toLowerCase(),
+            lastName: lastname.toLowerCase(),
             password: password
       });
 

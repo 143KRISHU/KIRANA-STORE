@@ -101,7 +101,7 @@ function Login() {
             if (!values.email) { error.email = "Email is required" }
             if (!values.password) { error.password = "Password is required" }
             else if (values.password.length < 4) { error.password = "Password should be atleast of 4 character" }
-            else if (values.password.length > 10) { error.password = "Password should not exceeds 10 character" }
+            else if (values.password.length > 20) { error.password = "Password should not exceeds 10 character" }
             return error;
       }
 

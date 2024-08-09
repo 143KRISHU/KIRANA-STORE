@@ -62,8 +62,8 @@ const logInCustomer = asyncHandler(async function (req, res, next) {
                   )
             }
             else{
-                  res.status(200).json(
-                        new ApiError(200, "Kindly verify your email")
+                  res.status(400).json(
+                        new ApiError(400, "Kindly verify your email")
                   )
             }
             return

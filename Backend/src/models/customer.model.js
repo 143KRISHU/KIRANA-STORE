@@ -3,11 +3,52 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv"
 dotenv.config({
-      path:'.env'
+      path: '.env'
 })
 
+const addressSchema = new Schema({
+      street: {
+            type: String,
+            trim: true
+      },
+      city: {
+            type: String,
+            trim: true
+      },
+      state: {
+            type: String,
+            trim: true
+      },
+      postalCode: {
+            type: String,
+            trim: true
+      },
+      country: {
+            type: String,
+            trim: true
+      }
+}, {
+      timestamps: true // Adds createdAt and updatedAt timestamps
+});
+
+const Address = mongoose.model('Address', addressSchema);
+
+
 const customerSchema = new Schema({
-      fullname: {
+      firstName: {
+            type: String,
+            required: true,
+            lowercase: true,
+            trim: true,
+            index: true
+      },
+      middleName: {
+            type: String,
+            lowercase: true,
+            trim: true,
+            index: true
+      },
+      lastName: {
             type: String,
             required: true,
             lowercase: true,
@@ -29,20 +70,18 @@ const customerSchema = new Schema({
             lowercase: true,
             trim: true,
       },
-      address: {
-            type: String
-      },
+      address: [addressSchema],
       password: {
             type: String,
             required: [true, "Password is required"],
       },
-      verified : {
-            type:Boolean,
-            default : false
+      verified: {
+            type: Boolean,
+            default: false
       },
-      role:{
-            type : String,
-            default : "GENERAL"
+      role: {
+            type: String,
+            default: "GENERAL"
       },
       refreshToken: {
             type: String
@@ -64,9 +103,9 @@ customerSchema.pre("findOneAndUpdate", async function (next) {
 
       //paswword only be encrypt if it is modifies
       const update = this.getUpdate()
-      if(update.password){
+      if (update.password) {
             try {
-                  update.password = await bcrypt.hash(update.password, 10); 
+                  update.password = await bcrypt.hash(update.password, 10);
             } catch (error) {
                   return next(error)
             }

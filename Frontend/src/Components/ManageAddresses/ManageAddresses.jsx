@@ -137,7 +137,7 @@ function ManageAddresses() {
                                                                                     name="controlled-radio-buttons-group"
                                                                                     className='flex'
                                                                               >
-                                                                                    <FormControlLabel value="home" control={<Radio/>} label="Home" />
+                                                                                    <FormControlLabel value="home" control={<Radio />} label="Home" />
                                                                                     <FormControlLabel value="office" control={<Radio />} label="Office" />
                                                                               </RadioGroup>
                                                                         </FormControl>

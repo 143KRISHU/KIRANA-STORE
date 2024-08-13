@@ -18,7 +18,7 @@ import { resetProductDetail } from '../../Store/cartSlice';
 function Header() {
 
   const customer = useSelector((state) => state?.customer?.customer)
-  const addToCart = useSelector((state)=>state.addTocart)
+  const addToCart = useSelector((state) => state.addTocart)
   const [showCustomerOption, setShowCustomerOption] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -37,7 +37,7 @@ function Header() {
       navigate("/");
     }
   }
-  const handleCartClick = ()=>{
+  const handleCartClick = () => {
     navigate('/yourcart')
   }
 
@@ -67,13 +67,13 @@ function Header() {
             <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value select-none
             flex items-center justify-center rounded-full'>{addToCart?.totalNumberOfProduct}</p>
           </div>
-          
+
           {
             customer?._id
               ? (
                 <div className="user-icon text-3xl right-5 mr-5 relative gap-2 flex justify-center items-center cursor-pointer"
                 >
-                  <FaRegCircleUser onClick={() => setShowCustomerOption(prev => !prev)} />
+                  <FaRegCircleUser onMouseOver={() => setShowCustomerOption(true)} />
                   {
                     showCustomerOption && (
                       <div className='user-option absolute text-lg w-fit rounded bg-white bottom-0 h-fit top-11 mx-auto text-black '>
@@ -81,28 +81,29 @@ function Header() {
                         {
                           customer
                             ?
-                              (
-                                <nav className='flex flex-col text-xl mt-1 justify-start items-start text-black font-semibold gap-3'>
-                                  {
-                                    customer.role === "ADMIN"
-                                      ? (
-                                        <Link to={"/admin-pannel"} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
-                                          onClick={() => setShowCustomerOption(false)}>
-                                          <FaRegUser /> Admin Pannel</Link>
-                                      ) :
-                                      (
-                                        <Link to={"/customer-profile"} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
-                                          onClick={() => setShowCustomerOption(false)}>
-                                          <FaRegUser /> My Profile</Link>
-                                      )
-                                  }
-                                  <Link className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
-                                    onClick={() => setShowCustomerOption(false)}>
-                                    <FaClipboardList /> My Orders</Link>
+                            (
+                              <nav className='flex flex-col text-xl mt-1 justify-start items-start text-black font-semibold gap-3 '
+                                onMouseOver={() => setShowCustomerOption(true)} onMouseOut={() => setShowCustomerOption(false)}>
+                                {
+                                  customer.role === "ADMIN"
+                                    ? (
+                                      <Link to={"/admin-pannel"} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                        onClick={() => setShowCustomerOption(false)}>
+                                        <FaRegUser /> Admin Pannel</Link>
+                                    ) :
+                                    (
+                                      <Link to={"/customer-profile"} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                        onClick={() => setShowCustomerOption(false)}>
+                                        <FaRegUser /> My Profile</Link>
+                                    )
+                                }
+                                <Link className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                  onClick={() => setShowCustomerOption(false)}>
+                                  <FaClipboardList /> My Orders</Link>
 
-                                  <h2 className='flex items-center gap-6 w-full  px-4 py-2  link' onClick={handleLogout}><TbLogout /> Logout</h2>
-                                </nav>
-                              )
+                                <h2 className='flex items-center gap-6 w-full  px-4 py-2  link' onClick={handleLogout}><TbLogout /> Logout</h2>
+                              </nav>
+                            )
                             : null
                         }
                       </div>
@@ -112,7 +113,7 @@ function Header() {
               )
               : (
                 <div className="mr-5">
-                  <button className='mr-5 login-btn'>
+                  <button className='mr-5 login-btn hover:shadow-lg transition-all'>
                     <Link to={"/login"}>Login</Link>
                   </button>
                 </div>

@@ -37,17 +37,20 @@
 }
 
 .login-btn{
-      background-color: #006d77;
-      padding:4px 10px;
+      background-color: #EDF6F9;
+      padding:5px 15px;
       border-radius: 8px;
       font-size: 18px;
-      color: #EDF6F9;
+      color: #006d77;
       font-weight: 600;
-      border: 2px solid #EDF6F9;
-      transition: all 0.3s ease-in-out ;
+      border: 2px solid #006d77;
+      /* transition: all 0.3s ease-in-out ; */
 }
 .login-btn:hover{
-      transform: scale(1.1);
+      /* transform: scale(1.1); */
+      background-color: #006d77;
+      color: #EDF6F9;
+      border: 2px solid #EDF6F9
 }
 
 @keyframes zoom {

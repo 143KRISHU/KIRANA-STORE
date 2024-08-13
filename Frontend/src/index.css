@@ -181,7 +181,13 @@ input[type='number']::-webkit-outer-spin-button{
 /* Text Filed */
 #outlined-basic{
       font-size: large !important;
+      padding:14px 14px !important;
+      background-color: #fff;
+}
+#outlined-basic-otp{
+      font-size: 14px !important;
       padding:12px 12px !important;
+      text-align: center !important;
 }
 #outlined-basic-disabled{
       font-size: large !important;
@@ -194,4 +200,28 @@ input[type='number']::-webkit-outer-spin-button{
       background-color: #006D77;
       font-size: 18px;
       width: fit-content;
+}
+#formsavebtn:hover{
+      padding:8px 25px 8px 25px  !important;
+      background-color: #fff;
+      color: #006D77;
+      border: 0.5px solid black;
+}
+#otpVerifyBtn{
+      padding:8px 26px 8px 26px  !important;
+      box-shadow: none !important;
+      background-color: #006D77;
+      font-size: 15px;
+      width: fit-content;
+}
+#otpVerifyBtn:hover{
+      padding:8px 25px 8px 25px  !important;
+      background-color: #fff;
+      color: #006D77;
+      border: 0.5px solid black;
+}
+/* Radio button */
+#demo-controlled-radio-buttons-group{
+      color: #006D77 !important;
+      font-weight: bold;
 }

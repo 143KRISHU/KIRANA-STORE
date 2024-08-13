@@ -13,7 +13,7 @@ const sendEmail = async(email,subject,text)=>{
                   secure:Boolean(process.env.SECURE),
                   auth:{
                         user:process.env.USER,
-                        pass: process.env.PASSWORD
+                        pass:process.env.PASSWORD
                   } 
             });
 
@@ -23,8 +23,6 @@ const sendEmail = async(email,subject,text)=>{
                   subject:subject,
                   text:text
             });
-
-            console.log("Email Sent Successfully")
       } catch (error) {
             console.log("Email Utility Error: ",error);
       }

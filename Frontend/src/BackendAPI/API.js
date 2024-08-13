@@ -53,6 +53,14 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer/customerUpdateInfo`,
             method : "post"
       },
+      updatingCustomerEmailPhase1:{
+            url : `${backendMainDomainURL}/api/v1/customer//customerUpdateEmail/Phase1`,
+            method : "post"
+      },
+      updatingCustomerEmailPhase2:{
+            url : `${backendMainDomainURL}/api/v1/customer//customerUpdateEmail/Phase2`,
+            method : "post"
+      },
       admin:{
             showAllUser:{
                   url:`${backendMainDomainURL}/api/v1/admin/show-all-customer`,

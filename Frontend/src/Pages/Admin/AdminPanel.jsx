@@ -36,20 +36,20 @@ function AdminPanel() {
   return (
     <div className='min-h-[calc(100vh-148px)] flex mb-10'>
       <aside className=' min-h-full w-full max-w-72 p-4'>
-        <div className="top flex items-center gap-6 mt-4 p-2  rounded-md shadow-sm bg-white cursor-pointer group" onClick={() => setOptonEnabled(false)}>
+        <div className="top flex items-center gap-6 mt-4 p-2 md:flex-row flex-col rounded-md shadow-sm bg-white cursor-pointer group" onClick={() => setOptonEnabled(false)}>
           <FaUserCircle className='text-4xl' style={{ color: "#E29578" }} />
           <div className="greeting">
             <p className='text-base' style={{ margin: "0px" }}>Hello,</p>
-            <h3 className='capitalize text-xl font-semibold' style={{ margin: "0px" }}>{fullName}</h3>
+            <h3 className='capitalize md:text-xl text-lg  font-semibold' style={{ margin: "0px" }}>{fullName}</h3>
             <div className="role flex items-end justify-end">
               <h6 className='text-sm capitalize item-end'>({admin?.role.toLowerCase()})</h6>
             </div>
           </div>
         </div>
         <div className="flex flex-col justify-evenly mt-4 rounded-md shadow-sm bg-white py-2 px-2">
-          <div className="header-info w-full flex items-center gap-4">
-            <LuListTodo className='header-info-logo  text-2xl ml-2 mr-3' />
-            <p className='capitalize text-lg font-bold'>Admin task</p>
+          <div className="header-info w-full flex items-center md:gap-4 gap-2 md:justify-normal justify-between">
+            <LuListTodo className='header-info-logo flex md:text-2xl text-xl md:ml-2 md:mr-3' />
+            <p className='capitalize md:text-lg text-base font-bold'>Admin task</p>
           </div>
           <div className="admin-links mt-2">
             <nav className='grid text-md '>
@@ -58,28 +58,28 @@ function AdminPanel() {
                   setOptonEnabled(true)
                   navigate("/admin-pannel/view-all-customer")
                 }}>
-                <Link to={"/admin-pannel/view-all-customer"} className=' ml-16 '>View All Customers</Link>
+                <Link to={"/admin-pannel/view-all-customer"} className=' md:ml-16 text-sm  '>View All Customers</Link>
               </div>
               <div className="admin-action w-full  py-2 cursor-pointer"
                 onClick={() => {
                   setOptonEnabled(true)
                   navigate("/admin-pannel/view-all-listed-products")
                 }}>
-                <Link to={"/admin-pannel/view-all-listed-products"} className=' ml-16 '>View All Products</Link>
+                <Link to={"/admin-pannel/view-all-listed-products"} className='md:ml-16 text-sm  '>View All Products</Link>
               </div>
               <div className="admin-action w-full  py-2 cursor-pointer"
                 onClick={() => {
                   setOptonEnabled(true)
                   navigate("/admin-pannel/add-products")
                 }}>
-                <Link to={"/admin-pannel/add-products"} className=' ml-16 '>Add Product</Link>
+                <Link to={"/admin-pannel/add-products"} className=' md:ml-16 text-sm  '>Add Product</Link>
               </div>
             </nav>
           </div>
         </div>
         <div className="flex flex-col justify-evenly mt-4 rounded-md shadow-sm bg-white py-2 px-2 group cursor-pointer" onClick={handleLogout}>
           <div className="header-info w-full flex items-center gap-4">
-            <TbLogout className='header-info-logo  text-2xl ml-2 mr-3' />
+            <TbLogout className=' md:text-2xl text-xl ml-2 mr-3' />
             <p className='capitalize text-lg font-bold'>Logout</p>
           </div>
         </div>

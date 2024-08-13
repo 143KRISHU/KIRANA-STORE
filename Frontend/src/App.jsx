@@ -53,7 +53,7 @@ function App() {
           <section className="container w-full">
             <ToastContainer
               position="bottom-center"
-              autoClose={2000}
+              autoClose={3000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick

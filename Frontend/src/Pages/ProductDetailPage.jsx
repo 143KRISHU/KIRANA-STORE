@@ -17,7 +17,8 @@ function ProductDetailPage() {
       const cart = useSelector((state) => state?.addTocart?.items)
       const productAddStatus = useSelector((state) => {
             console.log(state?.addTocart?.addProductStatus)
-            return state?.addTocart?.addProductStatus})
+            return state?.addTocart?.addProductStatus
+      })
       const [productInfo, setProductInfo] = useState({})
       const [isLoading, setIsloading] = useState(false)
       const [activeImage, setActiveImage] = useState('')
@@ -59,7 +60,7 @@ function ProductDetailPage() {
                         if (conatinsProduct === undefined) {
                               dispatch(setProductDetail(productInfo))
                               dispatch(saveCartItems(productInfo))
-                              if(productAddStatus === 'fullfilled'){
+                              if (productAddStatus === 'fullfilled') {
                                     naviagte('/yourcart')
                               }
                         }
@@ -140,10 +141,6 @@ function ProductDetailPage() {
                               </div>
                               {/* Total Rating Section */}
                               <div></div>
-                              {/* Product Description */}
-                              <p className='flex flex-col text-sm mb-2 text-justify'>
-                                    {productInfo.productDescription}
-                              </p>
                               {/* Action Button Section */}
                               <div className='w-full mt-4'>
                                     <div className='w-full flex justify-between gap-2 p-2'>
@@ -161,6 +158,10 @@ function ProductDetailPage() {
                                           </button>
                                     </div>
                               </div>
+                              {/* Product Description */}
+                              <p className='flex flex-col text-sm mb-2 text-justify'>
+                                    {productInfo.productDescription}
+                              </p>
                               {/* Add Review section */}
                               <div className='mt-2'>
                                     <form className='flex flex-col w-full p-2 gap-2 review-form'>

@@ -115,4 +115,36 @@ const updatingEmailOfTheCustomer = asyncHandler(async (req, res) => {
             )
       }
 })
-export { updateCustomerInfo, beforeUpdatingEmailIdOfCustomerValidating, updatingEmailOfTheCustomer }
+const addNewAddressOfCustomner = asyncHandler(async(req,res)=>{
+      const customerId = req.customer._id
+      const data = req.body
+      const customerToUpdate = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
+      try {
+            if(customerToUpdate){
+                  customerToUpdate.address.push({
+                        name:data.name,
+                        mobileNumber:data.mobileNumber,
+                        pincode:data.pincode,
+                        locality:data.locality,
+                        fullAddress:data.address,
+                        city:data.city,
+                        state:data.state,
+                        landmark:data.landmark,
+                        addressType:data.addressType,
+                        alternateNumber:data.alternateNumber
+                  })
+                  await customerToUpdate.save()
+                  const updatedCustomer = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
+                  res.status(200).json(
+                        new ApiResponse(200, updatedCustomer, 'Addrsss Added Successfully')
+                  )
+            }
+      } catch (error) {
+            console.log(error.message)
+            res.status(500).json(
+                  new ApiError(500, `Server Error : ${error.message}`)
+            )
+      }
+      console.log(data)
+})
+export { updateCustomerInfo, beforeUpdatingEmailIdOfCustomerValidating, updatingEmailOfTheCustomer,addNewAddressOfCustomner }

@@ -61,6 +61,10 @@ const backendRoutesAPI = {
             url : `${backendMainDomainURL}/api/v1/customer//customerUpdateEmail/Phase2`,
             method : "post"
       },
+      addNewAddress:{
+            url : `${backendMainDomainURL}/api/v1/customer//Customer/add/newAddress`,
+            method : "post"
+      },
       admin:{
             showAllUser:{
                   url:`${backendMainDomainURL}/api/v1/admin/show-all-customer`,

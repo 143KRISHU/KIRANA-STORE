@@ -7,7 +7,7 @@ dotenv.config({
 })
 
 const addressSchema = new Schema({
-      street: {
+      name: {
             type: String,
             trim: true
       },
@@ -19,13 +19,27 @@ const addressSchema = new Schema({
             type: String,
             trim: true
       },
-      postalCode: {
-            type: String,
-            trim: true
+      pincode: {
+            type: Number,
       },
-      country: {
+      locality: {
             type: String,
-            trim: true
+            trim: true,
+      },
+      mobileNumber:{
+            type:Number,
+      },
+      alternateNumber:{
+            type:Number,
+      },
+      fullAddress:{
+            type:String
+      },
+      landmark:{
+            type:String
+      },
+      addressType:{
+            type:String
       }
 }, {
       timestamps: true // Adds createdAt and updatedAt timestamps

@@ -195,14 +195,16 @@ input[type='number']::-webkit-outer-spin-button{
       cursor: not-allowed !important;
 }
 #formsavebtn{
-      padding:8px 26px 8px 26px  !important;
+      padding-left: 30px;
+      padding-right: 30px;
       box-shadow: none !important;
       background-color: #006D77;
       font-size: 18px;
       width: fit-content;
 }
 #formsavebtn:hover{
-      padding:8px 25px 8px 25px  !important;
+      padding-left: 30px;
+      padding-right: 30px;
       background-color: #fff;
       color: #006D77;
       border: 0.5px solid black;

@@ -13,7 +13,7 @@ import getCustomerCartData from "../controllers/Customer/getCustomerCartData.con
 import addItemsToCartOfLoggedInCustomer from "../controllers/Customer/addItemsToCartofLogincust.controller.js";
 import updateProductCount from "../controllers/Customer/UpdateProductQunatity.controller.js";
 import removeItemFromCart from "../controllers/Customer/removeCustomerCartItem.controller.js";
-import {addNewAddressOfCustomner, beforeUpdatingEmailIdOfCustomerValidating, updateCustomerInfo, updatingEmailOfTheCustomer} from "../controllers/Customer/updateCustomerInfo.controller.js";
+import {addNewAddressOfCustomner, beforeUpdatingEmailIdOfCustomerValidating, modifyCustomerAddress, updateCustomerInfo, updatingEmailOfTheCustomer} from "../controllers/Customer/updateCustomerInfo.controller.js";
 const customerRouter = Router()
 
 customerRouter.route("/signup").post(signUpCustomer);
@@ -28,6 +28,7 @@ customerRouter.route('/customerUpdateInfo').post(verifyCustomer,updateCustomerIn
 customerRouter.route('/customerUpdateEmail/Phase1').post(verifyCustomer,beforeUpdatingEmailIdOfCustomerValidating)
 customerRouter.route('/customerUpdateEmail/Phase2').post(verifyCustomer,updatingEmailOfTheCustomer)
 customerRouter.route('/Customer/add/newAddress').post(verifyCustomer,addNewAddressOfCustomner)
+customerRouter.route('/Customer/modify/Address').post(verifyCustomer,modifyCustomerAddress)
 customerRouter.route('/guestCustomerCartDetail').post(CustomerCart)
 customerRouter.route('/loggedInCustomerCartDetail').post(verifyCustomer,addItemsToCartOfLoggedInCustomer)
 customerRouter.route("/getCustomerCartDetail").get(verifyCustomer,getCustomerCartData);

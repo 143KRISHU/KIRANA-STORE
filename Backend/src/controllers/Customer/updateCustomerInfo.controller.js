@@ -80,7 +80,7 @@ const updatingEmailOfTheCustomer = asyncHandler(async (req, res) => {
       try {
             if (customerToUpdate) {
                   if (customerToUpdate.email === data.newEmail) {
-                        new ApiResponse(200,customerToUpdate, "Email is Already Registered to Your Account")
+                        new ApiResponse(200, customerToUpdate, "Email is Already Registered to Your Account")
                         return
                   }
                   else {
@@ -90,14 +90,14 @@ const updatingEmailOfTheCustomer = asyncHandler(async (req, res) => {
                               res.status(200).json(
                                     new ApiResponse(200, customerToUpdate, "This Email is Already In Used")
                               )
-                              
+
                               return
                         }
-                        else{
+                        else {
                               const updatedCustomer = await Customer.findOneAndUpdate(
                                     { _id: customerId },
                                     {
-                                          email:data?.newEmail
+                                          email: data?.newEmail
                                     },
                                     { new: true }, { password: 0, refreshToken: 0 }
                               )
@@ -115,23 +115,23 @@ const updatingEmailOfTheCustomer = asyncHandler(async (req, res) => {
             )
       }
 })
-const addNewAddressOfCustomner = asyncHandler(async(req,res)=>{
+const addNewAddressOfCustomner = asyncHandler(async (req, res) => {
       const customerId = req.customer._id
       const data = req.body
       const customerToUpdate = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
       try {
-            if(customerToUpdate){
+            if (customerToUpdate) {
                   customerToUpdate.address.push({
-                        name:data.name,
-                        mobileNumber:data.mobileNumber,
-                        pincode:data.pincode,
-                        locality:data.locality,
-                        fullAddress:data.address,
-                        city:data.city,
-                        state:data.state,
-                        landmark:data.landmark,
-                        addressType:data.addressType,
-                        alternateNumber:data.alternateNumber
+                        name: data.name,
+                        mobileNumber: data.mobileNumber,
+                        pincode: data.pincode,
+                        locality: data.locality,
+                        fullAddress: data.address,
+                        city: data.city,
+                        state: data.state,
+                        landmark: data.landmark,
+                        addressType: data.addressType,
+                        alternateNumber: data.alternateNumber
                   })
                   await customerToUpdate.save()
                   const updatedCustomer = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
@@ -145,6 +145,38 @@ const addNewAddressOfCustomner = asyncHandler(async(req,res)=>{
                   new ApiError(500, `Server Error : ${error.message}`)
             )
       }
-      console.log(data)
 })
-export { updateCustomerInfo, beforeUpdatingEmailIdOfCustomerValidating, updatingEmailOfTheCustomer,addNewAddressOfCustomner }
+
+const modifyCustomerAddress = asyncHandler(async (req, res) => {
+      const customerId = req.customer._id
+      const data = req.body
+      const customerToUpdate = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
+      const addresses = customerToUpdate.address
+      const index = addresses.findIndex((address) => address._id.toString() === data._id.toString())
+      try {
+            if (customerToUpdate) {
+                  if (data.action === 'del') {
+                        addresses.splice(index,1)
+                        await customerToUpdate.save()
+                        const updatedCustomer = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
+                        res.status(200).json(
+                              new ApiResponse(200, updatedCustomer, 'Addrsss Deleted Successfully')
+                        )
+                  }
+                  else {
+                        addresses[index] = data
+                        await customerToUpdate.save()
+                        const updatedCustomer = await Customer.findById({ _id: customerId }, { password: 0, refreshToken: 0 })
+                        res.status(200).json(
+                              new ApiResponse(200, updatedCustomer, 'Addrsss Updated Successfully')
+                        )
+                  }
+            }
+      } catch (error) {
+            console.log(error.message)
+            res.status(500).json(
+                  new ApiError(500, `Server Error : ${error.message}`)
+            )
+      }
+})
+export { updateCustomerInfo, beforeUpdatingEmailIdOfCustomerValidating, updatingEmailOfTheCustomer, addNewAddressOfCustomner, modifyCustomerAddress }

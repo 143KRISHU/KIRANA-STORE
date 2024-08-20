@@ -17,6 +17,10 @@ import SpecificCategoryPage from '../Components/HomePageComponents/SpecificCateg
 import SetNewPAssword from '../Pages/SetNewPAssword.jsx';
 import ProductDetailPage from '../Pages/ProductDetailPage.jsx';
 import AddToCartPage from '../Pages/AddToCartPage.jsx';
+import ChecckOutpage from '../Pages/ChecckOutpage.jsx';
+import CartLandingPage from '../Pages/CartLandingPage.jsx';
+import Paymentgateway from '../Pages/Paymentgateway.jsx';
+import OrderStatus from '../Pages/OrderStatus.jsx';
 
 const router = createBrowserRouter([
   {
@@ -36,8 +40,8 @@ const router = createBrowserRouter([
         element: <ForgotPassword />,
       },
       {
-        path:'resetpassword/:id',
-        element:<SetNewPAssword/>
+        path: 'resetpassword/:id',
+        element: <SetNewPAssword />
       },
       {
         path: 'signup',
@@ -48,12 +52,30 @@ const router = createBrowserRouter([
         element: <CustomerProfile />,
       },
       {
-        path:'productDetail/:id/view/:name',
-        element:<ProductDetailPage/>
+        path: 'productDetail/:id/view/:name',
+        element: <ProductDetailPage />
       },
       {
-        path:'yourcart',
-        element:<AddToCartPage/>
+        path: 'yourcart',
+        element: <CartLandingPage />,
+        children: [
+          {
+            index: true,
+            element: <AddToCartPage />,
+          },
+          {
+            path: 'checkout',
+            element: <ChecckOutpage />,
+          },
+          {
+            path: 'payment',
+            element: <Paymentgateway/>,
+          },
+          {
+            path: 'orderStatus',
+            element: <OrderStatus/>,
+          },
+        ]
       },
       {
         path: 'admin-pannel',
@@ -79,7 +101,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'products/:productcategory',
-        element:<SpecificCategoryPage/>
+        element: <SpecificCategoryPage />
       }
     ],
   },

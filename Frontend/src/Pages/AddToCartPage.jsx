@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaRegTrashAlt } from "react-icons/fa";
 import backendRoutesAPI from '../BackendAPI/API';
 import { toast } from 'react-toastify';
 import CartAnimation from '../assets/CartAnimation.json'
 import Lottie from "lottie-react"
 import { decProductCount, getCurrentUserCartDetail, incProductCount, removeItemFromCart } from '../Store/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { setSteeperProgress } from '../Store/steeperStepSlice'
 
 function AddToCartPage() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   let cartData = useSelector((state) => state?.addTocart)
   let allProduct = cartData?.items
   const [totalCartPrice, setTotalCartPrice] = useState(0)
@@ -65,7 +67,7 @@ function AddToCartPage() {
   }
   useEffect(() => {
 
-    if (allProduct.length > 0) {
+    if (allProduct?.length > 0) {
       setTotalCartPrice(allProduct.reduce((acc, item) => acc + item.product.productSellingPrice * item.quantity, 0))
       setTotalCostPrice(allProduct.reduce((acc, item) => acc + item.product.productListingPrice * item.quantity, 0))
     }
@@ -78,15 +80,15 @@ function AddToCartPage() {
 
 
   return (
-    <div className="mx-auto max-w-7xl px-2 lg:px-0">
-      <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl">
+    <div className="mx-auto max-w-7xl px-2 lg:px-0 ">
+      <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl relative">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Shopping Cart
         </h1>
         <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
           <section aria-labelledby="cart-heading" className="rounded-lg bg-white lg:col-span-8">
             {
-              allProduct.length > 0 ? (
+              allProduct?.length > 0 ? (
                 <ul role="list" className="divide-y divide-gray-200 p-2">
                   {
                     allProduct.map((product) => (
@@ -193,7 +195,7 @@ function AddToCartPage() {
             <div>
               <dl className="space-y-1 px-2 py-4">
                 <div className="flex items-center justify-between">
-                  <dt className="text-sm text-gray-800">Price ({(allProduct.length)} items)</dt>
+                  <dt className="text-sm text-gray-800">Price ({(allProduct?.length)} items)</dt>
                   <dd className="text-sm font-medium text-gray-900">{formattedCurrency(totalCartPrice)}</dd>
                 </div>
                 {/* <div className="flex items-center justify-between pt-4">
@@ -221,9 +223,13 @@ function AddToCartPage() {
               <button className='bg-[#006D77] w-full p-2 text-2xl text-[#EDF6F9] rounded-xl hover:bg-[#fff] font-bold
                  hover:text-[#006D77] shadow-xl uppercase select-none'
                 style={{
-                  cursor: allProduct.length > 0 ? 'pointer' : 'not-allowed',
-                  pointerEvents: allProduct.length > 0 ? 'auto' : 'none',
-                }} onClick={(e) => { e.preventDefault() }}>
+                  cursor: allProduct?.length > 0 ? 'pointer' : 'not-allowed',
+                  pointerEvents: allProduct?.length > 0 ? 'auto' : 'none',
+                }} onClick={(e) => { 
+                  e.preventDefault()
+                  navigate('/yourcart/checkout')
+                  dispatch(setSteeperProgress(1))
+                   }}>
                 CheckOut
               </button>
             </div>

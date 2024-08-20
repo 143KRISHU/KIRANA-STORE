@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import backendRoutesAPI from '../BackendAPI/API'
 //Action for Storing
@@ -55,8 +53,6 @@ const initialState = {
       totalNumberOfProduct: 0,
       items: [],
       totalCartPrice: 0,
-      status: 'idle',
-      addProductStatus:'idle'
 }
 
 export const addToCartSlice = createSlice({
@@ -72,8 +68,6 @@ export const addToCartSlice = createSlice({
                   state.totalNumberOfProduct = 0
                   state.items = []
                   state.totalCartPrice = 0
-                  state.status='idle',
-                  state.addProductStatus='idle'
             },
             //This function is used to set the data of the Customer when it login again
             setCurrentCustomerCartDetail: (state, action) => {

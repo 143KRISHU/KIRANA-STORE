@@ -8,20 +8,23 @@ import { useSelector } from 'react-redux';
 import backendRoutesAPI from "../../BackendAPI/API.js"
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
-import { setCustomerDetail } from "../../Store/customerSlice.js";
+import { setCustomerDetail} from "../../Store/customerSlice.js";
 import { FaAngleUp } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
 import { resetProductDetail } from '../../Store/cartSlice';
+import { setSteeperProgress } from '../../Store/steeperStepSlice';
 
 function Header() {
 
   const customer = useSelector((state) => state?.customer?.customer)
   const addToCart = useSelector((state) => state.addTocart)
+  const step = useSelector((state)=>state?.steeperStep?.currentStep)
   const [showCustomerOption, setShowCustomerOption] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const actionUrl = ['/yourcart','/yourcart/checkout','/yourcart/payment','/yourcart/orderStatus']
 
   const handleLogout = async () => {
     setShowCustomerOption(false)
@@ -33,12 +36,15 @@ function Header() {
     if (finalResponse.success) {
       toast.success(finalResponse.message)
       dispatch(setCustomerDetail(null))
+      dispatch(setSteeperProgress(0))
       dispatch(resetProductDetail())
+      localStorage.removeItem('addTocart')
+      localStorage.removeItem('steeperStep')
       navigate("/");
     }
   }
   const handleCartClick = () => {
-    navigate('/yourcart')
+    navigate(`${actionUrl[step]}`)
   }
 
 

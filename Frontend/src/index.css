@@ -227,3 +227,16 @@ input[type='number']::-webkit-outer-spin-button{
       color: #006D77 !important;
       font-weight: bold;
 }
+
+/* CheckOut Page */
+
+@media (min-width: 1025px) and (max-width: 1279px){
+      .chckoutpage-section-two{
+            width: 62%;
+      }
+}
+@media (min-width: 1280px) {
+      .chckoutpage-section-two{
+            width: 72%;
+      }
+}

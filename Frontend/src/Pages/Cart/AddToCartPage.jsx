@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import backendRoutesAPI from '../BackendAPI/API';
+import backendRoutesAPI from '../../BackendAPI/API';
 import { toast } from 'react-toastify';
-import CartAnimation from '../assets/CartAnimation.json'
+import CartAnimation from '../../assets/CartAnimation.json'
 import Lottie from "lottie-react"
-import { decProductCount, getCurrentUserCartDetail, incProductCount, removeItemFromCart } from '../Store/cartSlice';
+import { decProductCount, getCurrentUserCartDetail, incProductCount, removeItemFromCart } from '../../Store/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { setSteeperProgress } from '../Store/steeperStepSlice'
+import { setSteeperProgress } from '../../Store/steeperStepSlice'
 
 function AddToCartPage() {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ function AddToCartPage() {
   let allProduct = cartData?.items
   const [totalCartPrice, setTotalCartPrice] = useState(0)
   const [totalCostPrice, setTotalCostPrice] = useState(0)
-  const [isProductCoutUpdating, setIsProductCountUpdating] = useState(false)
+  const [isProductCoutUpdating, setIsProductCountUpdating] = useState()
   const formattedCurrency = (number) => {
     return (
       number.toLocaleString('en-US', {
@@ -40,7 +40,6 @@ function AddToCartPage() {
     }
   }
   const updateQunatity = async (data) => {
-    setIsProductCountUpdating(true)
     const backendResponse = await fetch(backendRoutesAPI.updateCartProductCount.url, {
       method: backendRoutesAPI.updateCartProductCount.method,
       credentials: 'include',
@@ -80,7 +79,7 @@ function AddToCartPage() {
 
 
   return (
-    <div className="mx-auto max-w-7xl px-2 lg:px-0 ">
+    <div className="w-full mx-auto max-w-7xl px-2 lg:px-0 ">
       <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl relative">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Shopping Cart
@@ -91,7 +90,7 @@ function AddToCartPage() {
               allProduct?.length > 0 ? (
                 <ul role="list" className="divide-y divide-gray-200 p-2">
                   {
-                    allProduct.map((product) => (
+                    allProduct.map((product, index) => (
                       <div key={product.product._id} className="flex justify-between items-center">
                         <li className="flex py-6 px-4 sm:px-2 sm:py-6 gap-4 w-full">
                           <div className="flex-shrink-0 shadow-xl">
@@ -118,8 +117,7 @@ function AddToCartPage() {
                                     </p>
                                   </h3>
                                 </div>
-                                <div className="mt-2
-                            + flex  items-baseline">
+                                <div className="mt-2 + flex  items-baseline">
                                   <p className="text-xs font-medium text-gray-500 line-through">
                                     {formattedCurrency(product.product.productListingPrice)}
                                   </p>
@@ -136,10 +134,15 @@ function AddToCartPage() {
                         <div className="mb-2 flex mr-4 gap-2">
                           <div className="min-w-24 flex items-center justify-center ">
                             {
-                              isProductCoutUpdating ? (<div className='text-base font-bold'>Updating....</div>) : (
+                              isProductCoutUpdating === index ? (<div className='text-base font-bold'>Updating....</div>) : (
                                 <>
-                                  <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center " onClick={() => decreaseProductCount(product)}
-                                    style={{visibility:product.quantity === 1 ? 'hidden':'visible'}}>
+                                  <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center "
+                                    onClick={() => {
+                                      setIsProductCountUpdating(index)
+                                      decreaseProductCount(product)
+                                    }
+                                    }
+                                    style={{ visibility: product.quantity === 1 ? 'hidden' : 'visible' }}>
                                     -
                                   </button>
                                   <input
@@ -148,7 +151,11 @@ function AddToCartPage() {
                                     value={product.quantity}
                                     readOnly
                                   />
-                                  <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center " onClick={() => increaseProductCount(product)}>
+                                  <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center " 
+                                    onClick={() => {
+                                      setIsProductCountUpdating(index)
+                                      increaseProductCount(product)
+                                    }}>
                                     +
                                   </button>
 
@@ -225,11 +232,11 @@ function AddToCartPage() {
                 style={{
                   cursor: allProduct?.length > 0 ? 'pointer' : 'not-allowed',
                   pointerEvents: allProduct?.length > 0 ? 'auto' : 'none',
-                }} onClick={(e) => { 
+                }} onClick={(e) => {
                   e.preventDefault()
                   navigate('/yourcart/checkout')
                   dispatch(setSteeperProgress(1))
-                   }}>
+                }}>
                 CheckOut
               </button>
             </div>

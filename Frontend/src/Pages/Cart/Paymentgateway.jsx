@@ -1,7 +1,8 @@
 import React from 'react'
-import { setSteeperProgress } from '../Store/steeperStepSlice'
+
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { setSteeperProgress } from '../../Store/steeperStepSlice'
 
 function Paymentgateway() {
   const dispatch = useDispatch()

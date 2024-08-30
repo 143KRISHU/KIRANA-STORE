@@ -1,11 +1,32 @@
 import React, { useEffect, useState } from 'react'
+import { createTheme, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, ThemeProvider, Tooltip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setSteeperProgress } from '../../Store/steeperStepSlice'
 import { toast } from 'react-toastify';
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
-import { TiDelete } from "react-icons/ti";
+import { FaCheck } from "react-icons/fa";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import ManageAddresses from '../../Components/ManageAddresses/ManageAddresses';
+import AddingNewAddress from '../../Components/AddingNewAdress/AddingNewAddress';
+
+const themeforRadioButton = createTheme({
+  components: {
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: 'defaultColor', // Default color
+        },
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: '#006D77', // Change the primary color
+    }
+  },
+});
 
 function ChecckOutpage() {
   const dispatch = useDispatch()
@@ -13,8 +34,12 @@ function ChecckOutpage() {
   let cartData = useSelector((state) => state?.addTocart)
   let allProduct = cartData?.items
   const customer = useSelector((state) => state?.customer?.customer)
+  const fullName = `${customer?.firstName !== undefined ? customer?.firstName : 'User'} 
+                    ${customer?.middleName !== undefined ? customer?.middleName : ''} 
+                    ${customer?.lastName !== undefined ? customer?.lastName : ''}`
   const [totalCartPrice, setTotalCartPrice] = useState(0)
   const [totalCostPrice, setTotalCostPrice] = useState(0)
+  const [addingAddress, setaddingAddress] = useState(false)
   const formattedCurrency = (number) => {
     return (
       number.toLocaleString('en-US', {
@@ -34,95 +59,162 @@ function ChecckOutpage() {
     }
   }, [allProduct])
 
-  useEffect(()=>{
-    if(allProduct.length === 0){
+  useEffect(() => {
+    if (allProduct.length === 0) {
       toast.warning('Add Some Items to Cart')
       navigate('/')
     }
-  },[])
+  }, [])
 
 
   return (
     <>
-      <div className='flex flex-col gap-4px-32 py-5 rounded-lg'>
+      <div className='relative flex flex-col gap-4px-32 py-5 rounded-lg'>
         <div className="mx-auto my-4 w-full md:my-6">
           <div className="overflow-hidden  rounded-xl shadow">
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Contact Info */}
-              <div className="px-5 py-6 text-gray-900 md:px-8">
+              <div className="px-3 py-6 text-gray-900 md:px-8">
                 <div className="flow-root">
                   <div className="-my-6 divide-y divide-gray-200">
                     <div className="py-6">
-                      <form>
-                        <div className="mx-auto max-w-2xl px-4 lg:max-w-none lg:px-0">
-                          <div>
-                            <h3
-                              id="contact-info-heading"
-                              className="text-lg font-semibold text-gray-900"
-                            >
-                              Contact information
-                            </h3>
+                      <div className="mx-auto max-w-2xl lg:max-w-none lg:px-0">
+                        <div className='flex  items-start justify-start bg-[#fff] w-full shadow-md rounded-md p-2'>
+                          <div className='p-1'>
+                            <span className='bg-[#006D77] py-0.15 px-2 rounded-md shadow-lg text-white font-semibold'>
+                              1
+                            </span>
                           </div>
-                          <hr className="my-8" />
-                          <hr className="my-8" />
-                          <hr className="my-8" />
-                          <div className="mt-10">
-                            <h3 className="text-lg font-semibold text-gray-900">Billing information</h3>
-
-                            <div className="mt-6 flex items-center">
-                              <input
-                                id="same-as-shipping"
-                                name="same-as-shipping"
-                                type="checkbox"
-                                defaultChecked
-                                className="h-4 w-4 rounded border-gray-300 text-black focus:ring-black"
-                              />
-                              <div className="ml-2">
-                                <label
-                                  htmlFor="same-as-shipping"
-                                  className="text-sm font-medium text-gray-900"
-                                >
-                                  Same as shipping information
-                                </label>
+                          <section className='flex justify-between items-center align-middle w-full'>
+                            <h1 className='w-full text-lg font-bold flex flex-col mx-0 gap-1'>
+                              <div className='flex gap-2 items-center px-2 text-slate-400'>
+                                LOGIN
+                                {
+                                  customer && <span className='text-base font-normal text-green-500' ><FaCheck /></span>
+                                }
                               </div>
+                              <div className='w-full px-2 capitalize text-sm text-black/60 font-bold'>
+                                <p>{fullName.toUpperCase()}</p>
+                              </div>
+                            </h1>
+                          </section>
+                        </div>
+                        <div className='flex mt-3 items-start justify-start bg-[#fff] w-full shadow-md rounded-md p-2'>
+                          <div className='p-1'>
+                            <span className='bg-[#006D77] py-0.15 px-2 rounded-md shadow-lg text-white font-semibold'>
+                              2
+                            </span>
+                          </div>
+                          {
+                            customer?.address.length === 0 ? <ManageAddresses /> :
+                              <section className='flex flex-col justify-between items-center align-middle w-full'>
+                                <h1 className='w-full text-lg font-bold flex flex-col mx-0 gap-1 mb-2'>
+                                  <div className='flex justify-between items-center gap-2  px-2 text-slate-400'>
+                                    <section className='flex justify-start items-center gap-2'>
+                                      ADDRESS DETAILS
+                                      {
+                                        customer?.address.length > 0 && <span className='text-base font-normal text-green-500' ><FaCheck /></span>
+                                      }
+                                    </section>
+                                    <section>
+                                      <Tooltip title="Add New Address">
+                                        <IconButton className='group' onClick={() => setaddingAddress(true)}>
+                                          <IoMdAddCircleOutline className='bg-[#006D77] rounded-full text-2xl cursor-pointer text-white hover:scale-125 transition-all' />
+                                        </IconButton>
+                                      </Tooltip>
+                                    </section>
+                                  </div>
+                                </h1>
+                                {customer?.address.length > 0 &&
+                                  <div className='w-full px-2 capitalize text-sm text-black/60 font-bold'>
+                                    <ThemeProvider theme={themeforRadioButton}>
+                                      <FormControl className='gap-2 mt-2'>
+                                        <FormLabel id="demo-controlled-radio-buttons-group">{customer?.address.length > 1 ? 'Choose One Adsress' : null}</FormLabel>
+                                        <RadioGroup
+                                          row
+                                          aria-labelledby="demo-controlled-radio-buttons-group"
+                                          name="addressType"
+                                          className='flex'
+
+                                        >
+                                          {
+                                            customer?.address.map((address, index) => (
+                                              <FormControlLabel key={index}
+                                                value={`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - <b>${address.pincode}</b>`} control={<Radio />}
+                                                label={
+                                                  <>
+                                                    {`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - `}
+                                                    <b>{address.pincode}</b>
+                                                  </>
+                                                } />
+                                            ))}
+                                        </RadioGroup>
+                                      </FormControl>
+                                    </ThemeProvider>
+                                  </div>}
+                              </section>
+                          }
+                        </div>
+                        <div className="mt-10">
+                          <h3 className="text-lg font-semibold text-gray-900">Billing information</h3>
+
+                          <div className="mt-6 flex items-center">
+                            <input
+                              id="same-as-shipping"
+                              name="same-as-shipping"
+                              type="checkbox"
+                              defaultChecked
+                              className="h-4 w-4 rounded border-gray-300 text-black focus:ring-black"
+                            />
+                            <div className="ml-2">
+                              <label
+                                htmlFor="same-as-shipping"
+                                className="text-sm font-medium text-gray-900"
+                              >
+                                Same as shipping information
+                              </label>
                             </div>
                           </div>
-                          <div className="mt-10 flex justify-between items-center border-t border-gray-200 pt-6">
+                        </div>
+                        <div className="mt-10 flex justify-between items-center border-t border-gray-200 pt-6">
                           <button
-                              type="button"
-                              onClick={() => {
-                                dispatch(setSteeperProgress(0))
-                                navigate('/yourcart')
-                              }}
-                              className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex gap-2 items-center justify-center
+                            type="button"
+                            onClick={() => {
+                              dispatch(setSteeperProgress(0))
+                              navigate('/yourcart')
+                            }}
+                            className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex gap-2 items-center justify-center
                               text-[#EDF6F9] shadow-sm hover:bg-[#EDF6F9] hover:text-[#006D77] focus-visible:outline 
                                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#006D77]"
-                            >
-                               <FaArrowLeft/> Go To Cart
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                dispatch(setSteeperProgress(2))
-                                navigate('/yourcart/payment')
-                              }}
-                              className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex justify-center items-center gap-2
+                          >
+                            <FaArrowLeft /> Go To Cart
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              dispatch(setSteeperProgress(2))
+                              navigate('/yourcart/payment')
+                            }}
+                            className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex justify-center items-center gap-2
                                     text-[#EDF6F9] shadow-sm hover:bg-[#EDF6F9] hover:text-[#006D77] focus-visible:outline 
                                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#006D77]"
-                            >
-                              Make payment <FaArrowRight/>
-                            </button>
-                          </div>
+                          >
+                            Make payment <FaArrowRight />
+                          </button>
                         </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               {/* Product List */}
               <div className="bg-[#b5e7e4b4] px-5 py-6 md:px-8">
-                <h1 className='mb-2'><span className='bg-white p-0.5 text-[#006D77] font-semibold'>3</span>Order Summary</h1>
-                <div className="flow-root">
+                <h1 className='mb-4 text-xl gap-3 font-bold flex mx-0'><span className='bg-white py-0.15 px-2 rounded-md shadow-lg text-[#006D77] font-semibold'>
+                  3
+                </span>Order Summary
+                </h1>
+                <hr className='py-0.5 mb-4' />
+                <div className="flow-root px-6">
                   <ul className="-my-7 divide-y divide-gray-200">
                     {allProduct.map((product) => (
                       <li
@@ -139,7 +231,7 @@ function ChecckOutpage() {
                           </div>
                           <div className="ml-5 flex flex-col justify-between">
                             <div className="flex-1">
-                              <p className="text-base capitalize font-bold">{product?.product?.productName}</p>
+                              <p className="text-base capitalize font-medium">{product?.product?.productName}</p>
                             </div>
                             <p className="mt-4 text-xs font-medium ">x {product.quantity}</p>
                           </div>
@@ -156,8 +248,8 @@ function ChecckOutpage() {
                     ))}
                   </ul>
                 </div>
-                <hr className="mt-6 border-black" />
-                <ul className="mt-6 space-y-3">
+                <hr className='mt-4 bg-black' />
+                <ul className="mt-6 space-y-3 px-6">
                   <li className="flex items-center justify-between text-black">
                     <p className="text-base font-medium">Total Cost Price</p>
                     <p className="text-lg text-[#000] font-medium">{formattedCurrency(totalCostPrice)}</p>
@@ -177,6 +269,9 @@ function ChecckOutpage() {
           </div>
         </div>
       </div>
+      {
+        addingAddress && <AddingNewAddress close={() => setaddingAddress(false)} />
+      }
     </>
   )
 }

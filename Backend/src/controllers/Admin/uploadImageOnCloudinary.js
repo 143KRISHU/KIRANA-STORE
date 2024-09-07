@@ -1,6 +1,6 @@
-import ApiError from "../../utils/ApiError.js";
+import ApiError from "../../utils/apiError.js";
 import ApiResponse from "../../utils/apiResponse.js";
-import asyncHandler from "../../utils/AsyncHandler.js";
+import asyncHandler from "../../utils/asyncHandler.js";
 import { uplaodOnCloudinary } from "../../utils/cloudinary.js";
 
 const uploadImageToCloudinary =asyncHandler(async(req,res)=>{

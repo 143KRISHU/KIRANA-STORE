@@ -24,7 +24,7 @@ const forgotPasswordVerification = asyncHandler(async (req, res) => {
                         sendEmail(
                               getCustomer.email,
                               `Kirana Store - Forgot Password- Your One Time Password`,
-                              `Hello, ${getCustomer.fullname.toUpperCase()}, Welcome to Kirana Store. Your One Time Password is : ${generatedOTP}. OTP is valid till 2 minutes`
+                              `Hello, ${getCustomer?.firstName.toUpperCase()}, Welcome to Kirana Store. Your One Time Password is : ${generatedOTP}. OTP is valid till 2 minutes`
                         )
                         const newOtpData = new OTP({
                               customerId:getCustomer._id,
@@ -47,6 +47,7 @@ const forgotPasswordVerification = asyncHandler(async (req, res) => {
             }
             
       } catch (error) {
+            console.log(error)
             throw new ApiError(500, `Something Wrong Occurred : ${error}`);
       }
 })

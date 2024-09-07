@@ -1,4 +1,4 @@
-import  ApiError  from "../utils/apiError";
+import  ApiError  from "../utils/apiError.js";
 import  asyncHandler  from "../utils/AsyncHandler.js";
 import jwt from "jsonwebtoken"
 import Customer from "../models/customer.model.js";

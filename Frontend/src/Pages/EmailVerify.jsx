@@ -9,7 +9,7 @@ function EmailVerify() {
 
       const verifyEmailUrl = async () => {
             try {
-                  const url = `https://kirana-store-e-commerce.onrender.com/api/v1/customer/${params.id}/verify/${params.token}`
+                  const url = `http://localhost:3000/api/v1/customer/${params.id}/verify/${params.token}`
                   const res = await fetch(url,
                         {
                               method: "post",

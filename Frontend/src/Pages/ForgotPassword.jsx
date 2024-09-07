@@ -54,6 +54,7 @@ function ForgotPassword() {
       }
       else {
         toast.error(finalRes.message)
+        console.log(finalRes)
         setFormData({ email: '' })
       }
     }

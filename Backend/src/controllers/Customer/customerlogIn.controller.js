@@ -98,7 +98,7 @@ const logInCustomer = asyncHandler(async function (req, res, next) {
             const options = {
                   httpOnly: true,
                   secure: true,
-                  sameSite:'Lax',
+                  sameSite:'Strict',
             }
       
             return res

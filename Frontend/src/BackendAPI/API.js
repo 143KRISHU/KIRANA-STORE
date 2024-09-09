@@ -1,4 +1,4 @@
-const backendMainDomainURL = "http://localhost:3000";
+const backendMainDomainURL = 'https://kirana-store-e-commerce.onrender.com'//"http://localhost:3000";
 
 const backendRoutesAPI = {
       signup : {

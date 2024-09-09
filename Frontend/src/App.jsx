@@ -6,14 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
 import backendRoutesAPI from "./BackendAPI/API.js"
 import customerContext from "./Context/index.js";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setCustomerDetail } from "./Store/customerSlice.js";
 import { resetProductDetail, setCurrentCustomerCartDetail } from "./Store/cartSlice.js";
 
 function App() {
 
   const dispatch = useDispatch()
-
+  const user = useSelector((state)=>state?.customer?.customer)
   const getCustomerDetail = async () => {
     const backendAPIResponse = await fetch(backendRoutesAPI.current_user.url, {
       method: backendRoutesAPI.current_user.method,
@@ -43,6 +43,7 @@ function App() {
   useEffect(() => {
     getCustomerDetail()
   },[])
+
   return (
     <>
       <customerContext.Provider value={{ getCustomerDetail }}>

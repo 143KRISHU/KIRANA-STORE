@@ -14,7 +14,6 @@ const PrivateRoute = () => {
                         credentials: "include"
                       })
                       const finalResponse = await backendAPIResponse.json()
-                      console.log(finalResponse)
                 if (finalResponse.success) {
                     setIsAuthenticated(true);
                 } else {

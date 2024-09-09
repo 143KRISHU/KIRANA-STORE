@@ -1,48 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import backendRoutesAPI from '../BackendAPI/API'
-import axios from 'axios';
 //Action for Storing
-// export const saveCartItems = createAsyncThunk('saveCartItems', async (item) => {
-//       const itemId = item._id
-//       const backendAPIResponse = await fetch(backendRoutesAPI.loggedInCustomerCartDetail.url, {
-//             method: backendRoutesAPI.loggedInCustomerCartDetail.method,
-//             credentials: 'include',
-//             headers: {
-//                   'content-type': 'application/json'
-//             },
-//             body: JSON.stringify({ _id: itemId })
-//       })
-//       const finalRes = await backendAPIResponse.json()
-//       if (finalRes.success) {
-//             return finalRes.message
-//       }
-//       else {
-//             toast.error(finalRes.message)
-//       }
-// })
 export const saveCartItems = createAsyncThunk('saveCartItems', async (item) => {
-      const itemId = item._id;
-      try {
-          const response = await axios({
-              url: backendRoutesAPI.loggedInCustomerCartDetail.url,
-              method: backendRoutesAPI.loggedInCustomerCartDetail.method,
-              withCredentials: true,
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              data: JSON.stringify({ _id: itemId }),
-          });
-  
-          if (response.data.success) {
-              return response.data.message;
-          } else {
-              toast.error(response.data.message);
-          }
-      } catch (error) {
-          toast.error('An error occurred while saving the cart items.');
+      const itemId = item._id
+      const backendAPIResponse = await fetch(backendRoutesAPI.loggedInCustomerCartDetail.url, {
+            method: backendRoutesAPI.loggedInCustomerCartDetail.method,
+            credentials: 'include',
+            headers: {
+                  'content-type': 'application/json'
+            },
+            body: JSON.stringify({ _id: itemId })
+      })
+      const finalRes = await backendAPIResponse.json()
+      if (finalRes.success) {
+            return finalRes.message
       }
-  });
+      else {
+            toast.error(finalRes.message)
+      }
+})
 export const getCurrentUserCartDetail = createAsyncThunk('getCurrentUserCartDetail', async () => {
       const backendApiResponse = await fetch(backendRoutesAPI.getCustomerCartDetail.url, {
             method: backendRoutesAPI.getCustomerCartDetail.method,
@@ -119,6 +97,7 @@ export const addToCartSlice = createSlice({
                   //getCurrentUserCartDetail
                   .addCase(getCurrentUserCartDetail.pending, (state, action) => {
                         state.status = 'Pending'
+                        resetProductDetail()
                   })
                   .addCase(getCurrentUserCartDetail.fulfilled, (state, action) => {
                         state.status = 'Fullfilled'
@@ -130,7 +109,7 @@ export const addToCartSlice = createSlice({
                         }
                   })
                   .addCase(getCurrentUserCartDetail.rejected, (state, action) => {
-                        toast.error(action.payload.message)
+                        toast.error(action.payload?.message)
                   })
 
                   //saveCartItems

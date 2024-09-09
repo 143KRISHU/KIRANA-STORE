@@ -51,7 +51,6 @@ function SetNewPAssword() {
 
   const updateThePasswordInDatabase = async()=>{
     const dataToSend = {...passwordFormData ,customerId:currentCustID}
-    console.log(dataToSend)
     const backendResponse = await fetch(backendRoutesAPI.updatePassword.url,{
       method: backendRoutesAPI.updatePassword.method,
       headers: {

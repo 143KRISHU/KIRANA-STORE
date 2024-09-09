@@ -32,16 +32,15 @@ const addItemsToCartOfLoggedInCustomer = asyncHandler(async (req, res) => {
                         totalNumberOfProduct: 1
                   })
                   if(newCustCart){
-                        console.log('New Customer Cart Is added')
+                        newCustCart.items.push({
+                              productId: productId,
+                              quantity: 1,
+                              price: ProductDetail.productSellingPrice
+                        })
+                        await newCustCart.save()
                   }
-                  newCustCart.items.push({
-                        productId: productId,
-                        quantity: 1,
-                        price: ProductDetail.productSellingPrice
-                  })
-                  await newCustCart.save()
+                  
             }
-
             res.status(200).json(
                   new ApiResponse(200, {}, `${ProductDetail.productName} added to the Cart`)
             )

@@ -46,7 +46,6 @@ function Login() {
                   const finalData = await backendAPIResponse.json();
                   if (finalData.success) {
                         toast.success(finalData.message)
-                        console.log(finalData)
                         await custContext.getCustomerDetail()
                         dispatch(getCurrentUserCartDetail())
                         try {

@@ -40,6 +40,9 @@ function ChecckOutpage() {
   const [totalCartPrice, setTotalCartPrice] = useState(0)
   const [totalCostPrice, setTotalCostPrice] = useState(0)
   const [addingAddress, setaddingAddress] = useState(false)
+  const [selectedAddress, setSelectedAddress] = useState('')
+
+  //Currnecy Format Function
   const formattedCurrency = (number) => {
     return (
       number.toLocaleString('en-US', {
@@ -47,6 +50,8 @@ function ChecckOutpage() {
         currency: 'INR', // Change to your desired currency code
       }))
   }
+
+  // Update the prices when product list changes
   useEffect(() => {
 
     if (allProduct?.length > 0) {
@@ -128,53 +133,41 @@ function ChecckOutpage() {
                                 {customer?.address.length > 0 &&
                                   <div className='w-full px-2 capitalize text-sm text-black/60 font-bold'>
                                     <ThemeProvider theme={themeforRadioButton}>
-                                      <FormControl className='gap-2 mt-2'>
+                                      <FormControl className='gap-2 mt-2 w-full'>
                                         <FormLabel id="demo-controlled-radio-buttons-group">{customer?.address.length > 1 ? 'Choose One Adsress' : null}</FormLabel>
                                         <RadioGroup
                                           row
                                           aria-labelledby="demo-controlled-radio-buttons-group"
-                                          name="addressType"
-                                          className='flex'
-
+                                          name="selectedAddress"
+                                          className='flex gap-4 mt-2 w-full'
+                                          value={selectedAddress}
+                                          onChange={(e)=>setSelectedAddress(e.target.value)}
                                         >
                                           {
-                                            customer?.address.map((address, index) => (
+                                            customer?.address.map((address, index) => {
+                                              return (
                                               <FormControlLabel key={index}
-                                                value={`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - <b>${address.pincode}</b>`} control={<Radio />}
+                                                className='w-full'
+                                                value={`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - <b>${address.pincode}</b>`} 
+                                                control={<Radio />}
                                                 label={
                                                   <>
+                                                    <div className='flex flex-col w-full p-2'>
+                                                    <p><b>{address.name}</b> - <b>{address.mobileNumber}</b></p>
                                                     {`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - `}
                                                     <b>{address.pincode}</b>
+                                                    </div>
                                                   </>
-                                                } />
-                                            ))}
+                                                } 
+                                              />)
+
+                                              })}
                                         </RadioGroup>
                                       </FormControl>
                                     </ThemeProvider>
                                   </div>}
                               </section>
                           }
-                        </div>
-                        <div className="mt-10">
-                          <h3 className="text-lg font-semibold text-gray-900">Billing information</h3>
-
-                          <div className="mt-6 flex items-center">
-                            <input
-                              id="same-as-shipping"
-                              name="same-as-shipping"
-                              type="checkbox"
-                              defaultChecked
-                              className="h-4 w-4 rounded border-gray-300 text-black focus:ring-black"
-                            />
-                            <div className="ml-2">
-                              <label
-                                htmlFor="same-as-shipping"
-                                className="text-sm font-medium text-gray-900"
-                              >
-                                Same as shipping information
-                              </label>
-                            </div>
-                          </div>
                         </div>
                         <div className="mt-10 flex justify-between items-center border-t border-gray-200 pt-6">
                           <button
@@ -184,7 +177,7 @@ function ChecckOutpage() {
                               navigate('/yourcart')
                             }}
                             className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex gap-2 items-center justify-center
-                              text-[#EDF6F9] shadow-sm hover:bg-[#EDF6F9] hover:text-[#006D77] focus-visible:outline 
+                              text-[#EDF6F9] shadow-sm hover:bg-[#fff] hover:text-[#006D77] focus-visible:outline 
                                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#006D77]"
                           >
                             <FaArrowLeft /> Go To Cart
@@ -192,11 +185,17 @@ function ChecckOutpage() {
                           <button
                             type="button"
                             onClick={() => {
-                              dispatch(setSteeperProgress(2))
-                              navigate('/yourcart/payment')
+                              if(selectedAddress !== ''){
+                                dispatch(setSteeperProgress(2))
+                                navigate('/yourcart/payment')
+                              }
+                              else{
+                                toast.warning('Please Select the address')
+                              }
+                              
                             }}
                             className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex justify-center items-center gap-2
-                                    text-[#EDF6F9] shadow-sm hover:bg-[#EDF6F9] hover:text-[#006D77] focus-visible:outline 
+                                    text-[#EDF6F9] shadow-sm hover:bg-[#fff] hover:text-[#006D77] focus-visible:outline 
                                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#006D77]"
                           >
                             Make payment <FaArrowRight />

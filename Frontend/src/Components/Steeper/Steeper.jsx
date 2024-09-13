@@ -9,13 +9,13 @@ function Steeper() {
       const step = useSelector((state)=>state?.steeperStep?.currentStep)
       let cartData = useSelector((state) => state?.addTocart)
       let allProduct = cartData?.items
-      const [currentStep, setcurrentStep] = useState(allProduct?.length ===0 ? 0 :step+1)
+      const [currentStep, setcurrentStep] = useState(step+1)
 
       useEffect(()=>{
-            setcurrentStep(allProduct?.length ===0 ? 0 :step+1)
+            setcurrentStep(step+1)
       },[step])
       useEffect(()=>{
-            setcurrentStep(allProduct?.length ===0 ? 0 :step+1)
+            setcurrentStep(step+1)
       },[allProduct])
       
       return (

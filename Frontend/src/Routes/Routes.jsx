@@ -80,11 +80,11 @@ const router = createBrowserRouter([
                 element: <CheckoutPage />,
               },
               {
-                path: 'payment',
+                path: 'payment/:id/success/:orderId',
                 element: <PaymentGateway />,
               },
               {
-                path: 'orderStatus',
+                path: 'orderStatus/:id',
                 element: <OrderStatus />,
               },
             ],

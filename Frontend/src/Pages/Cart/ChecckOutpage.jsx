@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Razorpay from 'razorpay';
 import { createTheme, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, ThemeProvider, Tooltip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +11,8 @@ import { FaCheck } from "react-icons/fa";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import ManageAddresses from '../../Components/ManageAddresses/ManageAddresses';
 import AddingNewAddress from '../../Components/AddingNewAdress/AddingNewAddress';
+import backendRoutesAPI from '../../BackendAPI/API';
+const razaorpaykey = import.meta.env.VITE_RAZORPAY_KEY_ID
 
 const themeforRadioButton = createTheme({
   components: {
@@ -41,6 +44,7 @@ function ChecckOutpage() {
   const [totalCostPrice, setTotalCostPrice] = useState(0)
   const [addingAddress, setaddingAddress] = useState(false)
   const [selectedAddress, setSelectedAddress] = useState('')
+  const [paymentInitiated,setPaymentInitiated] = useState(false)
 
   //Currnecy Format Function
   const formattedCurrency = (number) => {
@@ -51,6 +55,71 @@ function ChecckOutpage() {
       }))
   }
 
+  const formatAddress = (address) => {
+    const getAddressComponent = address.split('&');
+    const fromatedAddress = {}
+    getAddressComponent.map((item) => {
+      const [key, value] = item.split('=')
+      fromatedAddress[key] = value
+    })
+    return fromatedAddress;
+  }
+
+  // handle Payment Button
+  const handlePaymentBtn = async () => {
+    if (selectedAddress !== '') {
+      const addressforDelivery = formatAddress(selectedAddress);
+      if (addressforDelivery) {
+        const response = await fetch(backendRoutesAPI.createOrder.url, {
+          method: backendRoutesAPI.createOrder.method,
+          credentials: 'include',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({ cartItems: allProduct })
+        })
+        const data = await response.json()
+        if (data.success) {
+          dispatch(setSteeperProgress(2))
+          setPaymentInitiated(true)
+          toast.success(data.message)
+          const options = {
+            key_id: `${razaorpaykey}`,
+            amount: data.data.amount, // Amount in paise
+            currency: "INR",
+            name: "KIRANA-STORE",
+            description: "THE PAYMENT YOU MADE IS NOT OFFICIAL",
+            order_id: data.data.id,
+            callback_url: backendRoutesAPI.verifyPayment.url,
+            prefill: {
+              name: fullName,
+              email: customer.email,
+              contact: addressforDelivery.mobileNumber,
+            },
+            notes: {
+              fullAddress: addressforDelivery.fullAddress,
+              pincode:addressforDelivery.pincode,
+              name:addressforDelivery.name,
+              mobileNumber:addressforDelivery.mobileNumber,
+              alternateNumber:addressforDelivery?.alternateNumber,
+              locality:addressforDelivery.locality,
+              city:addressforDelivery.city,
+              state:addressforDelivery.state,
+            },
+            theme: {
+              color: "#006D77",
+            },
+          }
+          // Create Razorpay instance
+          const rzp = new window.Razorpay(options);  
+          rzp.open();
+        }
+      }
+    }
+    else {
+      toast.warning('Please Select the address')
+    }
+  }
   // Update the prices when product list changes
   useEffect(() => {
 
@@ -141,27 +210,28 @@ function ChecckOutpage() {
                                           name="selectedAddress"
                                           className='flex gap-4 mt-2 w-full'
                                           value={selectedAddress}
-                                          onChange={(e)=>setSelectedAddress(e.target.value)}
+                                          onChange={(e) => setSelectedAddress(e.target.value)}
                                         >
                                           {
                                             customer?.address.map((address, index) => {
                                               return (
-                                              <FormControlLabel key={index}
-                                                className='w-full'
-                                                value={`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - <b>${address.pincode}</b>`} 
-                                                control={<Radio />}
-                                                label={
-                                                  <>
-                                                    <div className='flex flex-col w-full p-2'>
-                                                    <p><b>{address.name}</b> - <b>{address.mobileNumber}</b></p>
-                                                    {`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - `}
-                                                    <b>{address.pincode}</b>
-                                                    </div>
-                                                  </>
-                                                } 
-                                              />)
+                                                <FormControlLabel key={index}
+                                                  className='w-full'
+                                                  value={
+                                                    `name=${address.name}&mobileNumber=${address.mobileNumber}&${address.alternateNumber !== undefined ? `alternateNumber=${address?.alternateNumber}&` : ''}fullAddress=${address.fullAddress}&locality=${address.locality}&city=${address.city}&state=${address.state}&pincode=${address.pincode}`}
+                                                  control={<Radio />}
+                                                  label={
+                                                    <>
+                                                      <div className='flex flex-col w-full p-2'>
+                                                        <p><b>{address.name}</b> - <b>{address.mobileNumber}</b><b>{address.alternateNumber !== undefined ? `/${address?.alternateNumber}` : ''}</b></p>
+                                                        {`${address.fullAddress}, ${address.locality}, ${address.city}, ${address.state} - `}
+                                                        <b>{address.pincode}</b>
+                                                      </div>
+                                                    </>
+                                                  }
+                                                />)
 
-                                              })}
+                                            })}
                                         </RadioGroup>
                                       </FormControl>
                                     </ThemeProvider>
@@ -184,16 +254,7 @@ function ChecckOutpage() {
                           </button>
                           <button
                             type="button"
-                            onClick={() => {
-                              if(selectedAddress !== ''){
-                                dispatch(setSteeperProgress(2))
-                                navigate('/yourcart/payment')
-                              }
-                              else{
-                                toast.warning('Please Select the address')
-                              }
-                              
-                            }}
+                            onClick={handlePaymentBtn}
                             className="rounded-md bg-[#006D77] px-3 py-2 text-sm font-semibold flex justify-center items-center gap-2
                                     text-[#EDF6F9] shadow-sm hover:bg-[#fff] hover:text-[#006D77] focus-visible:outline 
                                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#006D77]"
@@ -270,6 +331,9 @@ function ChecckOutpage() {
       </div>
       {
         addingAddress && <AddingNewAddress close={() => setaddingAddress(false)} />
+      }
+      {
+        paymentInitiated && <div className='absolute top-0 bottom-0 right-0 left-0 bg-slate-400 opacity-30'></div>
       }
     </>
   )

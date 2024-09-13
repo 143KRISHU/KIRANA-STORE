@@ -54,7 +54,13 @@ function Header() {
         {/* left most Company logo */}
         <div className="logo ml-10 py-2 px-2">
           <Link to={'/'}>
-            <i className="fa-brands fa-shopware" onClick={() => setShowCustomerOption(false)}></i>
+            <i className="fa-brands fa-shopware" onClick={() => {
+              setShowCustomerOption(false)
+              const cartStorage =JSON.parse(localStorage.getItem('addTocart'))
+              if(cartStorage.totalNumberOfProduct === 0){
+                dispatch(setSteeperProgress(0))
+              }
+              }}></i>
           </Link>
           <h4 className='headingTitle'>KIRANA-STORE</h4>
         </div>

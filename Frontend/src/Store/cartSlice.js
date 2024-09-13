@@ -97,7 +97,6 @@ export const addToCartSlice = createSlice({
                   //getCurrentUserCartDetail
                   .addCase(getCurrentUserCartDetail.pending, (state, action) => {
                         state.status = 'Pending'
-                        resetProductDetail()
                   })
                   .addCase(getCurrentUserCartDetail.fulfilled, (state, action) => {
                         state.status = 'Fullfilled'

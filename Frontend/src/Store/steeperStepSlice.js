@@ -15,6 +15,6 @@ export const steeperSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setCustomerDetail , setSteeperProgress } = steeperSlice.actions
+export const {setSteeperProgress } = steeperSlice.actions
 
 export default steeperSlice.reducer

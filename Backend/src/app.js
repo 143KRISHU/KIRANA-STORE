@@ -17,7 +17,6 @@ app.use(express.static("public"))
 
 // Customer Routes Import
 import customerRouter from "./routes/cutomer.route.js";
-// routes declaration
 app.use("/api/v1/customer",customerRouter);
 
 //Admin Routes Import
@@ -27,5 +26,9 @@ app.use("/api/v1/admin",adminRouter);
 //Product Routes Import
 import productRouter from "./routes/product.route.js";
 app.use("/api/v1/product",productRouter)
+
+//Payment and Order Routes
+import paymentOrderRouter from "./routes/payment.routes.js";
+app.use('/api/v1/paymentandorder',paymentOrderRouter)
 
 export default app;

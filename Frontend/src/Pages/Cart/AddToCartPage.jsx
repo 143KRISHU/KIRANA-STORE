@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import backendRoutesAPI from '../../BackendAPI/API';
 import { toast } from 'react-toastify';
 import CartAnimation from '../../assets/CartAnimation.json'
 import Lottie from "lottie-react"
-import { decProductCount, getCurrentUserCartDetail, incProductCount, removeItemFromCart } from '../../Store/cartSlice';
+import { decProductCount,  incProductCount, removeItemFromCart } from '../../Store/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { setSteeperProgress } from '../../Store/steeperStepSlice'
+import { formattedCurrency } from '../../HelperFiles/HelperFunction';
+import Typed from 'typed.js';
 
 function AddToCartPage() {
   const dispatch = useDispatch()
@@ -16,13 +18,6 @@ function AddToCartPage() {
   const [totalCartPrice, setTotalCartPrice] = useState(0)
   const [totalCostPrice, setTotalCostPrice] = useState(0)
   const [isProductCoutUpdating, setIsProductCountUpdating] = useState()
-  const formattedCurrency = (number) => {
-    return (
-      number.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'INR', // Change to your desired currency code
-      }))
-  }
 
   const increaseProductCount = (currProduct) => {
     const product = currProduct.product
@@ -76,7 +71,22 @@ function AddToCartPage() {
     }
   }, [allProduct])
 
+  //Typing animation
 
+  const el = useRef(null);
+  useEffect(() => {
+    const options = {
+      strings: ['Your Cart Is Empty !!!','Add Items To See In Cart !!!',"Grab Exciting Deal's !!!"], // Words to type
+      typeSpeed: 30, // Typing speed in milliseconds
+      backSpeed: 20,  // Backspace speed
+      loop: true,     // Loop infinitely
+      backDelay: 1500, // Delay before backspacing
+      showCursor: false, 
+    };
+    if(allProduct.length ===0){
+      const typed = new Typed(el.current, options);
+    }
+  },[]);
 
   return (
     <div className="w-full mx-auto max-w-7xl px-2 lg:px-0 ">
@@ -181,7 +191,8 @@ function AddToCartPage() {
                     <div id='animation' className='h-[300px] w-full flex justify-center'>
                       <Lottie animationData={CartAnimation} loop={true} />
                     </div>
-                    <h1 className='flex justify-center items-center text-2xl uppercase text-[#E29578] font-bold'>Your Cart Is Empty</h1>
+                    <span />
+                    <h1 ref={el} className=' w-full flex justify-center items-center text-2xl uppercase text-[#E29578] font-bold'/>
                   </div>
                 </>
               )

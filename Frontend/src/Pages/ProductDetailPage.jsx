@@ -8,6 +8,7 @@ import { IoIosSend } from "react-icons/io";
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux"
 import { setProductDetail, saveCartItems } from '../Store/cartSlice';
+import { formattedCurrency } from '../HelperFiles/HelperFunction';
 
 function ProductDetailPage() {
       const params = useParams()
@@ -16,7 +17,6 @@ function ProductDetailPage() {
       const currentCustomer = useSelector((state) => state?.customer?.customer)
       const cart = useSelector((state) => state?.addTocart?.items)
       const productAddStatus = useSelector((state) => {
-            console.log(state?.addTocart?.addProductStatus)
             return state?.addTocart?.addProductStatus
       })
       const [productInfo, setProductInfo] = useState({})
@@ -25,13 +25,6 @@ function ProductDetailPage() {
       const sideImage = new Array(5).fill(null)
       const navigate = useNavigate()
       const id = params.id
-      const formattedCurrency = (number) => {
-            return (
-                  number.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'INR', // Change to your desired currency code
-                  }))
-      }
       const getCurrentProductData = async () => {
             setIsloading(true)
             const backendResponse = await fetch(backendRoutesAPI.admin.getCurrentProduct.url, {
@@ -60,9 +53,7 @@ function ProductDetailPage() {
                         if (conatinsProduct === undefined) {
                               dispatch(setProductDetail(productInfo))
                               dispatch(saveCartItems(productInfo))
-                              if (productAddStatus === 'fullfilled') {
-                                    naviagte('/yourcart')
-                              }
+                              naviagte('/yourcart')
                         }
                         else {
                               toast.warning(`${productInfo.productName} is already in the cart`)

@@ -22,6 +22,7 @@ import PaymentGateway from '../Pages/Cart/Paymentgateway';
 import OrderStatus from '../Pages/Cart/OrderStatus';
 import ProductDetailPage from '../Pages/ProductDetailPage.jsx';
 import PrivateRoute from '../Components/PrivateRoute/PrivateRoute.jsx';
+import CustomerOrderPage from '../Pages/CustomerOrderPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
           {
             path: 'customer-profile',
             element: <CustomerProfile />,
+          },
+          {
+            path: 'customer-order-detail',
+            element: <CustomerOrderPage />,
           },
           {
             path: 'yourcart',

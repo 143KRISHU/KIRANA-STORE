@@ -109,7 +109,7 @@ function Header() {
                                         <FaRegUser /> My Profile</Link>
                                     )
                                 }
-                                <Link className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
+                                <Link to={'/customer-order-detail'} className='whitespace-nowrap flex items-center gap-6 w-full px-4 py-2 link'
                                   onClick={() => setShowCustomerOption(false)}>
                                   <FaClipboardList /> My Orders</Link>
 

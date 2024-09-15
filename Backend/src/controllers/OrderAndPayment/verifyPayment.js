@@ -78,7 +78,7 @@ const verifyPayment = asyncHandler(async (req, res) => {
                                                             paymentStatus: paymentDetail.status,
                                                             paymentMethod: paymentDetail.paymentMethod,
                                                             paymentMethodName:paymentDetail.methodName,
-                                                            paymentTime: paymentDetail.paymentDate,
+                                                            paymentTime: Date.now(),
                                                             paymettransId: paymentDetail.paymentTransactionID
                                                 },
                                                 shippingAddress: {

@@ -12,6 +12,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import ManageAddresses from '../../Components/ManageAddresses/ManageAddresses';
 import AddingNewAddress from '../../Components/AddingNewAdress/AddingNewAddress';
 import backendRoutesAPI from '../../BackendAPI/API';
+import { formattedCurrency } from '../../HelperFiles/HelperFunction';
 const razaorpaykey = import.meta.env.VITE_RAZORPAY_KEY_ID
 
 const themeforRadioButton = createTheme({
@@ -46,14 +47,6 @@ function ChecckOutpage() {
   const [selectedAddress, setSelectedAddress] = useState('')
   const [paymentInitiated,setPaymentInitiated] = useState(false)
 
-  //Currnecy Format Function
-  const formattedCurrency = (number) => {
-    return (
-      number.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'INR', // Change to your desired currency code
-      }))
-  }
 
   const formatAddress = (address) => {
     const getAddressComponent = address.split('&');
@@ -109,10 +102,22 @@ function ChecckOutpage() {
             theme: {
               color: "#006D77",
             },
+            modal: {
+              ondismiss: function () {
+                setPaymentInitiated(false)
+                dispatch(setSteeperProgress(1))
+                toast.warning('Payment process was interrupted or canceled');
+              },
+            },
           }
           // Create Razorpay instance
           const rzp = new window.Razorpay(options);  
           rzp.open();
+          rzp.on('payment.failed', function (response) {
+            setPaymentInitiated(false)
+            dispatch(setSteeperProgress(1))
+            toast.error('Payment failed');
+          });
         }
       }
     }

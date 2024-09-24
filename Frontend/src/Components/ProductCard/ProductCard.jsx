@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setProductDetail, setIsUpdating } from '../../Store/productSlice.js';
 function ProductCard({ product, index }) {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const formattedCurrency = (number) => {

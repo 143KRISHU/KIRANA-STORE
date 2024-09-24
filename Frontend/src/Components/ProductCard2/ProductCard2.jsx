@@ -1,0 +1,80 @@
+import { formattedCurrency } from "../../HelperFiles/HelperFunction";
+import { MdArrowOutward } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { saveCartItems, setProductDetail } from "../../Store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+
+export default function ProductCard2({ product }) {
+  const currentCustomer = useSelector((state) => state?.customer?.customer)
+  const dispatch = useDispatch()
+  const naviagte = useNavigate()
+  const cart = useSelector((state) => state?.addTocart?.items)
+  const addToCartButtonAction = async () => {
+    if (currentCustomer) {
+      if (cart.length > 0) {
+        const conatinsProduct = cart.find((item) => item.product._id.toString() === product._id.toString())
+        if (conatinsProduct === undefined) {
+          dispatch(setProductDetail(product))
+          dispatch(saveCartItems(product))
+        }
+        else {
+          toast.warning(`${product.productName} is already in the cart`)
+          naviagte('/yourcart')
+        }
+      }
+      else {
+        dispatch(setProductDetail(product))
+        dispatch(saveCartItems(product))
+      }
+    }
+    else {
+      naviagte('/login')
+    }
+  }
+  return (
+    <div className="group flex flex-col gap-4 justify-center items-center rounded-xl shadow-xl h-fit md:w-[24rem] sm:w-[20rem] bg-white transition-all duration-300 hover:shadow-2xl">
+      {/* Product Image */}
+      <div className="relative sm:h-40 sm:w-32 md:h-48 md:w-36 lg:h-56 lg:w-44 xl:h-64 xl:w-52 flex mt-4 justify-center items-center rounded-lg shadow-lg 
+          transition-transform duration-300 hover:scale-105 hover:bg-[#83C5BE] p-2">
+        <img
+          src={product.productImage[0]}
+          alt="Product"
+          className="object-cover rounded-md h-full w-full transition-opacity duration-300 hover:opacity-90"
+        />
+      </div>
+
+      {/* Product Info */}
+      <div className="w-full text-center p-4">
+        {/* Product Name */}
+        <h1 className="w-full capitalize text-ellipsis line-clamp-1 items-center text-lg 
+            font-bold text-gray-800  hover:cursor-pointer hover:underline"
+          onClick={() => { window.open(`/productDetail/${product._id}/view/${product.productName}`) }}
+        >
+          {product.productName}
+        </h1>
+
+        {/* Listing Price */}
+        <div className="mt-2 flex justify-between items-center px-4">
+          <span className="text-sm font-semibold text-gray-600">Listing Price:</span>
+          <span className="text-sm font-semibold line-through text-gray-400">{formattedCurrency(product.productListingPrice)}</span>
+        </div>
+
+        {/* Selling Price */}
+        <div className="mt-1 flex justify-between items-center px-4">
+          <span className="text-sm font-semibold text-gray-600">Selling Price:</span>
+          <span className="text-lg font-bold text-red-500">{formattedCurrency(product.productSellingPrice)}</span>
+        </div>
+
+        {/* Add to Cart Button */}
+        <div
+          className="mt-4 text-lg font-semibold text-[#006D77] bg-[#EDF6F9] hover:text-[#EDF6F9]  hover:bg-[#006D77] transition-colors duration-300 rounded-full py-2 px-8 cursor-pointer flex justify-center items-center"
+          onClick={() => { addToCartButtonAction() }}
+        >
+          Add To Cart
+        </div>
+      </div>
+    </div>
+
+  );
+}

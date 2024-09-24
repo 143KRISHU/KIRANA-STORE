@@ -62,6 +62,10 @@ const router = createBrowserRouter([
         element: <ErrorPage />,
       },
       {
+        path: 'products/:productcategory',
+        element: <SpecificCategoryPage />,
+      },
+      {
         element: <PrivateRoute />, // This applies to all routes nested inside
         children: [
           {
@@ -115,10 +119,6 @@ const router = createBrowserRouter([
           {
             path: ':id/update-product',
             element: <UpdateProductMenu />,
-          },
-          {
-            path: 'products/:productcategory',
-            element: <SpecificCategoryPage />,
           },
         ],
       },

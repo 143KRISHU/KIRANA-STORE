@@ -112,7 +112,7 @@ function HorizontalDisplayStream({ subcategory, heading }) {
                                                             subCategoryWiseProduct.map((product, index) => {
                                                                   return (
                                                                         <div key={index}>
-                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group select-none' onClick={() => { navigator(`/productDetail/${product._id}/view/${product.productName}`) }} key={product._id}
+                                                                              <div className='flex flex-nowrap md:flex-col sm:flex-row  border p-[6px] rounded-md transition-all group select-none' onClick={() => { navigator(`/productDetail/${product._id}/view`) }} key={product._id}
                                                                                     style={{
                                                                                           transform: `translateX(-${horizontalSlideCount * 100}%)`,
                                                                                           transitionProperty: 'transform',

@@ -36,7 +36,7 @@ export default function ProductCard2({ product }) {
     <div className="group flex flex-col gap-4 justify-center items-center rounded-xl shadow-xl h-fit md:w-[24rem] sm:w-[20rem] bg-white transition-all duration-300 hover:shadow-2xl">
       {/* Product Image */}
       <div className="relative sm:h-40 sm:w-32 md:h-48 md:w-36 lg:h-56 lg:w-44 xl:h-64 xl:w-52 flex mt-4 justify-center items-center rounded-lg shadow-lg 
-          transition-transform duration-300 hover:scale-105 hover:bg-[#83C5BE] p-2">
+          transition-transform duration-300 hover:scale-105 p-2">
         <img
           src={product.productImage[0]}
           alt="Product"
@@ -45,30 +45,24 @@ export default function ProductCard2({ product }) {
       </div>
 
       {/* Product Info */}
-      <div className="w-full text-center p-4">
+      <div className="w-full text-start p-4">
         {/* Product Name */}
-        <h1 className="w-full capitalize text-ellipsis line-clamp-1 items-center text-lg 
+        <div className="w-full flex justify-between items-center">
+          <h1 className="w-full capitalize text-ellipsis line-clamp-1 items-start text-xl 
             font-bold text-gray-800  hover:cursor-pointer hover:underline"
-          onClick={() => { window.open(`/productDetail/${product._id}/view/${product.productName}`) }}
-        >
-          {product.productName}
+            onClick={() => { window.open(`/productDetail/${product._id}/view`) }}
+          >
+            {product.productName}
+          </h1>
+          <span className="text-lg font-bold text-black">{formattedCurrency(product.productSellingPrice)}</span>
+        </div>
+        <h1 className="w-full capitalize items-start text-sm font-semibold text-gray-400">
+          {product.subcategory}
         </h1>
-
-        {/* Listing Price */}
-        <div className="mt-2 flex justify-between items-center px-4">
-          <span className="text-sm font-semibold text-gray-600">Listing Price:</span>
-          <span className="text-sm font-semibold line-through text-gray-400">{formattedCurrency(product.productListingPrice)}</span>
-        </div>
-
-        {/* Selling Price */}
-        <div className="mt-1 flex justify-between items-center px-4">
-          <span className="text-sm font-semibold text-gray-600">Selling Price:</span>
-          <span className="text-lg font-bold text-red-500">{formattedCurrency(product.productSellingPrice)}</span>
-        </div>
-
-        {/* Add to Cart Button */}
         <div
-          className="mt-4 text-lg font-semibold text-[#006D77] bg-[#EDF6F9] hover:text-[#EDF6F9]  hover:bg-[#006D77] transition-colors duration-300 rounded-full py-2 px-8 cursor-pointer flex justify-center items-center"
+          className=" w-full mt-4 text-lg font-semibold text-[#006D77] bg-[#EDF6F9] hover:text-[#EDF6F9]  hover:bg-[#006D77]
+          border-2 border-[#006D77]
+          transition-colors duration-300 rounded-full py-2 mx-auto px-8 cursor-pointer flex justify-center items-center"
           onClick={() => { addToCartButtonAction() }}
         >
           Add To Cart

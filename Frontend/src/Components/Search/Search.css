@@ -1,11 +1,11 @@
 .search {
-      background-color: #83C5BE;
+      background-color: #EDF6F9;
       width: auto;
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-direction: column;
+      align-items: start;
       border-radius:10px ;
-      text-align: center;
+      text-align: start;
 }
 .search:hover{
       box-shadow: 0px 4px 0px #3f3e3edf;
@@ -14,7 +14,7 @@
 .search i{
       font-size: 20px;
       padding: 3px;
-      color: white;
+      color: #006D77;
       margin-right:0.5rem ;
       margin-left: 0.5rem;
 }
@@ -31,6 +31,17 @@
       padding: 4px;
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
+}
+
+.suggestionlist{
+      border-top-right-radius: 0px; 
+      border-top-left-radius: 0px; 
+}
+
+.loading{
+      padding: 10px;
+      font-weight: 700;
+      color: #006D77;
 }
 
 @media (max-width:1016px){

@@ -18,6 +18,15 @@ function AddToCartPage() {
   const [totalCartPrice, setTotalCartPrice] = useState(0)
   const [totalCostPrice, setTotalCostPrice] = useState(0)
   const [isProductCoutUpdating, setIsProductCountUpdating] = useState()
+  const el = useRef(null);
+  const options = {
+    strings: ['Your Cart Is Empty !!!','Add Items To See In Cart !!!',"Grab Exciting Deal's !!!"], // Words to type
+    typeSpeed: 30, // Typing speed in milliseconds
+    backSpeed: 20,  // Backspace speed
+    loop: true,     // Loop infinitely
+    backDelay: 1500, // Delay before backspacing
+    showCursor: false, 
+  };
 
   const increaseProductCount = (currProduct) => {
     const product = currProduct.product
@@ -68,21 +77,14 @@ function AddToCartPage() {
     else {
       setTotalCartPrice(0)
       setTotalCostPrice(0)
+      if(allProduct.length ===0){
+        const typed = new Typed(el.current, options);
+      }
     }
   }, [allProduct])
 
   //Typing animation
-
-  const el = useRef(null);
   useEffect(() => {
-    const options = {
-      strings: ['Your Cart Is Empty !!!','Add Items To See In Cart !!!',"Grab Exciting Deal's !!!"], // Words to type
-      typeSpeed: 30, // Typing speed in milliseconds
-      backSpeed: 20,  // Backspace speed
-      loop: true,     // Loop infinitely
-      backDelay: 1500, // Delay before backspacing
-      showCursor: false, 
-    };
     if(allProduct.length ===0){
       const typed = new Typed(el.current, options);
     }

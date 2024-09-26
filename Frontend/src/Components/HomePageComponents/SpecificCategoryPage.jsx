@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import backendRoutesAPI from '../../BackendAPI/API'
-import { IoFunnelSharp } from "react-icons/io5";
+import { RxCross1 } from "react-icons/rx";
 import ProductCard2 from '../ProductCard2/ProductCard2'
 import productCategories from '../../HelperFiles/Productcategories';
 import { toast } from 'react-toastify';
@@ -35,18 +35,18 @@ function SpecificCategoryPage() {
     }
   }
   // Sub Category Filter
-  useEffect(()=>{
-    if(selectedCategories.length === 0 || selectedCategories.length === subCategories.length){
+  useEffect(() => {
+    if (selectedCategories.length === 0 || selectedCategories.length === subCategories.length) {
       setFilterdProduct([])
     }
-    else{
+    else {
       const filteredProduct = items.filter((item) => selectedCategories.some(badges => item.subcategory.includes(badges)))
-      if(filteredProduct.length === 0){
+      if (filteredProduct.length === 0) {
         toast.warning('For The Seleced Sub Category Products are Un-Available')
       }
       setFilterdProduct(filteredProduct)
     }
-  },[selectedCategories])
+  }, [selectedCategories])
 
   useEffect(() => {
     getProductData()
@@ -54,37 +54,32 @@ function SpecificCategoryPage() {
   }, [])
   return (
     <div className='bg-[#EDF6F9] py-5 flex flex-col gap-2'>
-      <h1 className='md:text-3xl px-5 sm:text-2xl flex-shrink-0 flex items-center gap-3 font-medium'>Products Fall Under Category : <span className='text-[#006D77] sm:text-2xl md:text-4xl font-bold '>{params.productcategory}</span></h1>
-      <div className='flex flex-col justify-end px-6 gap-1'>
-        <div className='flex justify-evenly z-40 px-6 py-2'>
+      <h1 className='md:text-3xl mb-2 sm:text-2xl flex-shrink-0 flex items-center gap-3 font-medium'>Products Fall Under Category : <span className='text-[#006D77] sm:text-2xl md:text-4xl font-bold '>{params.productcategory}</span></h1>
+      <div className='flex w-full flex-wrap flex-col gap-1'>
+        <div className='flex justify-evenly'>
           {
             subCategories?.map((subCategory, index) => {
               return (
                 <div
                   key={index}
-                  className={`badge px-3 py-1.5 m-1 text-[16px] cursor-pointer rounded-full border border-gray-300 
+                  className={`badge px-3 py-2 m-1 text-[16px] cursor-pointer rounded-full border border-gray-300 
                     ${selectedCategories.includes(subCategory)
                       ? 'bg-[#006D77] text-white'
                       : 'bg-gray-200 text-gray-700'
                     }`}
                   onClick={() => handleToggle(subCategory)}
                 >
-                  {subCategory}
+                  {selectedCategories.includes(subCategory)
+                    ? <p className='w-full flex items-center gap-2 justify-between'><span><RxCross1/></span>{subCategory}</p>
+                    : subCategory 
+                  }
                 </div>
               )
             })
           }
         </div>
-        {/* {
-          selectedCategories.length > 0 &&
-          <button className='px-3 text-[14px] py-1.5 rounded-full ml-auto mr-16 flex justify-end bg-blue-500 text-white'
-            onClick={handleApplyFilter}
-          >
-            Apply
-          </button>
-        } */}
       </div>
-      <hr className='border-2 mt-1 ml-5 mr-5' />
+      <hr className='border-2 mt-1' />
       <div className='w-full h-[100vh] overflow-y-scroll hidden-scrollbar flex flex-wrap gap-6 justify-evenly align-middle mt-3'>
         {
           filteredProduct.length > 0 ?

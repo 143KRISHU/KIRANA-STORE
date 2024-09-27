@@ -22,4 +22,14 @@ const formatDate = (isoDate) => {
             return readableDate
 }
 
-export {formatDate,formattedCurrency}
+function debounce(func, delay) {
+            let timeout;
+            return (...args) => {
+              clearTimeout(timeout); // Clear the previous timer
+              timeout = setTimeout(() => {
+                func.apply(this, args); // Execute the function after the delay
+              }, delay);
+            };
+          }
+
+export {formatDate,formattedCurrency,debounce}

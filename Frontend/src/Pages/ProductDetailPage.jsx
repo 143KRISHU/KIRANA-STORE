@@ -69,6 +69,10 @@ function ProductDetailPage() {
     getCurrentProductData()
   }, [])
 
+  useEffect(() => {
+    getCurrentProductData()
+  }, [id])
+
   return (
     <div className='px-6 py-8 bg-[#EDF6F9] '>
       <div className='flex justify-evenly w-full  gap-4 displayMainConatinare'>

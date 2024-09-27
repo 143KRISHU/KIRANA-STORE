@@ -21,9 +21,9 @@ const searchProductFromDB = asyncHandler(async (req, res) => {
                 {
                     subcategory:regex
                 },
-                {
-                    productDescription :regex
-                }
+                // {
+                //     productDescription :regex
+                // }
             ]
         })
         if(products.length>0){

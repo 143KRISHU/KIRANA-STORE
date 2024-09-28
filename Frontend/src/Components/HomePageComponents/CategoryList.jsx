@@ -49,7 +49,7 @@ function CategoryList() {
                                     {
                                           productsCategory?.map((category, index) => {
                                                 return (
-                                                      <Link onClick={()=>window.open(`products/${category.category}`)} className='flex flex-col justify-center items-center ' key={index}>
+                                                      <Link onClick={()=>window.open(`/products/${category.category}`)} className='flex flex-col justify-center items-center ' key={index}>
                                                             <div className=' category-image border-2 border-[#006D77] md:h-24 md:w-24 rounded-xl flex overflow-hidden 
                                                              justify-center items-center cursor-pointer'>
                                                                   <img src={category?.productImage[0]} alt={category?.category}

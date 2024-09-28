@@ -10,7 +10,7 @@ function ForgotPassword() {
   const [formData, setFormData] = useState({
     email: ''
   })
-  const [otpSentFlag, setOtpSentFlag] = useState(true)
+  const [otpSentFlag, setOtpSentFlag] = useState(false)
   const [validCustomerId, setvalidCustomerId] = useState({
     customerId: ''
   })

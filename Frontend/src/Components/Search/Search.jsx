@@ -60,7 +60,7 @@ function Search() {
   }
 
   const showProductPage = (suggestion) => {
-    window.open(`/productDetail/${suggestion._id}/view`)
+    navigate(`/productDetail/${suggestion._id}/view`)
   }
 
   useEffect(() => {
@@ -106,7 +106,6 @@ function Search() {
             />
           </ul>
         }
-
       </form>
 
 

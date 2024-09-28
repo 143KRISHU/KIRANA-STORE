@@ -107,7 +107,7 @@ function ForgotPassword() {
         {
           otpSentFlag ? (
             <>
-              <OtpFrom length={6} onSubmitOtp={handleOTPVErification}/>
+              <OtpFrom length={6} onSubmitOtp={handleOTPVErification} />
               <div className='flex cursor-pointer justify-end items-center mt-2 gap-2 w-full'>
                 <h1 className={resendOtpTimer !== 0 ? 'text-[#a0a0a0] font-bold cursor-not-allowed'
                   : 'text-blue-600 hover:font-semibold cursor-pointer'}
@@ -143,7 +143,6 @@ function ForgotPassword() {
           )
         }
       </div>
-
     </div>
   )
 }

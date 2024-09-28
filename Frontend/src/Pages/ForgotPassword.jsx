@@ -4,31 +4,23 @@ import { toast } from 'react-toastify'
 import backendRoutesAPI from '../BackendAPI/API'
 import animation from '../assets/Animation .json'
 import Lottie from "lottie-react";
+import OtpFrom from '../Components/OTPForm/OtpForm'
 
 function ForgotPassword() {
   const [formData, setFormData] = useState({
     email: ''
   })
-  const [otpFormData, setOtpFormData] = useState({
-    otp: ''
-  })
-  const [otpSentFlag, setOtpSentFlag] = useState(false)
-  const [resendOtpTimer , setResendOtpTimer]=useState(30)
-  const [startOtpTimerFlag,setStartOtpTimerFlag]=useState(false)
+  const [otpSentFlag, setOtpSentFlag] = useState(true)
   const [validCustomerId, setvalidCustomerId] = useState({
     customerId: ''
   })
+  const [startOtpTimerFlag, setStartOtpTimerFlag] = useState(false)
+  const [resendOtpTimer, setResendOtpTimer] = useState(30)
   const navigate = useNavigate()
 
-  
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
-  }
-
-  const handleOtpInputChange = (e) => {
-    const { name, value } = e.target
-    setOtpFormData({ ...otpFormData, [name]: value })
   }
 
   const handleCheckEmail = async (e) => {
@@ -54,22 +46,20 @@ function ForgotPassword() {
       }
       else {
         toast.error(finalRes.message)
-        console.log(finalRes)
         setFormData({ email: '' })
       }
     }
   }
 
-  const handleOTPVErification = async (e) => {
-    e.preventDefault()
+  const handleOTPVErification = async (otp) => {
     const _id = validCustomerId.customerId
-    if (otpFormData.otp === '') {
+    if (otp === '' || otp === undefined) {
       toast.error("Enter the 6 digit Otp sent to your Email ")
     }
-    else if (otpFormData.otp.length > 6) {
+    else if (otp?.length > 6) {
       toast.error('Otp Should not be Exceed 6 digit')
     }
-    else if (otpFormData.otp.length < 6) {
+    else if (otp?.length < 6) {
       toast.error('Otp Should not be less than 6 digit')
     }
     else {
@@ -78,7 +68,7 @@ function ForgotPassword() {
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ otp: otpFormData.otp, customerId: _id })
+        body: JSON.stringify({ otp: otp, customerId: _id })
       })
       const finalRes = await backendResponse.json()
       if (finalRes.success) {
@@ -91,79 +81,66 @@ function ForgotPassword() {
     }
   }
 
-  useEffect(()=>{
-    const timer = setInterval(()=>{
-      setResendOtpTimer((prevTime)=>{
-        if(prevTime<=0){
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setResendOtpTimer((prevTime) => {
+        if (prevTime <= 0) {
           clearInterval(timer)
           setStartOtpTimerFlag(false)
           return 0
         }
-        else{
+        else {
           return prevTime - 1
         }
       })
-    },1000)
+    }, 1000)
 
-    return ()=> clearInterval(timer)
-  },[startOtpTimerFlag])
+    return () => clearInterval(timer)
+  }, [startOtpTimerFlag])
 
   return (
     <div className='p-8 flex justify-center items-center'>
       <div className='bg-white p-6 text-lg w-full mx-auto md:max-w-xl rounded-lg shadow-lg'>
-        <div id='animation'className='h-[300px] w-full flex justify-center'>
+        <div id='animation' className='h-[300px] w-full flex justify-center'>
           <Lottie animationData={animation} loop={true} />
         </div>
-        <form className='flex flex-col gap-4  p-3' >
-          <div className='grid gap-10 forgotPasswordForm' >
-            <label htmlFor='email' className='md:text-2xl text-lg select-none'>Enter Your Registered Email </label>
-            <input type='email' id='email' name='email' placeholder='example@gamil.com' value={formData.email} onChange={handleOnChange}
-              className='md:text-xl text-md p-2 bg-slate-200 text text-black' disabled={otpSentFlag ? true : false} />
-            <button className='border-2 border-[#006D77] max-w-lg rounded-xl transition-colors
-                    mx-auto px-4 py-2 hover:text-white hover:bg-[#006D77] text-xl' onClick={handleCheckEmail}
-              disabled={otpSentFlag ? true : false}>
-              Check
-            </button>
-          </div>
-        </form>
-
-        {/* OTP VERIFICATION SECTION */}
-
         {
           otpSentFlag ? (
             <>
-              <form className='flex flex-col gap-2 mt-4 p-3 '>
-                <h3 className='md:text-2xl text-lg select-none'>Enter the Otp : </h3>
-                <div className='flex justify-between items-center'>
-                  <input type='number' placeholder='6 Digit OTP' name='otp' value={otpFormData.otp} onChange={handleOtpInputChange}
-                    className='md:text-xl text-md p-2 bg-slate-100 text text-red-600 font-bold text-center'
-                  />
-                  <button className='border-2 text-white bg-red-500 max-w-lg rounded-xl px-4 hover:scale-x-105 font-semibold py-2 transition-all text-xl'
-                    onClick={handleOTPVErification}>
-                    Verify
-                  </button>
-                </div>
-                <div className='flex cursor-pointer items-center gap-2 w-full'>
-                  <h1 className={resendOtpTimer!==0?'text-[#a0a0a0] font-bold cursor-not-allowed'
-                                                   :'text-blue-600 hover:font-semibold cursor-pointer'}
-                    disabled={resendOtpTimer!==0?true : false} style={{
-                      fontSize:'1rem',
-                      lineHeight:'1.25rem',
-                      userSelect:'none',
-                    }} onClick={handleCheckEmail}>
-                    Resend OTP..??
-                  </h1>
-                  <span className='bg-red-400 h-8 w-8 flex items-center select-none cursor-not-allowed
+              <OtpFrom length={6} onSubmitOtp={handleOTPVErification}/>
+              <div className='flex cursor-pointer justify-end items-center mt-2 gap-2 w-full'>
+                <h1 className={resendOtpTimer !== 0 ? 'text-[#a0a0a0] font-bold cursor-not-allowed'
+                  : 'text-blue-600 hover:font-semibold cursor-pointer'}
+                  disabled={resendOtpTimer !== 0 ? true : false} style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.25rem',
+                    userSelect: 'none',
+                  }} onClick={(e) => handleCheckEmail(e)}>
+                  Resend OTP..??
+                </h1>
+                <span className='bg-[#006D77] h-8 w-8 flex items-center select-none cursor-not-allowed
                     justify-center rounded-full text-lg text-white font-semibold'
-                    style={{
-                      visibility:`${resendOtpTimer === 0?'hidden':'visible'}`
-                    }}>
-                    {resendOtpTimer}
-                  </span>
-                </div>
-              </form>
+                  style={{
+                    visibility: `${resendOtpTimer === 0 ? 'hidden' : 'visible'}`
+                  }}>
+                  {resendOtpTimer}
+                </span>
+              </div>
             </>
-          ) : null
+          ) : (
+            <form className='flex flex-col gap-4  p-3' >
+              <div className='grid gap-10 forgotPasswordForm' >
+                <label htmlFor='email' className='md:text-2xl text-lg select-none'>Enter Your Registered Email </label>
+                <input type='email' id='email' name='email' placeholder='example@gamil.com' value={formData.email} onChange={handleOnChange}
+                  className='md:text-xl text-md p-2 bg-slate-200 text text-black' disabled={otpSentFlag ? true : false} />
+                <button className='border-2 border-[#006D77] max-w-lg rounded-xl transition-colors
+                    mx-auto px-4 py-2 hover:text-white hover:bg-[#006D77] text-xl' onClick={(e) => handleCheckEmail(e)}
+                  disabled={otpSentFlag ? true : false}>
+                  Check
+                </button>
+              </div>
+            </form>
+          )
         }
       </div>
 

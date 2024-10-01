@@ -21,7 +21,7 @@ function Header() {
   const customer = useSelector((state) => state?.customer?.customer)
   const addToCart = useSelector((state) => state.addTocart)
   const step = useSelector((state) => state?.steeperStep?.currentStep)
-  const [showCustomerOption, setShowCustomerOption] = useState(true)
+  const [showCustomerOption, setShowCustomerOption] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const actionUrl = ['/yourcart', '/yourcart/checkout', '/yourcart/payment', '/yourcart/orderStatus']

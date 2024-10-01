@@ -79,13 +79,13 @@ function Search() {
 
   return (
     <>
-      <form className={`relative search sm:col-span-8 col-span-6  my-auto`}
+      <form className={`relative search min-w-[200px] sm:col-span-8 col-span-7  my-auto`}
         style={{
           borderBottomLeftRadius: searchedResult.length > 0 ?'0px':'10px',
           borderBottomRightRadius: searchedResult.length > 0 ? '0px':'10px',
         }}
       >
-        <div className='w-full flex align-middle'>
+        <div className='w-full flex align-middle items-center'>
           <i className="fa-solid fa-magnifying-glass"></i>
           <input type='search' value={inputValue.toUpperCase()} className="search-bar "
             placeholder='Search For Product,Brand and More....'
@@ -94,7 +94,7 @@ function Search() {
         {
           ((searchedResult.length > 0 && inputValue.length > 1) || loading || error)
           &&
-          <ul className={`suggestionlist h-[300px] w-[522px] z-10 rounded-lg hidden-scrollbar 
+          <ul className={`suggestionlist h-[300px] w-full z-10 rounded-lg hidden-scrollbar text-left
                         overflow-y-scroll gap-2  py-2 top-[2.1rem] absolute bg-white 
                           ${searchedResult.length === 1 && 'h-fit'}`}>
             {loading && <div className='loading ml-9'>Loading.....</div>}

@@ -15,6 +15,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
 import { resetProductDetail } from '../../Store/cartSlice';
 import { setSteeperProgress } from '../../Store/steeperStepSlice';
+import { RxHamburgerMenu } from "react-icons/rx";
 
 function Header() {
 
@@ -22,6 +23,7 @@ function Header() {
   const addToCart = useSelector((state) => state.addTocart)
   const step = useSelector((state) => state?.steeperStep?.currentStep)
   const [showCustomerOption, setShowCustomerOption] = useState(false)
+  const [showMobileOption, setShowMobileOption] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const actionUrl = ['/yourcart', '/yourcart/checkout', '/yourcart/payment', '/yourcart/orderStatus']
@@ -70,9 +72,16 @@ function Header() {
 
         <Search />
 
+        {/* MObile view */}
+            <div className='w-full sm:hidden  col-span-2 text-3xl text-[#EDF6F9] font-bold flex justify-center align-middle items-center'>
+            <RxHamburgerMenu className='cursor-pointer' onClick={(prev)=>setShowMobileOption(!prev)} />
+            </div>
+
+
         {/* Right Most Part Of the Header */}
 
-        <div className='links flex-row-reverse justify-evenly gap-2 flex items-center sm:col-span-3 lg:col-span-2 col-span-3'>
+
+        <div className='links hidden sm:flex-row-reverse justify-evenly gap-2 sm:flex items-center sm:col-span-3 lg:col-span-2'>
           {/* Add To Cart Logo */}
           <div className="cart-icon  text-[1.45rem] sm:text-[1.75rem]  font-semibold  cursor-pointer relative group" onClick={handleCartClick}>
             <span><BsCart2 /></span>

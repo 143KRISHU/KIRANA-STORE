@@ -42,6 +42,29 @@ header {
       background-color: #83c5bf91;
 }
 
+/* For screens below 500px, fix the layout */
+@media screen and (max-width: 500px) {
+      body {
+        width: 500px; /* Set a fixed width */
+        overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+      }
+    
+      .container {
+        width: 500px; /* Force a fixed width */
+      }
+    
+      /* Disable flex or grid layout adjustments */
+      .flex-container, .grid-container {
+        display: block; /* Disable flex or grid responsiveness */
+      }
+    
+      /* Adjust other elements as needed to maintain the fixed layout */
+      .header, .footer {
+        width: 500px; /* Fix header and footer width */
+      }
+    }
+    
+
 .hidden-scrollbar {
       overflow: auto;
       /* Ensure the content can scroll */

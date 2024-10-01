@@ -1,14 +1,20 @@
-@media(max-width:639px){
-            .otpinputs{
-                        height: 40px;
-                        width: 40px;
-                        padding-left: 1rem;
-                        padding-right: 1rem;
-            }
-            .otpform{
-                        gap:1rem;
-            }
-            .otpdiv{
-                        gap:1rem
-            }
+@media(max-width:639px) {
+  .otpinputs {
+    height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+  }
+
+  .otpform {
+    gap: 1rem;
+  }
+
+  .otpdiv {
+    gap: 1rem
+  }
+
+  .otp-heading {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
 }

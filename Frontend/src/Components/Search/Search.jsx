@@ -79,15 +79,13 @@ function Search() {
 
   return (
     <>
-      <form className={`relative search`}
+      <form className={`relative search sm:col-span-8 col-span-6  my-auto`}
         style={{
-          borderBottomLeftRadius: searchedResult.length > 0 && '0px',
-          borderBottomRightRadius: searchedResult.length > 0 && '0px',
-          borderBottomLeftRadius: searchedResult.length === 0 && '10px',
-          borderBottomRightRadius: searchedResult.length === 0 && '10px',
+          borderBottomLeftRadius: searchedResult.length > 0 ?'0px':'10px',
+          borderBottomRightRadius: searchedResult.length > 0 ? '0px':'10px',
         }}
       >
-        <div>
+        <div className='w-full flex align-middle'>
           <i className="fa-solid fa-magnifying-glass"></i>
           <input type='search' value={inputValue.toUpperCase()} className="search-bar "
             placeholder='Search For Product,Brand and More....'
@@ -107,8 +105,6 @@ function Search() {
           </ul>
         }
       </form>
-
-
     </>
   )
 }

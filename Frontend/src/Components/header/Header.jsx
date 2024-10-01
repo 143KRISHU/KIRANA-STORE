@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import backendRoutesAPI from "../../BackendAPI/API.js"
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
-import { setCustomerDetail} from "../../Store/customerSlice.js";
+import { setCustomerDetail } from "../../Store/customerSlice.js";
 import { FaAngleUp } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
@@ -20,11 +20,11 @@ function Header() {
 
   const customer = useSelector((state) => state?.customer?.customer)
   const addToCart = useSelector((state) => state.addTocart)
-  const step = useSelector((state)=>state?.steeperStep?.currentStep)
-  const [showCustomerOption, setShowCustomerOption] = useState(false)
+  const step = useSelector((state) => state?.steeperStep?.currentStep)
+  const [showCustomerOption, setShowCustomerOption] = useState(true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const actionUrl = ['/yourcart','/yourcart/checkout','/yourcart/payment','/yourcart/orderStatus']
+  const actionUrl = ['/yourcart', '/yourcart/checkout', '/yourcart/payment', '/yourcart/orderStatus']
 
   const handleLogout = async () => {
     setShowCustomerOption(false)
@@ -49,20 +49,20 @@ function Header() {
 
 
   return (
-    <section className='header h-16 w-screen'>
-      <div className=" container h-full w-full flex flex-row justify-between items-center header-box">
+    <section className='h-fit min-w-[100px] py-1 w-screen flex bg-[#006d77]'>
+      <div className=" container grid grid-cols-10 sm:grid-cols-12 header-box sm:gap-4">
         {/* left most Company logo */}
-        <div className="logo ml-10 py-2 px-2">
-          <Link to={'/'}>
+        <div className="logo  py-2 col-span-1  lg:col-span-2 sm:col-span-1">
+          <Link to={'/'} className='w-full px-3 flex justify-center'>
             <i className="fa-brands fa-shopware" onClick={() => {
               setShowCustomerOption(false)
-              const cartStorage =JSON.parse(localStorage.getItem('addTocart'))
-              if(cartStorage.totalNumberOfProduct === 0){
+              const cartStorage = JSON.parse(localStorage.getItem('addTocart'))
+              if (cartStorage.totalNumberOfProduct === 0) {
                 dispatch(setSteeperProgress(0))
               }
-              }}></i>
-          </Link>
-          <h4 className='headingTitle'>KIRANA-STORE</h4>
+            }}></i>
+          <h4 className='text-lg xl:flex hidden'>K-STORE</h4>
+          </Link> 
         </div>
 
 
@@ -72,18 +72,18 @@ function Header() {
 
         {/* Right Most Part Of the Header */}
 
-        <div className='links flex flex-row justify-around gap-10 items-center'>
+        <div className='links flex-row-reverse justify-evenly gap-2 flex items-center sm:col-span-3 lg:col-span-2 col-span-3'>
           {/* Add To Cart Logo */}
-          <div className="cart-icon text-3xl  cursor-pointer relative mr-12 group" onClick={handleCartClick}>
+          <div className="cart-icon  text-[1.45rem] sm:text-[1.75rem]  font-semibold  cursor-pointer relative group" onClick={handleCartClick}>
             <span><BsCart2 /></span>
-            <p className='text-xs bg-red-500 w-5 h-5 text-white absolute -top-1.5 -right-2 cart-value select-none
+            <p className='text-xs bg-red-500 w-4 h-4 text-white absolute -top-1.5 -right-2 cart-value select-none
             flex items-center justify-center rounded-full'>{addToCart?.totalNumberOfProduct}</p>
           </div>
 
           {
             customer?._id
               ? (
-                <div className="user-icon text-3xl right-5 mr-5 relative gap-2 flex justify-center items-center cursor-pointer"
+                <div className="user-icon text-3xl right-5 mr-5 relative gap-3 flex justify-center items-center cursor-pointer"
                 >
                   <FaRegCircleUser onMouseOver={() => setShowCustomerOption(true)} />
                   {
@@ -124,10 +124,8 @@ function Header() {
                 </div>
               )
               : (
-                <div className="mr-5">
-                  <button className='mr-5 login-btn hover:shadow-lg transition-all'>
-                    <Link to={"/login"}>Login</Link>
-                  </button>
+                <div className="">
+                  <Link to={"/login"} className='flex flex-shrink-0 text-[1.35rem] font-semibold text-[#EDF6F9] items-center gap-1.5'><FaRegCircleUser/>Login</Link>
                 </div>
               )
           }

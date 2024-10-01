@@ -74,16 +74,16 @@ const OtpFrom = ({ length, onSubmitOtp, resendOtpFunctionHandle, email }) => {
 
 
   return (
-    <div className=' w-fit bg-white flex flex-shrink-0 justify-center items-center'>
+    <div className=' w-full bg-white flex flex-shrink-0 justify-center items-center'>
       <form className='otpform w-fit h-fit sm:p-3 md:p-5 flex justify-center items-center flex-col sm:gap-7'>
-        <h1 className='w-full mt-3 text-left sm:text-xl md:text-2xl text-[#000]'>Enter the OTP sent to your Resgistered Email</h1>
-        <div className='flex otpdiv sm:gap-3'>
+        <h1 className='otp-heading w-full mt-3 text-left sm:text-xl md:text-2xl text-[#000]'>Enter the OTP sent to your Resgistered Email</h1>
+        <div className='w-full flex otpdiv sm:gap-3'>
           {
             otpInputs.map((value, index) => {
               return (
-                <input className='otpinputs sm:h-[50px] sm:w-[50px] md:h-[70px] md:w-[70px]
+                <input className='otpinputs sm:h-[3rem] sm:w-[3rem] md:h-[70px] md:w-[70px] text-xl mx-auto
                                bg-[#EDF6F9] rounded-xl text-[#006D77] text-center sm:text-2xl border-4 border-[#83C5BE]
-                               md:text-4xl font-semibold focus:border-[#006D77] focus:border-4 focus:outline-none care'
+                               md:text-4xl font-semibold focus:border-[#006D77] focus:border-4 focus:outline-none'
                   type='text'
                   ref={(input) => allInputRefs.current[index] = input}
                   value={value}
@@ -95,7 +95,7 @@ const OtpFrom = ({ length, onSubmitOtp, resendOtpFunctionHandle, email }) => {
             })
           }
         </div>
-        <button className={`border-2 text-[#EDF6F9] bg-[#006D77] max-w-lg rounded-xl px-4  font-semibold py-2 transition-all text-xl mt-5`}
+        <button className={`border-2 text-[#EDF6F9] bg-[#006D77] max-w-lg rounded-xl px-4  font-semibold py-2 transition-all text-xl mt-3`}
           onClick={(e) => {
             e.preventDefault()
             onSubmitOtp(otpData)

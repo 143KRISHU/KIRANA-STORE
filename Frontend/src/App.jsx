@@ -64,9 +64,9 @@ function App() {
             <Outlet />
           </section>
         </main>
-        {/* <footer>
+        <footer>
           <Footer />
-        </footer> */}
+        </footer>
       </customerContext.Provider>
     </>
 

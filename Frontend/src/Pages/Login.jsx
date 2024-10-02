@@ -128,7 +128,6 @@ function Login() {
                               </div>
                               
                         : (
-                              <section id='login'>
                               <div className="container mx-auto p-4">
                                     <div className='p-6 w-full max-w-xl mx-auto rounded-2xl shadow-2xl' style={{ backgroundColor: "#fff" }}>
                                           <div className='h-20 w-20 mx-auto flex items-center mt-8 mb-4'>
@@ -171,7 +170,6 @@ function Login() {
                                           </p>
                                     </div>
                               </div>
-                        </section>
                         )
                   }
             </>

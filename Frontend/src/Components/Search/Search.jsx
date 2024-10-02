@@ -79,7 +79,7 @@ function Search() {
 
   return (
     <>
-      <form className={`relative search min-w-[200px] sm:col-span-8 col-span-7  my-auto`}
+      <form className={`relative search min-w-[200px] sm:col-span-8 col-span-6  my-auto`}
         style={{
           borderBottomLeftRadius: searchedResult.length > 0 ?'0px':'10px',
           borderBottomRightRadius: searchedResult.length > 0 ? '0px':'10px',

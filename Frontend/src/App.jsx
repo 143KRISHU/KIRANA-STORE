@@ -47,7 +47,7 @@ function App() {
   return (
     <>
       <customerContext.Provider value={{ getCustomerDetail }}>
-        <header>
+        <header className="header">
           <Header />
         </header>
         <main className="main">
@@ -64,7 +64,7 @@ function App() {
             <Outlet />
           </section>
         </main>
-        <footer>
+        <footer className="footer">
           <Footer />
         </footer>
       </customerContext.Provider>

@@ -5,7 +5,7 @@ import { IoLogoGithub } from "react-icons/io5";
 import { FaExternalLinkAlt } from "react-icons/fa";
 function Footer() {
   return (
-    <section className="absolute right-0 left-0 bottom-0 overflow-hidden py-8" 
+    <section className="absolute right-0 left-0 bottom-0 overflow-hidden py-2" 
       style={{backgroundColor:"#006D77"}}>
         <div className='container flex flex-col sm:grid sm:grid-cols-12 gap-4 px-2'>
           <p className='flex md:flex-row flex-shrink-0 justify-start items-start gap-2 sm:col-span-4 text-lg text-[#EDF6F9]'>

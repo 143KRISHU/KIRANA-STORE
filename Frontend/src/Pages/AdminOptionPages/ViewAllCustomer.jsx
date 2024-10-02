@@ -28,7 +28,7 @@ function ViewAllCustomer() {
       {
         customerData.length === 0
           ? (
-            <Loader/>
+            null
           )
           :(
             <>

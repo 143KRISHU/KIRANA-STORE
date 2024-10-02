@@ -30,7 +30,7 @@ function ViewAllListedProducts() {
         <b className='mr-2 underline'>Total Number Of Listing Products : </b>
         <p className='text-5xl text-red-600'>{products.length}</p>
       </h1>
-      <div className='p-10 border shadow-2xl flex justify-evenly items-center align-middle   gap-10 flex-wrap'
+      <div className='p-10 h-[100vh] overflow-y-auto border shadow-2xl flex justify-evenly items-center align-middle   gap-10 flex-wrap'
         style={{ backgroundColor: "#EDF6F9" }}>
         {
           products.map((product, index) => {

@@ -27,10 +27,24 @@ const verifyCustomer = asyncHandler(async (req, res, next) => {
             req.customer = customer;
             next()
       } catch (error) {
-            console.log(error)
-            res
+            console.log(`${error.message}`,error)
+            const options = {
+                  httpOnly: true,
+                  secure: true,
+                  sameSite:'NONE',
+            }
+            if(error.message === 'jwt expired'){
+                  res
                   .status(401)
+                  .cookie('accessToken','',options)
+                  .cookie('refreshToken','',options)
                   .json(new ApiError(401,  "Invalid Access kindly login Agian"));
+            }
+           else{
+            res
+            .status(401)
+            .json(new ApiError(401,  "Invalid Access kindly login Agian"));
+           }
             return
       }
 })

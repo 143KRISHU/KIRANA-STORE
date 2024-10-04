@@ -23,6 +23,7 @@ import OrderStatus from '../Pages/Cart/OrderStatus';
 import ProductDetailPage from '../Pages/ProductDetailPage.jsx';
 import PrivateRoute from '../Components/PrivateRoute/PrivateRoute.jsx';
 import CustomerOrderPage from '../Pages/CustomerOrderPage.jsx';
+import SubCatehoryLandingPage from '../Pages/SubCatehoryLandingPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: 'products/:productcategory',
         element: <SpecificCategoryPage />,
+      },
+      {
+        path: 'products/deals/:subcategory',
+        element: <SubCatehoryLandingPage/>,
       },
       {
         element: <PrivateRoute />, // This applies to all routes nested inside

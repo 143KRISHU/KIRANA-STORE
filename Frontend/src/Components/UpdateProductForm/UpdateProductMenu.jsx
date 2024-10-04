@@ -281,13 +281,14 @@ function UpdateProductMenu() {
 
   return (
     productData && customer?.role.toLowerCase() === "admin" ?
-      (<div className='max-w-[70%] mx-auto realtive py-4' >
+      (<div className='lg:max-w-[70%] mx-auto realtive py-4' >
         <div className=' mx-auto rounded-2xl py-4 shadow-xl' style={{ backgroundColor: "#006D7740" }}>
           <Fragment >
             <Link to={"/admin-pannel/view-all-listed-products"}><MdOutlineArrowBackIos className='text-2xl ml-4 cursor-pointer' /></Link>
           </Fragment>
           {/*  Heading */}
-          <div className=" text-3xl text-center font-bold">
+          <hr className='my-2'/>
+          <div className=" text-2xl sm:text-3xl mx-2 md:text-center text-left font-semibold">
             <i><u>Update Product Id:  {productData._id}</u></i>
           </div>
           {/* Form Section */}
@@ -315,7 +316,7 @@ function UpdateProductMenu() {
             {
               isProductImageUpdating ? (
                 <div className='absolute bg-slate-600 bg-opacity-30 p-5 top-0 left-0 h-full w-full'>
-                  <div className='bg-white flex flex-col p-4 mx-auto w-full h-fit max-w-[50%] shadow-xl rounded-xl'>
+                  <div className='bg-white flex flex-col p-4 mx-auto w-full h-fit lg:w-fit shadow-xl rounded-xl'>
                     <div className='flex p-2 justify-between items-center'>
                       <h1 className='text-2xl font-bold '>Add More Images/ Update</h1>
                       <span className='text-3xl text-red-600 h-fit w-fit cursor-pointer' onClick={() => { handleImageUpdatePage() }}><IoCloseCircleSharp /></span>
@@ -352,7 +353,7 @@ function UpdateProductMenu() {
                       {
                         (productData?.productImage).map((image, index) => {
                           return (
-                            <div className='flex flex-col  justify-center items-center group relative ' key={index}>
+                            <div className='border flex flex-col  justify-center items-center group relative ' key={index}>
                               <img src={image} height='250px' width='250px' />
                               {/* Delete Image Button */}
                               <div className='text-2xl rounded-xl cursor-pointer p-1 absolute  bottom-0 right-0 hidden  group-hover:block'

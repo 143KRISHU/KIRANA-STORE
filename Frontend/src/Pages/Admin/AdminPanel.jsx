@@ -47,6 +47,7 @@ function AdminPanel() {
             </div>
           </div>
         </div>
+        {/* Admin Action - Mobile View */}
         <div className="flex col-span-8 flex-col justify-evenly mt-4 rounded-md shadow-sm bg-white py-2 px-2">
           <div className="header-info w-full flex items-center md:gap-4 gap-2 md:justify-normal justify-between">
             <LuListTodo className='header-info-logo flex md:text-2xl text-xl md:ml-2 md:mr-3' />
@@ -92,6 +93,7 @@ function AdminPanel() {
             </div>
           </div>
         </div>
+        {/* Admin Action - Desktop View */}
         <div className="flex flex-col justify-evenly mt-4 rounded-md shadow-sm bg-white py-2 px-2">
           <div className="header-info w-full flex items-center md:gap-4 gap-2 md:justify-normal justify-between">
             <LuListTodo className='header-info-logo flex md:text-2xl text-xl md:ml-2 md:mr-3' />
@@ -121,12 +123,6 @@ function AdminPanel() {
                 <Link to={"/admin-pannel/add-products"} className=' md:ml-16 text-sm  '>Add Product</Link>
               </div>
             </nav>
-          </div>
-        </div>
-        <div className="sm:flex hidden flex-col justify-evenly mt-4 rounded-md shadow-sm bg-white py-2 px-2 group cursor-pointer" onClick={handleLogout}>
-          <div className="header-info w-full flex items-center gap-4">
-            <TbLogout className=' md:text-2xl text-xl ml-2 mr-3' />
-            <p className='capitalize text-lg font-bold'>Logout</p>
           </div>
         </div>
       </aside>

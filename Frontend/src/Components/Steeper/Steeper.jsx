@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 import './Steeper.css'
 
 function Steeper() {
-      const labels = ['Added To Cart', 'Verification Info', 'Payment Section', 'Order Detail']
+      const labels = ['Added To Cart', 'Verification', 'Payment', 'Order Detail']
       const step = useSelector((state)=>state?.steeperStep?.currentStep)
       let cartData = useSelector((state) => state?.addTocart)
       let allProduct = cartData?.items
@@ -31,7 +31,7 @@ function Steeper() {
                                                                         ${(i + 1 < currentStep || (currentStep === labels.length)) && 'complete'}`}>
                                                       {i + 1 < currentStep || (currentStep === labels.length)? <span className='text-2xl font-bold'><IoCheckmarkDoneOutline /></span> : i + 1}
                                                 </div>
-                                                <h1 className={`text-lg font-bold 
+                                                <h1 className={`text-sm sm:text-lg font-bold 
                                                       ${(i + 1 < currentStep || (currentStep === labels.length)) && 'text-green-600'}
                                                       ${currentStep === i + 1 && 'text-blue-600'}`}
                                                 >

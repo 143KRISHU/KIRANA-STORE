@@ -56,7 +56,7 @@ function SpecificCategoryPage() {
     <div className='bg-[#EDF6F9] py-5 flex flex-col gap-2'>
       <h1 className='md:text-3xl mb-2 sm:text-2xl flex-shrink-0 flex items-center gap-3 font-medium'>Products Fall Under Category : <span className='text-[#006D77] sm:text-2xl md:text-4xl font-bold '>{params.productcategory}</span></h1>
       <div className='flex w-full flex-wrap flex-col gap-1'>
-        <div className='flex justify-evenly'>
+        <div className='flex flex-wrap justify-start flex-grow-0'>
           {
             subCategories?.map((subCategory, index) => {
               return (
@@ -80,7 +80,7 @@ function SpecificCategoryPage() {
         </div>
       </div>
       <hr className='border-2 mt-1' />
-      <div className='w-full h-[100vh] overflow-y-scroll hidden-scrollbar flex flex-wrap gap-6 justify-evenly align-middle mt-3'>
+      <div className='w-full h-[100vh] overflow-y-scroll hidden-scrollbar flex flex-wrap gap-4 justify-evenly align-middle mt-3'>
         {
           filteredProduct.length > 0 ?
             filteredProduct?.map((item) => {

@@ -227,7 +227,7 @@ function UserInfoPage() {
             setUserData(user)
       }, [user])
       return (
-            <div className='flex p-4 '>
+            <div className='py-4 flex w-full'>
                   <div className='flex flex-col w-full bg-[#fff] rounded-sm py-2'>
                         {/* Info Section */}
                         <div className=' w-full flex gap-4 flex-col items-baseline p-4'>

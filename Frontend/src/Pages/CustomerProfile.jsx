@@ -30,26 +30,34 @@ function CustomerProfile() {
     }
   }
   return (
-    <div className='min-h-[calc(100vh-148px)] flex'>
-      <aside className=' min-h-full w-full max-w-72 p-4' style={{ backgroundColor: "#EDF6F9" }}>
-        <div className="top flex items-center gap-6 mt-4 p-2  rounded-md shadow-md bg-[#fff]">
+    <div className='lg:min-h-[calc(100vh-148px)] flex flex-col lg:flex-row mb-10'>
+      {/* Mobile View */}
+      <div className='grid grid-col-1 lg:hidden min-h-full w-full py-4'>
+        <div className="flex items-center gap-6 mt-4 p-2  rounded-md shadow-sm bg-white cursor-pointer group" onClick={() => setOptonEnabled(false)}>
           <FaUserCircle className='text-4xl' style={{ color: "#E29578" }} />
           <div className="greeting">
             <p className='text-base' style={{ margin: "0px" }}>Hello,</p>
-            <h3 className='capitalize text-xl font-semibold' style={{ margin: "0px" }}>{fullName}</h3>
+            <h3 className='capitalize md:text-xl text-lg  font-semibold' style={{ margin: "0px" }}>{fullName}</h3>
             <div className="role flex items-end justify-end">
               <h6 className='text-sm capitalize item-end'>({customer?.role.toLowerCase()})</h6>
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-evenly mt-4 rounded-md shadow-sm bg-white py-2 px-2 group cursor-pointer" onClick={handleLogout}>
-          <div className="header-info w-full flex items-center gap-4">
-            <TbLogout className='header-info-logo  text-2xl ml-2 mr-3' />
-            <p className='capitalize text-lg font-bold'>Logout</p>
+      </div>
+      {/* Desktop View */}
+      <aside className='hidden flex-shrink-0 lg:block min-h-full w-full max-w-72 p-4'>
+        <div className="top flex items-center gap-6 mt-4 p-2 md:flex-row flex-col rounded-md shadow-sm bg-white cursor-pointer group" onClick={() => setOptonEnabled(false)}>
+          <FaUserCircle className='text-4xl' style={{ color: "#E29578" }} />
+          <div className="greeting">
+            <p className='text-base' style={{ margin: "0px" }}>Hello,</p>
+            <h3 className='capitalize md:text-xl text-lg  font-semibold' style={{ margin: "0px" }}>{fullName}</h3>
+            <div className="role flex items-end justify-end">
+              <h6 className='text-sm capitalize item-end'>({customer?.role.toLowerCase()})</h6>
+            </div>
           </div>
         </div>
       </aside>
-      <div className="mt-7 rounded-md h-fit w-full ml-1">
+      <div className="lg:mt-7 rounded-md h-fit w-full ml-1">
         <UserInfoPage/>
       </div>
     </div>

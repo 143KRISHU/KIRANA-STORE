@@ -4,7 +4,7 @@ import backendRoutesAPI from '../../BackendAPI/API';
 import { toast } from 'react-toastify';
 import CartAnimation from '../../assets/CartAnimation.json'
 import Lottie from "lottie-react"
-import { decProductCount,  incProductCount, removeItemFromCart } from '../../Store/cartSlice';
+import { decProductCount, incProductCount, removeItemFromCart } from '../../Store/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { setSteeperProgress } from '../../Store/steeperStepSlice'
 import { formattedCurrency } from '../../HelperFiles/HelperFunction';
@@ -20,12 +20,12 @@ function AddToCartPage() {
   const [isProductCoutUpdating, setIsProductCountUpdating] = useState()
   const el = useRef(null);
   const options = {
-    strings: ['Your Cart Is Empty !!!','Add Items To See In Cart !!!',"Grab Exciting Deal's !!!"], // Words to type
+    strings: ['Your Cart Is Empty !!!', 'Add Items To See In Cart !!!', "Grab Exciting Deal's !!!"], // Words to type
     typeSpeed: 30, // Typing speed in milliseconds
     backSpeed: 20,  // Backspace speed
     loop: true,     // Loop infinitely
     backDelay: 1500, // Delay before backspacing
-    showCursor: false, 
+    showCursor: false,
   };
 
   const increaseProductCount = (currProduct) => {
@@ -77,7 +77,7 @@ function AddToCartPage() {
     else {
       setTotalCartPrice(0)
       setTotalCostPrice(0)
-      if(allProduct.length ===0){
+      if (allProduct.length === 0) {
         const typed = new Typed(el.current, options);
       }
     }
@@ -85,10 +85,10 @@ function AddToCartPage() {
 
   //Typing animation
   useEffect(() => {
-    if(allProduct.length ===0){
+    if (allProduct.length === 0) {
       const typed = new Typed(el.current, options);
     }
-  },[]);
+  }, []);
 
   return (
     <div className="w-full mx-auto max-w-7xl px-2 lg:px-0 ">
@@ -103,8 +103,8 @@ function AddToCartPage() {
                 <ul role="list" className="divide-y divide-gray-200 p-2">
                   {
                     allProduct.map((product, index) => (
-                      <div key={product.product._id} className="flex justify-between items-center">
-                        <li className="flex py-6 px-4 sm:px-2 sm:py-6 gap-4 w-full">
+                      <div key={product.product._id} className="grid grid-cols-12 sm:flex sm:flex-row sm:justify-between sm:items-center">
+                        <li className="flex py-2 px-4 sm:px-2 sm:py-6 gap-2 w-full col-span-12">
                           <div className="flex-shrink-0 shadow-xl">
                             <img
                               src={product?.product?.productImage[0]}
@@ -112,11 +112,11 @@ function AddToCartPage() {
                               className="sm:h-38 sm:w-38 h-28 w-28 ml-2 mr-2 rounded-md object-contain object-center"
                             />
                           </div>
-                          <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
-                            <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                          <div className="w-full flex-shrink-0 flex flex-1 flex-col justify-between sm:ml-6 col-span-8 gap-3">
+                            <div className="w-full flex flex-shrink-0 flex-col px-3">
                               <div>
-                                <div className="flex justify-between">
-                                  <h3 className="text-xl text-ellipsis line-clamp-1">
+                                <div className="w-full justify-between">
+                                  <h3 className="text-xl w-full">
                                     <a href={`productDetail/${product.product._id}/view/${product.product.productName}`} className="font-semibold text-black capitalize md:text-xl">
                                       {product.product.productName}
                                     </a>
@@ -141,48 +141,47 @@ function AddToCartPage() {
                                 </div>
                               </div>
                             </div>
+                            <div className="mb-2 flex mr-4 gap-2">
+                              <div className="w-full flex items-start justify-start ">
+                                {
+                                  isProductCoutUpdating === index ? (<div className='text-base font-bold'>Updating....</div>) : (
+                                    <>
+                                      <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center "
+                                        onClick={() => {
+                                          setIsProductCountUpdating(index)
+                                          decreaseProductCount(product)
+                                        }
+                                        }
+                                        style={{ visibility: product.quantity === 1 ? 'hidden' : 'visible' }}>
+                                        -
+                                      </button>
+                                      <input
+                                        type="text"
+                                        className="mx-1 h-9 w-9 rounded-md border text-center"
+                                        value={product.quantity}
+                                        readOnly
+                                      />
+                                      <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center "
+                                        onClick={() => {
+                                          setIsProductCountUpdating(index)
+                                          increaseProductCount(product)
+                                        }}>
+                                        +
+                                      </button>
+                                    </>
+                                  )
+                                }
+                              </div>
+                              <div className="ml-6 flex text-sm">
+                                <button type="button" className="flex items-center gap-2 space-x-1 px-2 py-1 pl-0"
+                                  onClick={() => dispatch(removeItemFromCart(product.product._id))}>
+                                  {/* <FaRegTrashAlt size={12} className="text-red-500" /> */}
+                                  <span className="text-md font-medium text-red-500">Remove</span>
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </li>
-                        <div className="mb-2 flex mr-4 gap-2">
-                          <div className="min-w-24 flex items-center justify-center ">
-                            {
-                              isProductCoutUpdating === index ? (<div className='text-base font-bold'>Updating....</div>) : (
-                                <>
-                                  <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center "
-                                    onClick={() => {
-                                      setIsProductCountUpdating(index)
-                                      decreaseProductCount(product)
-                                    }
-                                    }
-                                    style={{ visibility: product.quantity === 1 ? 'hidden' : 'visible' }}>
-                                    -
-                                  </button>
-                                  <input
-                                    type="text"
-                                    className="mx-1 h-9 w-9 rounded-md border text-center"
-                                    value={product.quantity}
-                                    readOnly
-                                  />
-                                  <button type="button" className="h-8 w-8 text-2xl flex items-center justify-center " 
-                                    onClick={() => {
-                                      setIsProductCountUpdating(index)
-                                      increaseProductCount(product)
-                                    }}>
-                                    +
-                                  </button>
-
-                                </>
-                              )
-                            }
-                          </div>
-                          <div className="ml-6 flex text-sm">
-                            <button type="button" className="flex items-center gap-2 space-x-1 px-2 py-1 pl-0"
-                              onClick={() => dispatch(removeItemFromCart(product.product._id))}>
-                              {/* <FaRegTrashAlt size={12} className="text-red-500" /> */}
-                              <span className="text-md font-medium text-red-500">Remove</span>
-                            </button>
-                          </div>
-                        </div>
                       </div>
                     ))
                   }
@@ -194,7 +193,7 @@ function AddToCartPage() {
                       <Lottie animationData={CartAnimation} loop={true} />
                     </div>
                     <span />
-                    <h1 ref={el} className=' w-full flex justify-center items-center text-2xl uppercase text-[#E29578] font-bold'/>
+                    <h1 ref={el} className=' w-full flex justify-center items-center text-2xl uppercase text-[#E29578] font-bold' />
                   </div>
                 </>
               )

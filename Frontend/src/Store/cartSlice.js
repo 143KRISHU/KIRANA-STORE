@@ -73,12 +73,10 @@ export const addToCartSlice = createSlice({
             //This function is used to set the data of the Customer when it login again
             setCurrentCustomerCartDetail: (state, action) => {
                   action.payload.items.map((item) => {
-                        const haveItem = state.items.some(haveItem => haveItem.product === item.productId)
-                        console.log('have Item', haveItem)
+                        const haveItem = state.items.some((haveItem) => haveItem.product._id === item.productId._id)
                         if (!haveItem) {
                               state.items.push({ product: item.productId, quantity: item.quantity })
                         }
-
                   })
                   state.totalNumberOfProduct = state.items.length
             },
@@ -107,12 +105,10 @@ export const addToCartSlice = createSlice({
                         state.status = 'Fullfilled'
                         if (action.payload?.items.length > 0) {
                               action.payload.items.map((item) => {
-                                    const haveItem = state.items.some(haveItem => haveItem.product === item.productId)
-                                    console.log('have Item', haveItem)
+                                    const haveItem = state.items.some((haveItem) => haveItem.product._id === item.productId._id)
                                     if (!haveItem) {
                                           state.items.push({ product: item.productId, quantity: item.quantity })
                                     }
-            
                               })
                               state.totalNumberOfProduct = state.items.length
                         }
@@ -141,7 +137,6 @@ export const addToCartSlice = createSlice({
                         const data = action.payload.data
                         state.items = []
                         if (data.items.length > 0) {
-                              console.log("entered")
                               data.items.map((item) => {
                                     state.items.push({ product: item.productId, quantity: item.quantity })
                               })

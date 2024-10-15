@@ -90,11 +90,13 @@ function AddToCartPage() {
     if (allProduct.length === 0) {
       const typed = new Typed(el.current, options);
     }
+  }, []);
+
+  useEffect(()=>{
     if(customer){
       dispatch(getCurrentUserCartDetail())
     }
-
-  }, []);
+  },[])
 
 
   return (

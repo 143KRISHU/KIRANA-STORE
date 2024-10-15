@@ -9,7 +9,6 @@ const addItemsToCartOfLoggedInCustomer = asyncHandler(async (req, res) => {
       const productId = req.body._id
       const ProductDetail = await Product.findById({_id:productId})
       const custCart = await Cart.findOne({ customerId: custId })
-      console.log(`Customer ID : ${custId}`)
       try {
             if (custCart) {
                   const existingItemIndex = custCart.items.findIndex(item => item.productId.toString() === productId)

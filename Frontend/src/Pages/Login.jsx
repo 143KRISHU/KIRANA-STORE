@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import customerContext from '../Context/index.js';
 import Loader from '../Components/loaderComponent/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserCartDetail, resetProductDetail,setCurrentCustomerCartDetail } from '../Store/cartSlice';
+import { getCurrentUserCartDetail, resetProductDetail } from '../Store/cartSlice';
 
 function Login() {
       const customer = useSelector((state) => state?.customer?.customer)
@@ -44,7 +44,6 @@ function Login() {
                   }
                   )
                   const finalData = await backendAPIResponse.json();
-                  console.log('Customer Instance:',finalData.data)
                   if (finalData.success) {
                         toast.success(finalData.message)
                         await custContext.getCustomerDetail()

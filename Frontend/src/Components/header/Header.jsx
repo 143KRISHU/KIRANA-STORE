@@ -60,7 +60,6 @@ function Header() {
 
   useEffect(() => {
     setShowMobileOption(false)
-    console.log('location', location)
   }, [location])
 
   return (

@@ -9,8 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { setSteeperProgress } from '../../Store/steeperStepSlice'
 import { formattedCurrency } from '../../HelperFiles/HelperFunction';
 import Typed from 'typed.js';
+import { getCurrentUserCartDetail} from '../Store/cartSlice';
 
 function AddToCartPage() {
+  const customer = useSelector((state) => state?.customer?.customer)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let cartData = useSelector((state) => state?.addTocart)
@@ -88,7 +90,12 @@ function AddToCartPage() {
     if (allProduct.length === 0) {
       const typed = new Typed(el.current, options);
     }
+    if(customer){
+      dispatch(getCurrentUserCartDetail())
+    }
+
   }, []);
+
 
   return (
     <div className="w-full mx-auto max-w-7xl px-2 lg:px-0 ">

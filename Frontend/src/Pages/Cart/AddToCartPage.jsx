@@ -93,12 +93,10 @@ function AddToCartPage() {
   }, []);
 
   useEffect(()=>{
-    console.log(customer)
     if(customer){
-      console.log('executed')
       dispatch(getCurrentUserCartDetail())
     }
-  },[])
+  },[customer])
 
 
   return (

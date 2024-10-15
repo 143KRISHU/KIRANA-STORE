@@ -44,6 +44,7 @@ function Login() {
                   }
                   )
                   const finalData = await backendAPIResponse.json();
+                  console.log('Customer Instance:',finalData.data)
                   if (finalData.success) {
                         toast.success(finalData.message)
                         await custContext.getCustomerDetail()

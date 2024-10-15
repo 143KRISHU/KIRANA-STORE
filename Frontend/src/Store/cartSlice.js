@@ -30,11 +30,11 @@ export const getCurrentUserCartDetail = createAsyncThunk('getCurrentUserCartDeta
       if (finalResponse.success) {
             return finalResponse.data
       }
-      else{
+      else {
             return finalResponse.data
       }
 })
-export const removeItemFromCart = createAsyncThunk('removeItemFromCart',async(itemId)=>{
+export const removeItemFromCart = createAsyncThunk('removeItemFromCart', async (itemId) => {
       const backendAPIResponse = await fetch(backendRoutesAPI.deleteItemFromCart.url, {
             method: backendRoutesAPI.deleteItemFromCart.method,
             credentials: 'include',
@@ -46,7 +46,7 @@ export const removeItemFromCart = createAsyncThunk('removeItemFromCart',async(it
       const finalResponse = await backendAPIResponse.json()
       if (finalResponse.success) {
             return finalResponse
-      }else{
+      } else {
             return finalResponse
       }
 })
@@ -74,11 +74,11 @@ export const addToCartSlice = createSlice({
             setCurrentCustomerCartDetail: (state, action) => {
                   action.payload.items.map((item) => {
                         const haveItem = state.items.some(haveItem => haveItem.product === item.productId)
-                        console.log('have Item',haveItem)
-                        if(!haveItem){
+                        console.log('have Item', haveItem)
+                        if (!haveItem) {
                               state.items.push({ product: item.productId, quantity: item.quantity })
                         }
-                        
+
                   })
                   state.totalNumberOfProduct = state.items.length
             },
@@ -105,12 +105,12 @@ export const addToCartSlice = createSlice({
                   })
                   .addCase(getCurrentUserCartDetail.fulfilled, (state, action) => {
                         state.status = 'Fullfilled'
-                        if(action.payload?.items.length>0){
+                        if (action.payload?.items.length > 0) {
                               const haveItem = state.items.some(haveItem => haveItem.product === item.productId)
-                        console.log('have Item',haveItem)
-                        if(!haveItem){
-                              state.items.push({ product: item.productId, quantity: item.quantity })
-                        }
+                              console.log('have Item', haveItem)
+                              if (!haveItem) {
+                                    state.items.push({ product: item.productId, quantity: item.quantity })
+                              }
                               state.totalNumberOfProduct = state.items.length
                         }
                   })
@@ -124,7 +124,7 @@ export const addToCartSlice = createSlice({
                   })
                   .addCase(saveCartItems.fulfilled, (state, action) => {
                         toast.success(action.payload)
-                        state.addProductStatus ='fullfilled'
+                        state.addProductStatus = 'fullfilled'
                   })
                   .addCase(saveCartItems.rejected, (state, action) => {
                         toast.error(action.payload.message)
@@ -137,7 +137,7 @@ export const addToCartSlice = createSlice({
                   .addCase(removeItemFromCart.fulfilled, (state, action) => {
                         const data = action.payload.data
                         state.items = []
-                        if(data.items.length>0){
+                        if (data.items.length > 0) {
                               console.log("entered")
                               data.items.map((item) => {
                                     state.items.push({ product: item.productId, quantity: item.quantity })
@@ -145,7 +145,7 @@ export const addToCartSlice = createSlice({
                         }
                         state.totalNumberOfProduct = state.items.length
                         toast.success(action.payload.message)
-                        
+
                   })
                   .addCase(removeItemFromCart.rejected, (state, action) => {
                         toast.error(action.payload.message)

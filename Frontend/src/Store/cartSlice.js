@@ -106,9 +106,11 @@ export const addToCartSlice = createSlice({
                   .addCase(getCurrentUserCartDetail.fulfilled, (state, action) => {
                         state.status = 'Fullfilled'
                         if(action.payload?.items.length>0){
-                              action.payload.items.map((item) => {
-                                    state.items.push({ product: item.productId, quantity: item.quantity })
-                              })
+                              const haveItem = state.items.some(haveItem => haveItem.product === item.productId)
+                        console.log('have Item',haveItem)
+                        if(!haveItem){
+                              state.items.push({ product: item.productId, quantity: item.quantity })
+                        }
                               state.totalNumberOfProduct = state.items.length
                         }
                   })

@@ -13,7 +13,7 @@ import ManageAddresses from '../../Components/ManageAddresses/ManageAddresses';
 import AddingNewAddress from '../../Components/AddingNewAdress/AddingNewAddress';
 import backendRoutesAPI from '../../BackendAPI/API';
 import { formattedCurrency } from '../../HelperFiles/HelperFunction';
-import { getCurrentUserCartDetail} from '../Store/cartSlice';
+import { getCurrentUserCartDetail} from '../../Store/cartSlice';
 const razaorpaykey = import.meta.env.VITE_RAZORPAY_KEY_ID
 
 const themeforRadioButton = createTheme({

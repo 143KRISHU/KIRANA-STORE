@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { setSteeperProgress } from '../../Store/steeperStepSlice'
 import { formattedCurrency } from '../../HelperFiles/HelperFunction';
 import Typed from 'typed.js';
-import { getCurrentUserCartDetail} from '../Store/cartSlice';
+import { getCurrentUserCartDetail} from '../../Store/cartSlice';
 
 function AddToCartPage() {
   const customer = useSelector((state) => state?.customer?.customer)

@@ -73,7 +73,12 @@ export const addToCartSlice = createSlice({
             //This function is used to set the data of the Customer when it login again
             setCurrentCustomerCartDetail: (state, action) => {
                   action.payload.items.map((item) => {
-                        state.items.push({ product: item.productId, quantity: item.quantity })
+                        const haveItem = state.items.some(haveItem => haveItem.product === item.productId)
+                        console.log('have Item',haveItem)
+                        if(!haveItem){
+                              state.items.push({ product: item.productId, quantity: item.quantity })
+                        }
+                        
                   })
                   state.totalNumberOfProduct = state.items.length
             },

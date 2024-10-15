@@ -103,12 +103,15 @@ export const addToCartSlice = createSlice({
                   })
                   .addCase(getCurrentUserCartDetail.fulfilled, (state, action) => {
                         state.status = 'Fullfilled'
+                        
                         if (action.payload?.items.length > 0) {
+                              state.items = [];
                               action.payload.items.map((item) => {
-                                    const haveItem = state.items.some((haveItem) => haveItem.product._id === item.productId._id)
-                                    if (!haveItem) {
-                                          state.items.push({ product: item.productId, quantity: item.quantity })
-                                    }
+                                    // const haveItem = state.items.some((haveItem) => haveItem.product._id === item.productId._id)
+                                    // if (!haveItem) {
+                                    //       state.items.push({ product: item.productId, quantity: item.quantity })
+                                    // }
+                                    state.items.push({ product: item.productId, quantity: item.quantity })
                               })
                               state.totalNumberOfProduct = state.items.length
                         }

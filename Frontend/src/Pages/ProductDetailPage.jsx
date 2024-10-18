@@ -9,8 +9,9 @@ import { IoStar } from "react-icons/io5";
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux"
 import { setProductDetail, saveCartItems } from '../Store/cartSlice';
-import { formattedCurrency,formatDate } from '../HelperFiles/HelperFunction';
+import { formattedCurrency, formatDate } from '../HelperFiles/HelperFunction';
 import ReviewForm from '../Components/ReviewForm/ReviewForm';
+import { setSteeperProgress } from '../Store/steeperStepSlice';
 
 function ProductDetailPage() {
   const params = useParams()
@@ -26,6 +27,7 @@ function ProductDetailPage() {
   const sideImage = new Array(5).fill(null)
   const navigate = useNavigate()
   const id = params.id
+  
   const getCurrentProductData = async () => {
     setIsloading(true)
     const backendResponse = await fetch(backendRoutesAPI.admin.getCurrentProduct.url, {
@@ -69,13 +71,26 @@ function ProductDetailPage() {
       naviagte('/login')
     }
   }
+
+  const handleBuyProductBtn = () => {
+    if (currentCustomer) {
+      dispatch(setProductDetail(productInfo))
+      dispatch(saveCartItems(productInfo))
+      dispatch(setSteeperProgress(1))
+      navigate('/yourcart/checkout')
+    }
+    else {
+      navigate('/login')
+    }
+  }
+
   useEffect(() => {
     getCurrentProductData()
   }, [])
 
   useEffect(() => {
     getCurrentProductData()
-  }, [id,openReviewForm])
+  }, [id, openReviewForm])
 
   return (
     <div className='px-6 py-8 bg-[#EDF6F9] '>
@@ -128,7 +143,7 @@ function ProductDetailPage() {
           {/* Total Rating Section */}
           <div className='flex justify-start items-center'>
             Rating:{productInfo?.rating}
-            <p className='text-slate-400 text-sm'>({productInfo?.numReviews >1? `${productInfo?.numReviews} customers reviewed`:`${productInfo?.numReviews} customer reviewed`})</p>
+            <p className='text-slate-400 text-sm'>({productInfo?.numReviews > 1 ? `${productInfo?.numReviews} customers reviewed` : `${productInfo?.numReviews} customer reviewed`})</p>
           </div>
           <div className="flex flex-col justify-start align-middle mt-3 mb-2">
             <div className='flex align-middle gap-2 items-center mb-2'>
@@ -151,7 +166,11 @@ function ProductDetailPage() {
               <button className='w-full flex justify-evenly items-center p-2 text-xl font-medium text-[#fff]
                                                  bg-blue-500 rounded-xl border-2 border-[#fff]  buyTheProductBtn
                                                  hover:bg-white hover:text-blue-500 hover:border-2 hover:border-blue-500'
-                onClick={(e) => { e.preventDefault() }}>
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleBuyProductBtn()
+                }}
+              >
                 <p>Buy The Product</p> <span className='text-2xl'><BsFillBagHeartFill /></span>
               </button>
             </div>
@@ -171,56 +190,57 @@ function ProductDetailPage() {
         </div>
       </div>
       <div className='w-full p-2 mt-3 gap-4'>
-            <div className='w-full flex justify-between items-center'>
-              <h1 className='text-3xl font-semibold'>Product Reviews</h1>
-              <button className='px-3 py-1  font-medium bg-slate-200 text-[#006D77]'
-                onClick={(e) => { 
-                  e.preventDefault()
-                  console.log(currentCustomer)
-                  if(currentCustomer === null){
-                    toast.warning('Login To Add Review')
-                    naviagte('/login')
-                  }
-                  else{
-                    setOpenReviewForm(!openReviewForm)
-                  }
-                 }}
-              >
-                Add Review
-              </button>
-            </div>
-            <div className='flex flex-col p-3 gap-3 w-full h-96 bg-[#EDF6F9]'>
-              {
-                productInfo?.productReview?.map((review,index)=>{
-                  return(
-                    <div className='flex h-fit flex-col px-2 py-2 border rounded-md shadow-md select-none' key={index}>
-                      <div className='flex justify-between  items-center py-1'>
-                          <div className='flex gap-3 items-center justify-center'>
-                            <span className='text-3xl text-[#006D77]'><FaUserCircle/></span>
-                            <span>
-                            <p className='text-md font-semibold capitalize'>{review.customer?.firstName} {review.customer?.middleName}{review.customer?.lastName }</p>
-                            <p className='text-sm'>{formatDate(review.reviewDate)}</p>
-                            </span>
-                          </div>
-                          <p className='text-xl flex text-yellow-400'>
-                            {
-                              [...Array(review.rating)].map((_,index)=>{
-                                return(
-                                    <IoStar key={index}/>
-                                )})
-                            }
-                            </p>
-                      </div>
-                      <hr></hr>
-                      <p className='mt-2 px-5 text-lg capitalize'>{review.comment}</p>
-                    </div>
-                  )
-                })
+        <div className='w-full flex justify-between items-center'>
+          <h1 className='text-3xl font-semibold'>Product Reviews</h1>
+          <button className='px-3 py-1  font-medium bg-slate-200 text-[#006D77]'
+            onClick={(e) => {
+              e.preventDefault()
+              console.log(currentCustomer)
+              if (currentCustomer === null) {
+                toast.warning('Login To Add Review')
+                naviagte('/login')
               }
-            </div>
-          </div>
+              else {
+                setOpenReviewForm(!openReviewForm)
+              }
+            }}
+          >
+            Add Review
+          </button>
+        </div>
+        <div className='flex flex-col p-3 gap-3 w-full h-96 bg-[#EDF6F9]'>
+          {
+            productInfo?.productReview?.map((review, index) => {
+              return (
+                <div className='flex h-fit flex-col px-2 py-2 border rounded-md shadow-md select-none' key={index}>
+                  <div className='flex justify-between  items-center py-1'>
+                    <div className='flex gap-3 items-center justify-center'>
+                      <span className='text-3xl text-[#006D77]'><FaUserCircle /></span>
+                      <span>
+                        <p className='text-md font-semibold capitalize'>{review.customer?.firstName} {review.customer?.middleName}{review.customer?.lastName}</p>
+                        <p className='text-sm'>{formatDate(review.reviewDate)}</p>
+                      </span>
+                    </div>
+                    <p className='text-xl flex text-yellow-400'>
+                      {
+                        [...Array(review.rating)].map((_, index) => {
+                          return (
+                            <IoStar key={index} />
+                          )
+                        })
+                      }
+                    </p>
+                  </div>
+                  <hr></hr>
+                  <p className='mt-2 px-5 text-lg capitalize'>{review.comment}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
       {
-        openReviewForm && <ReviewForm onClose={()=>setOpenReviewForm(option =>!option)} productId={productInfo._id}
+        openReviewForm && <ReviewForm onClose={() => setOpenReviewForm(option => !option)} productId={productInfo._id}
         />
       }
     </div>

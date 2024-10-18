@@ -112,7 +112,7 @@ function SignUp() {
                 </div>
                 <hr className='mb-4'></hr>
                 <form onSubmit={handleSubmit} className='flex flex-col'>
-                  <div className='flex gap-5 justify-between items-center'>
+                  <div className='flex flex-col md:flex-row md:gap-5 md:justify-between md:items-center'>
                     <div className="grid credentials mb-4">
                       <label className="text-xl mb-2" htmlFor='firstname'>First Name* :&nbsp;&nbsp;  </label>
                       <div className='bg-slate-100 p-2'>
@@ -185,9 +185,9 @@ function SignUp() {
                     </div>
                     <p className='text-red-600 px-2'>{formError.confirmPassword}</p>
                   </div>
-                  <button className="credential-btn mt-4 px-5 py-2 rounded-full w-full 
+                  <button className="credential-btn mt-4 px-5 py-2 rounded-full w-full bg-[#006D77] text-[#fff]
                             max-w-[170px] hover:scale-110 transition-all text-lg block mx-auto"
-                    style={{ backgroundColor: "#ffddd2", border: "2px solid black" }} type='submit'>Sign Up</button>
+                     type='submit'>Sign Up</button>
                 </form>
                 <p className='mt-5 text-sm w-full '>
                   Already have Account ? <Link to={"/login"} className="hover:underline" style={{ color: "blue" }}>Login</Link>

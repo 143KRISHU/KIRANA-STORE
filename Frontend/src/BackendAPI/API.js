@@ -1,5 +1,5 @@
-const backendMainDomainURL = 'https://kirana-store-e-commerce.onrender.com'
-//const backendMainDomainURL = "http://localhost:3000";
+//const backendMainDomainURL = 'https://kirana-store-e-commerce.onrender.com'
+const backendMainDomainURL = "http://localhost:3000";
 const backendRoutesAPI = {
     signup: {
         url: `${backendMainDomainURL}/api/v1/customer/signup`,
@@ -140,8 +140,10 @@ const backendRoutesAPI = {
     searchProductFromBackend:{
         url: `${backendMainDomainURL}/api/v1/product/search`,
         method: 'get'
-    }
-
-
+    },
+    addProductReview: (productId) => ({
+        url: `${backendMainDomainURL}/api/v1/product/${productId}/reviews`,
+        method: "post",
+    }),
 }
 export default backendRoutesAPI

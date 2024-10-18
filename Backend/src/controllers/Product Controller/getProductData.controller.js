@@ -6,7 +6,10 @@ import Product from "../../models/product.model.js";
 const getOneProductData = asyncHandler(async(req,res)=>{
       const {_id} = req.body
       try {
-            const productDetail = await Product.findOne({_id : _id})
+            const productDetail = await Product.findOne({_id : _id}).populate({
+                  path: 'productReview.customer',
+                  select: 'firstName middleName lastName', // Select only the fields you want to include
+                })
             if(productDetail){
                   res.status(200).json(
                         new ApiResponse(200,productDetail)
